@@ -26,6 +26,10 @@ module.exports = {
           fallback: 'style-loader',
           use: 'css-loader!postcss-loader!sass-loader'
         })
+      },
+      {
+        test: /\.woff$/,
+        loader: 'url-loader'
       }
     ]
   },
