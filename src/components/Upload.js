@@ -8,33 +8,92 @@ export default class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: true,
-      data: true,
-      progress: 0,
+      data: false,
+      mousePosition: {},
+      colorPicker: false,
       dropZoneHover: false,
-      showPreloader: false
+      showPreloader: false,
+      currentColor: null
     };
 
-    this.handleClick = this.handleClick.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
-    this.handleCanvasHover = this.handleCanvasHover.bind(this);
+    this.handleColorAndPosition = this.handleColorAndPosition.bind(this);
     this.handleColorPick = this.handleColorPick.bind(this);
+    this.handleCanvasHover = this.handleCanvasHover.bind(this);
   }
 
-  doImage() {
-    var storageRef = storage.ref();
-    var testerRef = storageRef.child('images').child('tester.jpg');
+  handleDrop(e) {
+    e.preventDefault();
+
+    this.setState({
+      showPreloader: true
+    });
+
+    const file = e.dataTransfer.files[0];
+    const storageRef = storage.ref('images/' + file.name);
+    const task = storageRef.put(file);
+
+    task.then(() => {
+      this.drawCanvasImage();
+    });
+  }
+
+  handleColorAndPosition(e) {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    const rect = canvas.getBoundingClientRect();
+    const actualX = Math.floor(e.clientX - rect.left);
+    const actualY = Math.floor(e.clientY - rect.top);
+    const pixelData = ctx.getImageData(actualX, actualY, 1, 1);
+    const data = pixelData.data;
+    const pixelColor = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`;
+
+    this.setState({
+      currentColor: pixelColor,
+      mousePosition: { x: actualX, y: actualY }
+    });
+  }
+
+  handleColorPick() {
+    const { currentColor } = this.state;
+    this.child.makePalette(currentColor);
+  }
+
+  handleCanvasHover() {
+    this.setState({
+      colorPicker: !this.state.colorPicker
+    });
+  }
+
+  handleDragOver(e) {
+    e.preventDefault();
+
+    this.setState({
+      dropZoneHover: true
+    });
+  }
+
+  handleDragLeave(e) {
+    e.preventDefault();
+
+    this.setState({
+      dropZoneHover: false
+    });
+  }
+
+  drawCanvasImage() {
+    const storageRef = storage.ref();
+    const testerRef = storageRef.child('images').child('tester.jpg');
 
     testerRef.getDownloadURL().then(url => {
-      console.log('url gotten');
       this.setState({ data: url });
 
-      // TODO: keep dry
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
       const image = new Image();
+      image.crossOrigin = 'anonymous';
 
       image.onload = function() {
         canvas.width = image.width;
@@ -57,97 +116,17 @@ export default class Upload extends React.Component {
       };
 
       image.src = url;
-      image.crossOrigin = 'anonymous';
-    });
-  }
-
-  handleClick() {
-    this.setState({
-      clicked: !this.state.clicked
-    });
-  }
-
-  handleCanvasHover(e) {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext('2d');
-
-    const rect = canvas.getBoundingClientRect();
-    const actualX = Math.floor(e.clientX - rect.left);
-    const actualY = Math.floor(e.clientY - rect.top);
-
-    const pixelData = ctx.getImageData(actualX, actualY, 1, 1);
-    const data = pixelData.data;
-    const pixelColor = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`;
-  }
-
-  handleColorPick() {
-    console.log('color picked');
-  }
-
-  handleDrop(e) {
-    // console.log('dropped');
-    e.preventDefault();
-
-    this.setState({
-      dropZoneHover: false,
-      showPreloader: true
-    });
-
-    var file = e.dataTransfer.files[0];
-    var storageRef = storage.ref('images/' + file.name);
-
-    var task = storageRef.put(file);
-
-    task.then(() => {
-      this.doImage();
-    });
-
-    task.on(
-      'state_changed',
-      function progress(snapshot) {
-        var percentage =
-          snapshot.bytesTransferred / snapshot.totalBytes * 100;
-
-        this.setState({ progress: percentage });
-      }.bind(this)
-    );
-  }
-
-  handleDragOver(e) {
-    e.preventDefault();
-    console.log('handle drag over');
-    this.setState({
-      dropZoneHover: true
-    });
-  }
-
-  handleDragLeave(e) {
-    e.preventDefault();
-    console.log('handle drag leave');
-    this.setState({
-      dropZoneHover: false
     });
   }
 
   render() {
     const {
-      clicked,
       data,
-      progress,
       dropZoneHover,
-      showPreloader
+      showPreloader,
+      mousePosition,
+      colorPicker
     } = this.state;
-
-    // const colorPalette = (
-    //   <div className="color-palette">
-    //     <div className="color-1" />
-    //     <div className="color-2" />
-    //     <div className="color-3" />
-    //     <div className="color-4" />
-    //     <div className="color-5" />
-    //     <div className="color-6" />
-    //   </div>
-    // );
 
     const placeholder = (
       <div className="placeholder">
@@ -158,11 +137,11 @@ export default class Upload extends React.Component {
 
     const preloader = (
       <div className="preloader">
-        <div className="progress" style={{ width: `${progress}%` }} />
+        <div>preloading</div>
       </div>
     );
 
-    var dropZone = (
+    const dropZone = (
       <div
         className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
         onDragOver={this.handleDragOver}
@@ -173,16 +152,35 @@ export default class Upload extends React.Component {
       </div>
     );
 
-    var dropImage = (
+    const dropImage = (
       <div className="canvas-container">
-        <canvas
-          ref="canvas"
-          width={550}
-          height={550}
-          onMouseMove={this.handleCanvasHover}
-          onClick={this.handleColorPick}
+        <div className="canvas-wrapper">
+          <canvas
+            ref="canvas"
+            width={550}
+            height={550}
+            onMouseMove={this.handleColorAndPosition}
+            onMouseEnter={this.handleCanvasHover}
+            onMouseLeave={this.handleCanvasHover}
+            onClick={this.handleColorPick}
+          />
+          <div
+            style={{
+              visibility: colorPicker ? 'visible' : 'hidden',
+              position: 'absolute',
+              width: '10px',
+              height: '10px',
+              background: 'red',
+              left: mousePosition.x + 10 + 'px',
+              top: mousePosition.y - 10 + 'px'
+            }}
+          />
+        </div>
+        <PaletteBuildFooter
+          ref={instance => {
+            this.child = instance;
+          }}
         />
-        <PaletteBuildFooter />
       </div>
     );
 

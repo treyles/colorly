@@ -98,18 +98,46 @@ h3 {
   .palette-name {
     flex-grow: 1;
     @include flex(flex-start, center);
-    font-family: 'apercu-regular', sans-serif;
-    color: #666666;
-    font-size: 18px;
-    padding-left: 4vw;
+    // font-family: 'apercu-regular', sans-serif;
+    // color: #666666;
+    // font-size: 18px;
+    padding-left: 50px;
     min-width: 320px;
     // background: #eee;
+
+    svg {
+      width: 15px;
+      height: 15px;
+      fill: #666;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .palette-input {
+      width: 240px;
+      font-family: 'apercu-regular', sans-serif;
+      font-size: 18px;
+      color: #666;
+      // appearance: none;
+      padding-bottom: 3px;
+      margin-left: 10px;
+      border: 0;
+      // border-bottom: 1px solid #eee;
+      outline: none;
+    }
+
+    input:focus::placeholder {
+      color: #eee;
+    }
+    // input::placeholder {
+    //   color: lightgray;
+    // }
   }
 
   .palette-buttons {
     flex-grow: 1;
     @include flex(flex-end, center);
-    padding-right: 4vw;
+    padding-right: 50px;
     min-width: 320px;
     font-family: 'apercu-medium', sans-serif;
     font-size: 14px;
@@ -145,16 +173,36 @@ h3 {
   .palette-colors {
     @include flex(space-between, center);
     width: 360px;
-    min-width: 268px;
+    min-width: 300px;
     // background: peru;
 
-    div {
+    .radio {
+      box-sizing: content-box;
       display: inline-block;
       width: 40px;
       height: 40px;
-      background: #eee;
+      background: #e3e1e1;
       border-radius: 500px;
+      border: 5px solid #fff;
+      cursor: pointer;
     }
+
+    input[type='radio'] {
+      display: none;
+    }
+
+    input[type='radio']:checked + .radio {
+      border: 5px solid #f0f0f0;
+    }
+    // new css goes here
+
+    // div {
+    //   display: inline-block;
+    //   width: 40px;
+    //   height: 40px;
+    //   background: #eee;
+    //   border-radius: 500px;
+    // }
   }
 
   // &.active {
@@ -210,8 +258,6 @@ h3 {
     }
 
     &.dragover {
-      border: 2px dashed #c1c1c1;
-
       .placeholder {
         transform: scale(1.1);
       }
@@ -226,22 +272,15 @@ h3 {
     overflow: hidden;
     padding-bottom: 125px;
     // margin: 40px;
+
+    .canvas-wrapper {
+      position: relative;
+    }
   }
 
   .preloader {
     width: 300px;
-    height: 4px;
-    border-radius: 5px;
     background: #edecec;
-    overflow: hidden;
-    // margin-bottom: 40px;
-
-    .progress {
-      width: 0;
-      height: 4px;
-      background: dodgerblue;
-      transition: width 0.5s ease;
-    }
   }
 
   // .color-palette {
