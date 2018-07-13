@@ -1,27 +1,25 @@
-/* eslint-disable */
+// /* eslint-disable */
 import React from 'react';
 import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
-import Icon from '../utils/Icon';
+import Canvas from './Canvas';
+import guid from '../utils/guid';
 
 export default class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: false,
-      mousePosition: {},
-      colorPicker: false,
+      imageLoaded: false,
+      imageName: null,
       dropZoneHover: false,
       showPreloader: false,
-      currentColor: null
+      palette: {}
     };
 
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
-    this.handleColorAndPosition = this.handleColorAndPosition.bind(this);
-    this.handleColorPick = this.handleColorPick.bind(this);
-    this.handleCanvasHover = this.handleCanvasHover.bind(this);
+    this.makePalette = this.makePalette.bind(this);
   }
 
   handleDrop(e) {
@@ -32,38 +30,15 @@ export default class Upload extends React.Component {
     });
 
     const file = e.dataTransfer.files[0];
-    const storageRef = storage.ref('images/' + file.name);
+    const name = guid();
+    const storageRef = storage.ref(`images/${name}`);
     const task = storageRef.put(file);
 
     task.then(() => {
-      this.drawCanvasImage();
-    });
-  }
-
-  handleColorAndPosition(e) {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext('2d');
-    const rect = canvas.getBoundingClientRect();
-    const actualX = Math.floor(e.clientX - rect.left);
-    const actualY = Math.floor(e.clientY - rect.top);
-    const pixelData = ctx.getImageData(actualX, actualY, 1, 1);
-    const data = pixelData.data;
-    const pixelColor = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`;
-
-    this.setState({
-      currentColor: pixelColor,
-      mousePosition: { x: actualX, y: actualY }
-    });
-  }
-
-  handleColorPick() {
-    const { currentColor } = this.state;
-    this.child.makePalette(currentColor);
-  }
-
-  handleCanvasHover() {
-    this.setState({
-      colorPicker: !this.state.colorPicker
+      this.setState({
+        imageLoaded: true,
+        imageName: name
+      });
     });
   }
 
@@ -83,49 +58,29 @@ export default class Upload extends React.Component {
     });
   }
 
-  drawCanvasImage() {
-    const storageRef = storage.ref();
-    const testerRef = storageRef.child('images').child('tester.jpg');
+  makePalette(color) {
+    const { palette } = this.state;
+    const { checked } = this.child.state;
 
-    testerRef.getDownloadURL().then(url => {
-      this.setState({ data: url });
+    const newColor = { [checked]: color };
 
-      const canvas = this.refs.canvas;
-      const ctx = canvas.getContext('2d');
-      const image = new Image();
-      image.crossOrigin = 'anonymous';
-
-      image.onload = function() {
-        canvas.width = image.width;
-        canvas.height = image.height;
-        let imgWidth = image.width;
-
-        if (imgWidth > 525) {
-          imgWidth = 525;
-          canvas.width = 525;
-          canvas.height = imgWidth * image.height / image.width;
-        }
-
-        ctx.drawImage(
-          image,
-          0,
-          0,
-          imgWidth,
-          imgWidth * image.height / image.width
-        );
-      };
-
-      image.src = url;
+    this.setState({
+      palette: { ...palette, ...newColor }
     });
   }
 
+  // makeObject(url) {
+  //   const { palette } = this.state;
+  //   const { inputValue } this.child.state;
+  // }
+
   render() {
     const {
-      data,
+      imageLoaded,
+      imageName,
       dropZoneHover,
       showPreloader,
-      mousePosition,
-      colorPicker
+      palette
     } = this.state;
 
     const placeholder = (
@@ -135,57 +90,31 @@ export default class Upload extends React.Component {
       </div>
     );
 
-    const preloader = (
-      <div className="preloader">
-        <div>preloading</div>
-      </div>
-    );
-
-    const dropZone = (
-      <div
-        className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
-        onDragOver={this.handleDragOver}
-        onDragLeave={this.handleDragLeave}
-        onDrop={this.handleDrop}
-      >
-        {showPreloader ? preloader : placeholder}
-      </div>
-    );
-
-    const dropImage = (
-      <div className="canvas-container">
-        <div className="canvas-wrapper">
-          <canvas
-            ref="canvas"
-            width={550}
-            height={550}
-            onMouseMove={this.handleColorAndPosition}
-            onMouseEnter={this.handleCanvasHover}
-            onMouseLeave={this.handleCanvasHover}
-            onClick={this.handleColorPick}
-          />
-          <div
-            style={{
-              visibility: colorPicker ? 'visible' : 'hidden',
-              position: 'absolute',
-              width: '10px',
-              height: '10px',
-              background: 'red',
-              left: mousePosition.x + 10 + 'px',
-              top: mousePosition.y - 10 + 'px'
-            }}
-          />
-        </div>
-        <PaletteBuildFooter
-          ref={instance => {
-            this.child = instance;
-          }}
-        />
-      </div>
-    );
+    const preloader = <span className="preloader">Loading&#8230;</span>;
 
     return (
-      <div className="upload-section">{!data ? dropZone : dropImage}</div>
+      <div className="upload-section">
+        {!imageLoaded ? (
+          <div
+            className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
+            onDragOver={this.handleDragOver}
+            onDragLeave={this.handleDragLeave}
+            onDrop={this.handleDrop}
+          >
+            {showPreloader ? preloader : placeholder}
+          </div>
+        ) : (
+          <div className="canvas-container">
+            <Canvas makePalette={this.makePalette} imageName={imageName} />
+            <PaletteBuildFooter
+              ref={ref => {
+                this.child = ref;
+              }}
+              palette={palette}
+            />
+          </div>
+        )}
+      </div>
     );
   }
 }

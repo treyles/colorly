@@ -19,6 +19,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+canvas {
+  cursor: url('./assets/cursor.png') 13 13, auto;
+  cursor: image-set(
+        url('./assets/cursor.png') 1x,
+        url('./assets/cursorx2.png') 2x
+      )
+      13 13,
+    auto;
+  box-sizing: border-box;
+}
+
 @font-face {
   font-family: 'apercu-medium';
   src: url('fonts/apercu-medium.woff') format('woff');
@@ -76,6 +87,7 @@ h3 {
   // min-height: 70px;
   background: #fff;
   padding-left: 48px;
+  // box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
 
   svg {
     margin: 7px 0 0 15px;
@@ -94,6 +106,7 @@ h3 {
   background: #fff;
   // transform: translateY(100%);
   transition: transform 0.5s ease;
+  // box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.1);
 
   .palette-name {
     flex-grow: 1;
@@ -269,18 +282,37 @@ h3 {
     background: #c9c9c9;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow: scroll;
     padding-bottom: 125px;
     // margin: 40px;
 
     .canvas-wrapper {
       position: relative;
-    }
-  }
+      // background: #2dcb81;
 
-  .preloader {
-    width: 300px;
-    background: #edecec;
+      canvas {
+        display: block;
+      }
+
+      .preview-container {
+        z-index: 2;
+        // visibility: hidden;
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        border-radius: 500px;
+        padding: 5px;
+        background: #fff;
+        border: 1px solid #999;
+        // box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.2);
+
+        .preview-color {
+          width: 100%;
+          height: 100%;
+          border-radius: 500px;
+        }
+      }
+    }
   }
 
   // .color-palette {
@@ -301,4 +333,53 @@ h3 {
   //     }
   //   }
   // }
+}
+
+.preloader:not(:required) {
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #f6b441;
+  border-radius: 50%;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.preloader:not(:required):before,
+.preloader:not(:required):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.preloader:not(:required):before {
+  animation: preloader 3s infinite;
+  transform-origin: 0 50%;
+  left: 0;
+  background: #a5c9cf;
+}
+
+.preloader:not(:required):after {
+  animation: preloader 3.2s reverse infinite;
+  transform-origin: 100% 50%;
+  right: 0;
+  background: #ef7e5b;
+}
+
+@keyframes preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

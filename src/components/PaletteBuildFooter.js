@@ -7,8 +7,7 @@ export default class PaletteBuildFooter extends React.Component {
     super(props);
     this.state = {
       footerActive: false,
-      checked: 'color1',
-      palette: {}
+      checked: 'color1'
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,17 +31,9 @@ export default class PaletteBuildFooter extends React.Component {
     }
   }
 
-  makePalette(color) {
-    const { checked, palette } = this.state;
-    const newColor = { [checked]: color };
-
-    this.setState({
-      palette: { ...palette, ...newColor }
-    });
-  }
-
   render() {
-    const { footerActive, checked, palette } = this.state;
+    const { footerActive, checked } = this.state;
+    const { palette } = this.props;
 
     return (
       <div className={`footer ${footerActive ? 'active' : ''}`}>
