@@ -1,3 +1,6 @@
+// make title value work
+// make save pallette button work (all data in object)
+
 // /* eslint-disable */
 import React from 'react';
 import { storage } from '../utils/base';
@@ -10,16 +13,18 @@ export default class Upload extends React.Component {
     super(props);
     this.state = {
       imageLoaded: false,
-      imageName: null,
+      imageRef: null,
       dropZoneHover: false,
       showPreloader: false,
-      palette: {}
+      palette: {},
+      checked: 'color1'
     };
 
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.makePalette = this.makePalette.bind(this);
+    this.handlePaletteSelect = this.handlePaletteSelect.bind(this);
   }
 
   handleDrop(e) {
@@ -37,7 +42,7 @@ export default class Upload extends React.Component {
     task.then(() => {
       this.setState({
         imageLoaded: true,
-        imageName: name
+        imageRef: storageRef
       });
     });
   }
@@ -58,10 +63,15 @@ export default class Upload extends React.Component {
     });
   }
 
-  makePalette(color) {
-    const { palette } = this.state;
-    const { checked } = this.child.state;
+  // TODO: not 'handle'?, makePalette does same thing
+  handlePaletteSelect(e) {
+    this.setState({
+      checked: e.target.id
+    });
+  }
 
+  makePalette(color) {
+    const { palette, checked } = this.state;
     const newColor = { [checked]: color };
 
     this.setState({
@@ -69,18 +79,14 @@ export default class Upload extends React.Component {
     });
   }
 
-  // makeObject(url) {
-  //   const { palette } = this.state;
-  //   const { inputValue } this.child.state;
-  // }
-
   render() {
     const {
       imageLoaded,
-      imageName,
+      imageRef,
       dropZoneHover,
       showPreloader,
-      palette
+      palette,
+      checked
     } = this.state;
 
     const placeholder = (
@@ -105,12 +111,11 @@ export default class Upload extends React.Component {
           </div>
         ) : (
           <div className="canvas-container">
-            <Canvas makePalette={this.makePalette} imageName={imageName} />
+            <Canvas makePalette={this.makePalette} imageRef={imageRef} />
             <PaletteBuildFooter
-              ref={ref => {
-                this.child = ref;
-              }}
               palette={palette}
+              handlePaletteSelect={this.handlePaletteSelect}
+              checked={checked}
             />
           </div>
         )}

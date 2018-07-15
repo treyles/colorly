@@ -6,55 +6,56 @@ export default class PaletteBuildFooter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      footerActive: false,
-      checked: 'color1'
+      footerActive: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.focusInput = this.focusInput.bind(this);
-    this.blurInput = this.blurInput.bind(this);
+    this.handleInputFocus = this.handleInputFocus.bind(this);
+    this.handleInputBlur = this.handleInputBlur.bind(this);
+    this.setInputRef = this.setInputRef.bind(this);
+  }
+
+  setInputRef(ref) {
+    this.input = ref;
   }
 
   handleChange(e) {
-    this.setState({
-      checked: e.target.id
-    });
+    this.props.handlePaletteSelect(e);
   }
 
-  focusInput() {
+  handleInputFocus() {
     this.input.focus();
   }
 
-  blurInput(e) {
+  handleInputBlur(e) {
     if (e.keyCode === 13) {
       this.input.blur();
     }
   }
 
   render() {
-    const { footerActive, checked } = this.state;
-    const { palette } = this.props;
+    // const { footerActive } = this.state;
+    const { palette, checked } = this.props;
 
     return (
-      <div className={`footer ${footerActive ? 'active' : ''}`}>
+      <div className="footer">
+        {/* <div className={`footer ${footerActive ? 'active' : ''}`}> */}
         <div className="palette-name">
           <span
-            onClick={this.focusInput}
-            onKeyDown={this.focusInput}
+            onClick={this.handleInputFocus}
+            onKeyDown={this.handleInputFocus}
             role="button"
             tabIndex="0"
           >
             <Icon icon="pencil" />
           </span>
           <input
-            ref={el => {
-              this.input = el;
-            }}
+            ref={this.setInputRef}
             className="palette-input"
             type="text"
             placeholder="Color Palette #001"
             maxLength="24"
-            onKeyDown={this.blurInput}
+            onKeyDown={this.handleInputBlur}
           />
         </div>
         <div className="palette-colors">

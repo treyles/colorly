@@ -1,5 +1,4 @@
 import React from 'react';
-import { storage } from '../utils/base';
 
 export default class Canvas extends React.Component {
   constructor(props) {
@@ -7,13 +6,14 @@ export default class Canvas extends React.Component {
     this.state = {
       mousePosition: {},
       imageLoaded: false,
-      previewColor: false,
+      colorPreview: false,
       currentColor: null,
       winWidth: null,
       winHeight: null
     };
 
-    this.handleColorAndPosition = this.handleColorAndPosition.bind(this);
+    this.setCanvasRef = this.setCanvasRef.bind(this);
+    this.handleColorPreview = this.handleColorPreview.bind(this);
     this.handleCanvasLeave = this.handleCanvasLeave.bind(this);
     this.handleColorPick = this.handleColorPick.bind(this);
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -23,18 +23,14 @@ export default class Canvas extends React.Component {
     this.ctx = this.canvas.getContext('2d');
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
-    this.getImageFile();
+    this.drawCanvasImage();
   }
 
-  updateWindowDimensions() {
-    this.setState({
-      winWidth: window.innerWidth,
-      winHeight: window.innerHeight
-    });
+  setCanvasRef(ref) {
+    this.canvas = ref;
   }
 
-  // TODO: name handleColorPreview ???
-  handleColorAndPosition(e) {
+  handleColorPreview(e) {
     const { imageLoaded } = this.state;
 
     const rect = this.canvas.getBoundingClientRect();
@@ -49,14 +45,14 @@ export default class Canvas extends React.Component {
       this.setState({
         currentColor: pixelColor,
         mousePosition: { x: actualX, y: actualY },
-        previewColor: true
+        colorPreview: true
       });
     }
   }
 
   handleCanvasLeave() {
     this.setState({
-      previewColor: false
+      colorPreview: false
     });
   }
 
@@ -65,18 +61,26 @@ export default class Canvas extends React.Component {
     this.props.makePalette(currentColor);
   }
 
-  drawCanvasImage(image) {
+  updateWindowDimensions() {
+    this.setState({
+      winWidth: window.innerWidth,
+      winHeight: window.innerHeight
+    });
+  }
+
+  optimizeSize(image) {
     const heightPadding = 275;
     const widthPadding = 60;
     const containerWidth = this.state.winWidth - widthPadding;
     const containerHeight = this.state.winHeight - heightPadding;
+
     let imageWidth = image.width;
     let imageHeight = image.height;
 
     // if any part of the image (original dimensions) overflow
     // the container, shrink dimensions and maintain aspect ratio
+    // algorithm modified from 1owk3y: https://bit.ly/2JiYzHz
     if (imageWidth > containerWidth || imageHeight > containerHeight) {
-      // algorithm modified from 1owk3y: https://bit.ly/2JiYzHz
       const wFits = containerWidth / imageWidth;
       const hFits = containerHeight / imageHeight;
       const minFits = wFits > hFits ? hFits : wFits;
@@ -85,38 +89,40 @@ export default class Canvas extends React.Component {
       imageHeight *= minFits;
     }
 
-    this.canvas.width = imageWidth;
-    this.canvas.height = imageHeight;
-
-    // TODO: check if this works
-    this.ctx.webkitImageSmoothingEnabled = false;
-    this.ctx.drawImage(image, 0, 0, imageWidth, imageHeight);
+    return {
+      width: imageWidth,
+      height: imageHeight
+    };
   }
 
-  getImageFile() {
-    const imageFile = storage
-      .ref()
-      .child(`images/${this.props.imageName}`);
+  drawCanvasImage() {
+    const { imageRef } = this.props;
 
-    imageFile.getDownloadURL().then(url => {
+    imageRef.getDownloadURL().then(url => {
       const image = new Image();
       image.crossOrigin = 'anonymous';
+      image.src = url;
 
       image.onload = () => {
-        this.drawCanvasImage(image);
-        this.setState({ imageLoaded: true });
-      };
+        const { width, height } = this.optimizeSize(image);
 
-      image.src = url;
+        this.canvas.width = width;
+        this.canvas.height = height;
+        this.ctx.drawImage(image, 0, 0, width, height);
+
+        this.setState({
+          imageLoaded: true
+        });
+      };
     });
   }
 
   render() {
-    const { mousePosition, previewColor, currentColor } = this.state;
+    const { mousePosition, colorPreview, currentColor } = this.state;
 
     const containerStyle = {
       top: `${mousePosition.y}px`,
-      left: `${mousePosition.x + 10}px`
+      left: `${mousePosition.x}px`
     };
 
     const colorStyle = {
@@ -126,16 +132,12 @@ export default class Canvas extends React.Component {
     return (
       <div className="canvas-wrapper">
         <canvas
-          ref={ref => {
-            this.canvas = ref;
-          }}
-          // width={800}
-          // height={550}
-          onMouseMove={this.handleColorAndPosition}
+          ref={this.setCanvasRef}
+          onMouseMove={this.handleColorPreview}
           onMouseLeave={this.handleCanvasLeave}
           onClick={this.handleColorPick}
         />
-        {previewColor && (
+        {colorPreview && (
           <div className="preview-container" style={containerStyle}>
             <div className="preview-color" style={colorStyle} />
           </div>
@@ -144,3 +146,8 @@ export default class Canvas extends React.Component {
     );
   }
 }
+
+// const imageFile = storage.ref(`images/${this.props.imageName}`);
+// const imageFile = storage
+//   .ref()
+//   .child(`images/${this.props.imageName}`);
