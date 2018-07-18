@@ -17,6 +17,12 @@
   "rules": {
     "react/jsx-filename-extension": "off",
     "import/no-extraneous-dependencies": "off",
-    "jsx-a11y/label-has-for": 0
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "specialLink": ["hrefLeft", "hrefRight", "to"]
+      }
+    ]
   }
 }

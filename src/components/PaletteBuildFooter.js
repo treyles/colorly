@@ -13,6 +13,8 @@ export default class PaletteBuildFooter extends React.Component {
     this.handleInputFocus = this.handleInputFocus.bind(this);
     this.handleInputBlur = this.handleInputBlur.bind(this);
     this.setInputRef = this.setInputRef.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   setInputRef(ref) {
@@ -21,6 +23,10 @@ export default class PaletteBuildFooter extends React.Component {
 
   handleChange(e) {
     this.props.handlePaletteSelect(e);
+  }
+
+  handleInputChange(e) {
+    this.props.handleTitle(e);
   }
 
   handleInputFocus() {
@@ -33,9 +39,20 @@ export default class PaletteBuildFooter extends React.Component {
     }
   }
 
+  handleClick(e) {
+    const button = e.target.className;
+
+    if (button === 'save') {
+      this.props.savePalette();
+    }
+    if (button === 'clear') {
+      this.props.clearPalette();
+    }
+  }
+
   render() {
     // const { footerActive } = this.state;
-    const { palette, checked } = this.props;
+    const { palette, checked, title } = this.props;
 
     return (
       <div className="footer">
@@ -51,9 +68,11 @@ export default class PaletteBuildFooter extends React.Component {
           </span>
           <input
             ref={this.setInputRef}
+            onChange={this.handleInputChange}
+            value={title}
             className="palette-input"
             type="text"
-            placeholder="Color Palette #001"
+            placeholder="Color Palette #4"
             maxLength="24"
             onKeyDown={this.handleInputBlur}
           />
@@ -116,8 +135,12 @@ export default class PaletteBuildFooter extends React.Component {
           />
         </div>
         <div className="palette-buttons">
-          <div className="cancel-btn">CANCEL</div>
-          <button className="save-btn">SAVE PALETTE</button>
+          <button className="clear" onClick={this.handleClick}>
+            RESET
+          </button>
+          <button className="save" onClick={this.handleClick}>
+            SAVE PALETTE
+          </button>
         </div>
       </div>
     );

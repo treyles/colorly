@@ -1,24 +1,22 @@
 import React from 'react';
-import PaletteCard from './PaletteCard';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import PaletteCard from './PaletteCard';
 import Upload from './Upload';
-import Header from './Header';
-import { rebase, auth, database } from '../utils/base';
+import Library from './Library';
+// import Header from './Header';
+// import { rebase, auth, database } from '../utils/base';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      library: []
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.addPaletteToLibrary = this.addPaletteToLibrary.bind(this);
   }
-
-  // componentDidMount() {
-  //   auth.onAuthStateChanged(currentUser => {
-  //     console.log(currentUser)
-  //   })
-  // }
 
   handleClick() {
     this.setState({
@@ -26,12 +24,34 @@ export default class App extends React.Component {
     });
   }
 
+  addPaletteToLibrary(obj) {
+    const { library } = this.state;
+    this.setState({
+      library: [obj].concat(library)
+    });
+  }
+
   render() {
     return (
-      <div>
-        <Header />
-        <Upload />
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Library} />
+          <Route
+            path="/upload"
+            render={({ history }) => (
+              <Upload
+                history={history}
+                addPaletteToLibrary={this.addPaletteToLibrary}
+              />
+            )}
+          />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
+
+// <div>
+//   <Header />
+// <Upload addPaletteToLibrary={this.addPaletteToLibrary} />
+// </div>

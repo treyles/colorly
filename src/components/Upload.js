@@ -1,11 +1,10 @@
-// make title value work
-// make save pallette button work (all data in object)
-
 // /* eslint-disable */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import Canvas from './Canvas';
+import Icon from '../utils/Icon';
 import guid from '../utils/guid';
 
 export default class Upload extends React.Component {
@@ -13,37 +12,32 @@ export default class Upload extends React.Component {
     super(props);
     this.state = {
       imageLoaded: false,
-      imageRef: null,
+      imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
       palette: {},
-      checked: 'color1'
+      checked: 'color1',
+      title: ''
     };
 
+    // TODO: organize/clean this up
     this.handleDrop = this.handleDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.makePalette = this.makePalette.bind(this);
     this.handlePaletteSelect = this.handlePaletteSelect.bind(this);
+    this.handleTitle = this.handleTitle.bind(this);
+    this.buildPaletteObject = this.buildPaletteObject.bind(this);
+    this.clearPalette = this.clearPalette.bind(this);
+    this.savePalette = this.savePalette.bind(this);
   }
 
   handleDrop(e) {
     e.preventDefault();
 
     this.setState({
-      showPreloader: true
-    });
-
-    const file = e.dataTransfer.files[0];
-    const name = guid();
-    const storageRef = storage.ref(`images/${name}`);
-    const task = storageRef.put(file);
-
-    task.then(() => {
-      this.setState({
-        imageLoaded: true,
-        imageRef: storageRef
-      });
+      imageSource: e.dataTransfer.files[0],
+      imageLoaded: true
     });
   }
 
@@ -63,10 +57,24 @@ export default class Upload extends React.Component {
     });
   }
 
-  // TODO: not 'handle'?, makePalette does same thing
+  // TODO: not 'handle'?, makePalette, handleTitle does same thing?
   handlePaletteSelect(e) {
     this.setState({
       checked: e.target.id
+    });
+  }
+
+  // TODO: figure out these method names, in child component too.
+  handleTitle(e) {
+    this.setState({
+      title: e.target.value
+    });
+  }
+
+  clearPalette() {
+    this.setState({
+      palette: {},
+      checked: 'color1'
     });
   }
 
@@ -79,27 +87,67 @@ export default class Upload extends React.Component {
     });
   }
 
+  savePalette() {
+    const { palette, title } = this.state;
+    const file = this.state.imageSource;
+    const name = guid();
+    const storageRef = storage.ref(`images/${name}`);
+    const upload = storageRef.put(file);
+
+    upload.then(() => {
+      storageRef.getDownloadURL().then(url => {
+        this.props.addPaletteToLibrary({ url, palette, title });
+        this.props.history.push('/');
+      });
+    });
+
+    this.setState({
+      imageLoaded: false,
+      showPreloader: true
+    });
+  }
+
+  buildPaletteObject() {
+    const { imageSource, palette, title } = this.state;
+    return {
+      imageSource,
+      palette,
+      title
+    };
+  }
+
   render() {
     const {
       imageLoaded,
-      imageRef,
+      imageSource,
       dropZoneHover,
       showPreloader,
       palette,
-      checked
+      checked,
+      title
     } = this.state;
 
     const placeholder = (
       <div className="placeholder">
-        <h1>Drag and Drop Image</h1>
+        <h1>Drag and Drop Image Here</h1>
         <h3>JPG, SVG, or PNG no larger than 900kb</h3>
       </div>
     );
 
-    const preloader = <span className="preloader">Loading&#8230;</span>;
+    const preloader = (
+      <div className="preloader-wrapper">
+        <span className="preloader">Loading&#8230;</span>
+      </div>
+    );
 
     return (
       <div className="upload-section">
+        <Link to="/">
+          <button className="back">
+            <Icon icon="back" />
+            <span>BACK TO PALETTES</span>
+          </button>
+        </Link>
         {!imageLoaded ? (
           <div
             className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
@@ -107,18 +155,37 @@ export default class Upload extends React.Component {
             onDragLeave={this.handleDragLeave}
             onDrop={this.handleDrop}
           >
-            {showPreloader ? preloader : placeholder}
+            {/* {showPreloader ? preloader : placeholder} */}
+            {!showPreloader && placeholder}
           </div>
         ) : (
           <div className="canvas-container">
-            <Canvas makePalette={this.makePalette} imageRef={imageRef} />
+            <Canvas
+              makePalette={this.makePalette}
+              imageSource={imageSource}
+            />
             <PaletteBuildFooter
               palette={palette}
               handlePaletteSelect={this.handlePaletteSelect}
               checked={checked}
+              handleTitle={this.handleTitle}
+              title={title}
+              savePalette={this.savePalette}
+              clearPalette={this.clearPalette}
             />
           </div>
         )}
+        {/* <PaletteBuildFooter
+          palette={palette}
+          handlePaletteSelect={this.handlePaletteSelect}
+          checked={checked}
+          handleTitle={this.handleTitle}
+          title={title}
+          buildPaletteObject={this.buildPaletteObject}
+          clearPalette={this.clearPalette}
+          imageLoaded={imageLoaded}
+        /> */}
+        {showPreloader && preloader}
       </div>
     );
   }

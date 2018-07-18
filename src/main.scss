@@ -3,7 +3,7 @@ $mainColor: DodgerBlue;
 body {
   // display: flex;
   // justify-content: center;
-  background-color: $mainColor;
+  background-color: #fff;
   padding: 0;
   margin: 0;
 }
@@ -87,6 +87,7 @@ h3 {
   height: 90px;
   // min-height: 70px;
   background: #fff;
+  // background: #c9c9c9;
   padding-left: 48px;
   // box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
 
@@ -103,11 +104,12 @@ h3 {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 125px;
+  height: 110px;
   background: #fff;
+  // border-top: 1px solid #848484;
   // transform: translateY(100%);
-  transition: transform 0.5s ease;
-  // box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  // transition: transform 0.5s ease;
+  box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.1);
 
   .palette-name {
     flex-grow: 1;
@@ -122,7 +124,7 @@ h3 {
     svg {
       width: 15px;
       height: 15px;
-      fill: #666;
+      fill: #848484;
       outline: none;
       cursor: pointer;
     }
@@ -130,8 +132,9 @@ h3 {
     .palette-input {
       width: 240px;
       font-family: 'apercu-regular', sans-serif;
-      font-size: 18px;
+      font-size: 17px;
       color: #666;
+      // color: #000;
       // appearance: none;
       padding-bottom: 3px;
       margin-left: 10px;
@@ -143,9 +146,9 @@ h3 {
     input:focus::placeholder {
       color: #eee;
     }
-    // input::placeholder {
-    //   color: lightgray;
-    // }
+    input::placeholder {
+      color: #848484;
+    }
   }
 
   .palette-buttons {
@@ -157,18 +160,24 @@ h3 {
     font-size: 14px;
     // background: #eee;
 
-    .cancel-btn,
-    .submit-btn {
+    .clear,
+    .save {
       display: inline-block;
     }
 
-    .cancel-btn {
+    .clear {
       color: #848484;
-      margin-right: 42px;
-      // cursor: pointer;
+      margin-right: 20px;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
+      border: none;
+      outline: none;
+      background: #fff;
+      cursor: pointer;
     }
 
-    .save-btn {
+    .save {
       background: #2dcb81;
       font-family: inherit;
       font-size: inherit;
@@ -177,6 +186,7 @@ h3 {
       border: none;
       outline: none;
       border-radius: 500px;
+      // border-radius: 5px;
       width: 152px;
       height: 50px;
       box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
@@ -219,6 +229,19 @@ h3 {
     // }
   }
 
+  // .lock {
+  //   display: none;
+  //   position: absolute;
+  //   width: 100%;
+  //   height: 100%;
+  //   background: #fff;
+  //   opacity: 0.5;
+
+  //   &.active {
+  //     display: block;
+  //   }
+  // }
+
   // &.active {
   //   transform: translateY(0);
   // }
@@ -236,20 +259,54 @@ h3 {
 
 .upload-section {
   flex-direction: column;
-  padding-top: 90px;
+  // padding-bottom: 110px;
   width: 100%;
   height: 100vh;
   background: #fff;
   position: relative;
   overflow: hidden;
 
+  .back {
+    position: fixed;
+    top: 35px;
+    left: 50px;
+    // right: 50px;
+    // left: 50%;
+    // transform: translateX(-50%);
+    background: #fff;
+    font-family: 'apercu-medium', sans-serif;
+    font-size: 12px;
+    color: #848484;
+    border: none;
+    outline: none;
+    border-radius: 500px;
+    width: 160px;
+    // width: 90px;
+    height: 44px;
+    cursor: pointer;
+    // box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.1);
+
+    span {
+      vertical-align: middle;
+    }
+
+    svg {
+      height: 10.2px;
+      width: auto;
+      vertical-align: middle;
+      margin-right: 7px;
+      fill: #848484;
+    }
+  }
+
   .drop-zone {
     @include flex;
     font-family: 'apercu-medium', sans-serif;
+    // padding-top: 75px;
     width: 100%;
     height: 100%;
     background: #c9c9c9;
-    padding: 20px;
+    // padding: 20px;
     transition: 0.3s ease;
 
     .placeholder {
@@ -284,7 +341,8 @@ h3 {
     width: 100%;
     height: 100%;
     overflow: scroll;
-    padding-bottom: 125px;
+    padding-top: 75px;
+    padding-bottom: 110px;
     // margin: 40px;
 
     .canvas-wrapper {
@@ -334,6 +392,13 @@ h3 {
   //     }
   //   }
   // }
+}
+
+.preloader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .preloader:not(:required) {

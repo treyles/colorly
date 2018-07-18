@@ -7,7 +7,11 @@ module.exports = {
   devtool: 'cheap-eval-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
+  devServer: {
+    historyApiFallback: true
   },
   stats: {
     colors: true,

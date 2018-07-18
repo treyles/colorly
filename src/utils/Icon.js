@@ -1,3 +1,5 @@
+// TODO: clean up unused icons and properties
+
 import React from 'react';
 
 export default class Icon extends React.Component {
@@ -47,7 +49,7 @@ export default class Icon extends React.Component {
       upload: () => (
         <svg
           version="1.1"
-          id="Layer_1"
+          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
           // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -76,7 +78,7 @@ export default class Icon extends React.Component {
       upload2: () => (
         <svg
           version="1.1"
-          id="Layer_1"
+          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
           // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -100,7 +102,7 @@ export default class Icon extends React.Component {
       pencil: () => (
         <svg
           version="1.1"
-          id="Layer_1"
+          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
           // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
@@ -117,6 +119,22 @@ export default class Icon extends React.Component {
 	L0.3,86.5C-0.3,88,0,89.7,1.2,90.8C1.9,91.6,3,92,4,92c0.5,0,1-0.1,1.5-0.3l19-7.4c0.5-0.2,1-0.5,1.4-0.9l63.3-63.3
 	C93,16.3,93,10,89.1,6.1z M14.8,71.7l5.6,5.6l-9.3,3.6L14.8,71.7z M83.4,14.5L28.2,69.7l-5.8-5.8L77.5,8.6C78,8.1,78.6,8,78.9,8
 	s0.9,0.1,1.4,0.6l3.2,3.2C84.2,12.5,84.2,13.7,83.4,14.5z"
+          />
+        </svg>
+      ),
+
+      back: () => (
+        <svg
+          width="38px"
+          height="62px"
+          viewBox="0 0 38 62"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          // xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <path
+            d="M36.0926649,54.6340597 C37.8532827,56.2353511 37.8532827,59.0109228 36.2027035,60.7189669 C35.3223946,61.572989 34.1119699,62 33.0115837,62 C31.9111976,62 30.8108115,61.572989 29.9305026,60.8257197 L1.32046335,34.1375303 C0.44015445,33.2835082 0,32.2159806 0,31.0417003 C0,29.86742 0.44015445,28.7998924 1.32046335,27.9458703 L29.9305026,1.25768093 C31.6911204,-0.343610439 34.4420857,-0.343610439 36.2027035,1.36443368 C37.8532827,3.0724778 37.8532827,5.74129674 36.0926649,7.44934087 L10.783784,31.0417003 L36.0926649,54.6340597 Z"
+            id="XMLID_423_"
           />
         </svg>
       )

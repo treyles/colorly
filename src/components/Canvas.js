@@ -5,7 +5,7 @@ export default class Canvas extends React.Component {
     super(props);
     this.state = {
       mousePosition: {},
-      imageLoaded: false,
+      canvasImageLoaded: false,
       colorPreview: false,
       currentColor: null,
       winWidth: null,
@@ -16,14 +16,18 @@ export default class Canvas extends React.Component {
     this.handleColorPreview = this.handleColorPreview.bind(this);
     this.handleCanvasLeave = this.handleCanvasLeave.bind(this);
     this.handleColorPick = this.handleColorPick.bind(this);
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.updateBrowserSize = this.updateBrowserSize.bind(this);
   }
 
   componentDidMount() {
     this.ctx = this.canvas.getContext('2d');
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    this.updateBrowserSize();
+    window.addEventListener('resize', this.updateBrowserSize);
     this.drawCanvasImage();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateBrowserSize);
   }
 
   setCanvasRef(ref) {
@@ -31,7 +35,7 @@ export default class Canvas extends React.Component {
   }
 
   handleColorPreview(e) {
-    const { imageLoaded } = this.state;
+    const { canvasImageLoaded } = this.state;
 
     const rect = this.canvas.getBoundingClientRect();
     const actualX = Math.floor(e.clientX - rect.left);
@@ -41,7 +45,7 @@ export default class Canvas extends React.Component {
     const { data } = pixelData;
     const pixelColor = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`;
 
-    if (imageLoaded) {
+    if (canvasImageLoaded) {
       this.setState({
         currentColor: pixelColor,
         mousePosition: { x: actualX, y: actualY },
@@ -61,15 +65,20 @@ export default class Canvas extends React.Component {
     this.props.makePalette(currentColor);
   }
 
-  updateWindowDimensions() {
+  updateBrowserSize() {
     this.setState({
       winWidth: window.innerWidth,
       winHeight: window.innerHeight
     });
+
+    // redraw image on resize
+    if (this.state.canvasImageLoaded) {
+      this.drawCanvasImage();
+    }
   }
 
-  optimizeSize(image) {
-    const heightPadding = 275;
+  optimizeScale(image) {
+    const heightPadding = 250;
     const widthPadding = 60;
     const containerWidth = this.state.winWidth - widthPadding;
     const containerHeight = this.state.winHeight - heightPadding;
@@ -77,9 +86,9 @@ export default class Canvas extends React.Component {
     let imageWidth = image.width;
     let imageHeight = image.height;
 
-    // if any part of the image (original dimensions) overflow
+    // if any part of the image's original dimensions overflow
     // the container, shrink dimensions and maintain aspect ratio
-    // algorithm modified from 1owk3y: https://bit.ly/2JiYzHz
+    // modified from 1owk3y: https://bit.ly/2JiYzHz
     if (imageWidth > containerWidth || imageHeight > containerHeight) {
       const wFits = containerWidth / imageWidth;
       const hFits = containerHeight / imageHeight;
@@ -96,25 +105,23 @@ export default class Canvas extends React.Component {
   }
 
   drawCanvasImage() {
-    const { imageRef } = this.props;
+    const image = new Image();
+    const url = window.URL || window.webkitURL;
+    const source = url.createObjectURL(this.props.imageSource);
+    image.src = source;
 
-    imageRef.getDownloadURL().then(url => {
-      const image = new Image();
-      image.crossOrigin = 'anonymous';
-      image.src = url;
+    image.onload = () => {
+      const { width, height } = this.optimizeScale(image);
 
-      image.onload = () => {
-        const { width, height } = this.optimizeSize(image);
+      this.canvas.width = width;
+      this.canvas.height = height;
+      this.ctx.drawImage(image, 0, 0, width, height);
+      url.revokeObjectURL(source);
 
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.ctx.drawImage(image, 0, 0, width, height);
-
-        this.setState({
-          imageLoaded: true
-        });
-      };
-    });
+      this.setState({
+        canvasImageLoaded: true
+      });
+    };
   }
 
   render() {
