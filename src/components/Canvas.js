@@ -78,7 +78,8 @@ export default class Canvas extends React.Component {
   }
 
   optimizeScale(image) {
-    const heightPadding = 250;
+    // const heightPadding = 250;
+    const heightPadding = 200;
     const widthPadding = 60;
     const containerWidth = this.state.winWidth - widthPadding;
     const containerHeight = this.state.winHeight - heightPadding;

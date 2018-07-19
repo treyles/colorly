@@ -51,12 +51,10 @@ export default class PaletteBuildFooter extends React.Component {
   }
 
   render() {
-    // const { footerActive } = this.state;
     const { palette, checked, title } = this.props;
 
     return (
       <div className="footer">
-        {/* <div className={`footer ${footerActive ? 'active' : ''}`}> */}
         <div className="palette-name">
           <span
             onClick={this.handleInputFocus}

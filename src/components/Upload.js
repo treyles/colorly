@@ -15,7 +15,7 @@ export default class Upload extends React.Component {
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
-      palette: {},
+      palette: [],
       checked: 'color1',
       title: ''
     };
@@ -27,7 +27,6 @@ export default class Upload extends React.Component {
     this.makePalette = this.makePalette.bind(this);
     this.handlePaletteSelect = this.handlePaletteSelect.bind(this);
     this.handleTitle = this.handleTitle.bind(this);
-    this.buildPaletteObject = this.buildPaletteObject.bind(this);
     this.clearPalette = this.clearPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
   }
@@ -94,26 +93,18 @@ export default class Upload extends React.Component {
     const storageRef = storage.ref(`images/${name}`);
     const upload = storageRef.put(file);
 
-    upload.then(() => {
-      storageRef.getDownloadURL().then(url => {
-        this.props.addPaletteToLibrary({ url, palette, title });
-        this.props.history.push('/');
-      });
-    });
-
     this.setState({
       imageLoaded: false,
       showPreloader: true
     });
-  }
 
-  buildPaletteObject() {
-    const { imageSource, palette, title } = this.state;
-    return {
-      imageSource,
-      palette,
-      title
-    };
+    upload.then(() => {
+      storageRef.getDownloadURL().then(url => {
+        this.props.addPaletteToLibrary({ url, palette, title });
+        // navigate to homepage
+        this.props.history.push('/');
+      });
+    });
   }
 
   render() {
@@ -136,7 +127,7 @@ export default class Upload extends React.Component {
 
     const preloader = (
       <div className="preloader-wrapper">
-        <span className="preloader">Loading&#8230;</span>
+        <span className="preloader">Loading</span>
       </div>
     );
 
@@ -155,7 +146,6 @@ export default class Upload extends React.Component {
             onDragLeave={this.handleDragLeave}
             onDrop={this.handleDrop}
           >
-            {/* {showPreloader ? preloader : placeholder} */}
             {!showPreloader && placeholder}
           </div>
         ) : (
@@ -175,16 +165,6 @@ export default class Upload extends React.Component {
             />
           </div>
         )}
-        {/* <PaletteBuildFooter
-          palette={palette}
-          handlePaletteSelect={this.handlePaletteSelect}
-          checked={checked}
-          handleTitle={this.handleTitle}
-          title={title}
-          buildPaletteObject={this.buildPaletteObject}
-          clearPalette={this.clearPalette}
-          imageLoaded={imageLoaded}
-        /> */}
         {showPreloader && preloader}
       </div>
     );

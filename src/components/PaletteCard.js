@@ -1,3 +1,7 @@
+// native way to set space between grid?
+// change color of text light or dark based on bg color
+// finish up card!
+
 import React from 'react';
 
 export default class PaletteCard extends React.Component {
@@ -17,11 +21,20 @@ export default class PaletteCard extends React.Component {
   }
 
   render() {
-    const { val } = this.props;
+    const { title, palette } = this.props.data;
 
     return (
-      <div>
-        <div className="palette-card">{`project ${val}`}</div>
+      <div className="palette-card">
+        <div className="palette-colors">
+          {Object.keys(palette).map(el => (
+            <div
+              key={palette[el]}
+              className="swatch"
+              style={{ background: `${palette[el]}` }}
+            />
+          ))}
+        </div>
+        <div className="palette-footer">{title}</div>
       </div>
     );
   }

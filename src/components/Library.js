@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './Header';
+import PaletteCard from './PaletteCard';
 
 export default class Library extends React.Component {
   constructor(props) {
@@ -26,10 +27,12 @@ export default class Library extends React.Component {
   // }
 
   render() {
+    const { library } = this.props;
+
     return (
-      <div>
+      <div className="library">
         <Header />
-        Stuff in here, cant probably see.
+        {library.map(el => <PaletteCard data={el} />)}
       </div>
     );
   }
