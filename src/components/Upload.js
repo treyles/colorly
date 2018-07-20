@@ -1,11 +1,11 @@
 // /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import uuidv4 from 'uuid';
 import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import Canvas from './Canvas';
 import Icon from '../utils/Icon';
-import guid from '../utils/guid';
 
 export default class Upload extends React.Component {
   constructor(props) {
@@ -15,6 +15,7 @@ export default class Upload extends React.Component {
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
+      id: uuidv4(),
       palette: [],
       checked: 'color1',
       title: ''
@@ -87,10 +88,9 @@ export default class Upload extends React.Component {
   }
 
   savePalette() {
-    const { palette, title } = this.state;
+    const { palette, title, id } = this.state;
     const file = this.state.imageSource;
-    const name = guid();
-    const storageRef = storage.ref(`images/${name}`);
+    const storageRef = storage.ref(`images/${id}`);
     const upload = storageRef.put(file);
 
     this.setState({
@@ -100,7 +100,7 @@ export default class Upload extends React.Component {
 
     upload.then(() => {
       storageRef.getDownloadURL().then(url => {
-        this.props.addPaletteToLibrary({ url, palette, title });
+        this.props.addPaletteToLibrary({ url, palette, title, id });
         // navigate to homepage
         this.props.history.push('/');
       });

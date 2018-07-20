@@ -1,8 +1,11 @@
 $mainColor: DodgerBlue;
 
+// TODO: put apercu-regular in body and delete duplicates
+
 body {
   // display: flex;
   // justify-content: center;
+  font-family: 'apercu-regular', sans-serif;
   background-color: #f7f7f7;
   padding: 0;
   margin: 0;
@@ -100,7 +103,7 @@ header {
   // position: fixed;
   // top: 0;
   // left: 0;
-  height: 84px;
+  height: 75px;
   // background: #fff;
   padding: 0 32px;
   // box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
@@ -120,7 +123,8 @@ header {
     span {
       display: inline-block;
       font-family: 'apercu-regular', sans-serif;
-      color: #7c7c7c;
+      color: #666;
+      font-size: 16px;
 
       svg {
         width: 9.6px;
@@ -142,10 +146,11 @@ header {
     border-radius: 500px;
     // border-radius: 5px;
     // width: 152px;
-    width: 162px;
-    height: 50px;
+    width: 169px;
+    // height: 50px;
+    height: 45px;
     // padding-left: 26px;
-    padding: 16.5px 0 16.5px 18px;
+    padding: 15px 0 15px 18px;
     cursor: pointer;
     box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
     // transition: box-shadow 0.2s ease;
@@ -158,10 +163,12 @@ header {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 13px;
+      left: 20px;
 
       svg {
         vertical-align: middle;
+        width: 18px;
+        height: 18px;
       }
     }
   }
@@ -188,6 +195,8 @@ header {
 // display: grid
 // grid-template-columns: repeat($columns, 1fr); // mixin for line-breaks
 
+// 310px is width (including margins)
+
 .library {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -196,7 +205,7 @@ header {
   width: 100%;
   height: 100%;
   // padding-top: 152px;
-  padding-top: 184px;
+  padding-top: 190px;
   padding-left: 32px;
   padding-right: 32px;
   // background: peru;
@@ -355,13 +364,13 @@ header {
 
 .palette-card {
   font-family: 'apercu-regular', sans-serif;
-  width: 260px;
+  width: 246px;
   // height: 313px;
-  height: 340px;
+  height: 300px;
   border-radius: 14px;
   // background: #eee;
   margin: 32px;
-  overflow: hidden;
+  // overflow: hidden;
   box-shadow: 2px 4px 40px 4px rgba(0, 0, 0, 0.08);
 
   .palette-colors {
@@ -369,6 +378,8 @@ header {
     flex-direction: column;
     width: 100%;
     height: 70%;
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
     // background: dodgerblue;
 
     .swatch {
@@ -379,10 +390,84 @@ header {
 
   .palette-footer {
     @include flex;
+    position: relative;
     width: 100%;
     height: 30%;
-    font-size: 17px;
+    font-size: 16px;
     color: #666;
+    background: #fff;
+    border-radius: 0 0 14px 14px;
+
+    .options {
+      position: absolute;
+      @include flex;
+      bottom: 11px;
+      right: 11px;
+      width: 32px;
+      height: 15px;
+      border-radius: 500px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      outline: none;
+      background: #efefef;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: darken(#efefef, 5%);
+      }
+    }
+
+    .dialog {
+      @include flex(space-between, center);
+      flex-direction: column;
+      position: absolute;
+      font-family: inherit;
+      border-radius: 8px;
+      bottom: -53px;
+      right: 10px;
+      width: 117px;
+      height: 61px;
+      box-shadow: 2px -1px 10px 2px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+
+      .view-image {
+        flex-grow: 1;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: #666;
+        font-size: 11px;
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        // transition: 0.3s ease;
+
+        // &:hover {
+        //   background: darken(#f2f2f2, 3%);
+        // }
+      }
+
+      .delete {
+        flex-grow: 1;
+        width: 100%;
+        outline: none;
+        border: none;
+        color: #fff;
+        font-size: 11px;
+        background: #f0727a;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+          background: darken(#f0727a, 10%);
+        }
+      }
+    }
   }
 }
 

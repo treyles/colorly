@@ -32,7 +32,9 @@ export default class Library extends React.Component {
     return (
       <div className="library">
         <Header />
-        {library.map(el => <PaletteCard data={el} />)}
+        {library.map(palette => (
+          <PaletteCard key={palette.id} data={palette} />
+        ))}
       </div>
     );
   }
