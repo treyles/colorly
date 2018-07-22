@@ -10,6 +10,7 @@ import uuidv4 from 'uuid';
 // import ClickOutside from 'react-click-outside';
 import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
+import Swatch from './Swatch';
 
 export default class PaletteCard extends React.Component {
   constructor(props) {
@@ -24,12 +25,8 @@ export default class PaletteCard extends React.Component {
     // this.handleModalOpen = this.handleModalOpen.bind(this);
     // this.handleModalClose = this.handleModalClose.bind(this);
     // this.rgbToHex = this.rgbToHex.bind(this);
-    this.handleCopy = this.handleCopy.bind(this);
-    this.setInputRef = this.setInputRef.bind(this);
-  }
-
-  setInputRef(ref) {
-    this.hex = ref;
+    // this.handleCopy = this.handleCopy.bind(this);
+    // this.setInputRef = this.setInputRef.bind(this);
   }
 
   handleDialogToggle() {
@@ -44,27 +41,8 @@ export default class PaletteCard extends React.Component {
     });
   }
 
-  // handleModalOpen() {
-  //   this.setState({
-  //     modalOpen: true
-  //   });
-
-  //   this.handleDialogToggle();
-  // }
-
-  // handleModalClose() {
-  //   this.setState({
-  //     modalOpen: false
-  //   });
-  // }
-  /* eslint-disable */
-  handleCopy() {
-    this.hex.select();
-    document.execCommand('copy');
-  }
-
   render() {
-    const { optionsOpen, modalOpen } = this.state;
+    const { optionsOpen } = this.state;
     const { title, palette, url, id } = this.props.data;
 
     const dialogBox = (
@@ -80,25 +58,7 @@ export default class PaletteCard extends React.Component {
       <div className="palette-card">
         <div className="palette-colors">
           {Object.keys(palette).map(el => (
-            <div
-              key={uuidv4()}
-              className="swatch"
-              style={{ background: `${palette[el]}` }}
-              onClick={this.handleCopy}
-              onKeyDown={this.handleCopy}
-              role="button"
-              tabIndex={0}
-            >
-              <div
-                className="pop-up"
-                style={{ background: `${palette[el]}` }}
-              />
-              <input
-                ref={this.setInputRef}
-                value={`${palette[el]}`}
-                readOnly
-              />
-            </div>
+            <Swatch key={uuidv4()} color={palette[el]} />
           ))}
         </div>
         <div className="palette-footer">
@@ -117,6 +77,44 @@ export default class PaletteCard extends React.Component {
     );
   }
 }
+
+// class Swatch extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleCopy = this.handleCopy.bind(this);
+//   }
+
+//   handleCopy() {
+//     this.hex.select();
+//     document.execCommand('copy');
+//   }
+
+//   render() {
+//     const { data } = this.props;
+
+//     return (
+//       <div
+//         key={uuidv4()}
+//         className="swatch"
+//         style={{ background: `${palette[data]}` }}
+//         onClick={this.handleCopy}
+//         onKeyDown={this.handleCopy}
+//         role="button"
+//         tabIndex={0}
+//       >
+//         <div
+//           className="pop-up"
+//           style={{ background: `${palette[data]}` }}
+//         />
+//         <input
+//           ref={ref => (this.hex = ref)}
+//           value={`${palette[data]}`}
+//           readOnly
+//         />
+//       </div>
+//     );
+//   }
+// }
 
 // /* eslint-disable */
 // class Options extends React.Component {
