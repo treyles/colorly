@@ -43,7 +43,7 @@ export default class Canvas extends React.Component {
 
     const pixelData = this.ctx.getImageData(actualX, actualY, 1, 1);
     const { data } = pixelData;
-    const pixelColor = `rgba(${data[0]}, ${data[1]}, ${data[2]}, ${data[3]})`;
+    const pixelColor = `rgb(${data[0]}, ${data[1]}, ${data[2]}`;
 
     if (canvasImageLoaded) {
       this.setState({

@@ -24,9 +24,9 @@ export default class Header extends React.Component {
           </div>
           <Link to="/upload">
             <button className="add">
-              <span>
+              {/* <span>
                 <Icon icon="add" />
-              </span>
+              </span> */}
               ADD PALETTE
             </button>
           </Link>

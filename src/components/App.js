@@ -6,38 +6,37 @@ import Library from './Library';
 const testData = [
   {
     url:
-      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2F1b08f87e-5576-4cee-8c49-abb9b6bcd05d?alt=media&token=aec96bbe-344b-4cc1-8123-aabb0922a1ba',
+      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2Fa8140b0e-748a-4a8d-a9fe-91324f4174c5?alt=media&token=5ca4aef7-31cd-4389-b5f5-45da4292f057',
     palette: {
-      color1: 'rgba(3, 108, 119, 255)',
-      color2: 'rgba(67, 142, 36, 255)',
-      color3: 'rgba(139, 189, 54, 255)'
+      color1: '#37BEB7'
     },
-    title: 'Island',
-    id: '1b08f87e-5576-4cee-8c49-abb9b6bcd05d'
+    title: 'Single Color',
+    id: 'a8140b0e-748a-4a8d-a9fe-91324f4174c5'
   },
   {
     url:
-      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2F215c3dbc-e387-4ff8-8321-71e0b08e5cfe?alt=media&token=2d4a3b7a-743a-4f32-bd6d-43012c39c1bf',
+      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2F2ec38480-3daf-4c9e-8a68-f2d9de46f6cb?alt=media&token=a8e97814-1650-48d7-9860-690fc936ecf5',
     palette: {
-      color1: 'rgba(240, 66, 103, 255)',
-      color2: 'rgba(72, 17, 74, 255)',
-      color3: 'rgba(174, 83, 160, 255)'
+      color1: '#126794',
+      color2: '#F8AC8E',
+      color3: '#EF6868',
+      color4: '#F2C61B',
+      color5: '#DDDDDD'
     },
-    title: 'Uber Style Illustration',
-    id: '215c3dbc-e387-4ff8-8321-71e0b08e5cfe'
+    title: 'Abstract Drawing',
+    id: '2ec38480-3daf-4c9e-8a68-f2d9de46f6cb'
   },
   {
     url:
-      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2F9e81b65f-c524-4f2c-ba7c-5cae5bdcc866?alt=media&token=decdde99-a3a2-48aa-9a7d-373dd5c024a2',
+      'https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/images%2F0917631b-26f3-46a3-804c-f5ecc1355e39?alt=media&token=d0e2052a-d3f8-4fbc-b430-b7ae259ed9f3',
     palette: {
-      color1: 'rgba(14, 99, 145, 255)',
-      color2: 'rgba(248, 172, 144, 255)',
-      color3: 'rgba(0, 13, 21, 255)',
-      color4: 'rgba(239, 95, 85, 255)',
-      color5: 'rgba(246, 198, 23, 255)'
+      color1: '#49124B',
+      color2: '#AE53A0',
+      color3: '#F5966A',
+      color4: '#F04267'
     },
-    title: 'Abstract Painting',
-    id: '9e81b65f-c524-4f2c-ba7c-5cae5bdcc866'
+    title: 'Uber Illustration Style',
+    id: '0917631b-26f3-46a3-804c-f5ecc1355e39'
   }
 ];
 

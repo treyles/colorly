@@ -6,6 +6,7 @@
 // finish up card!
 
 import React from 'react';
+import uuidv4 from 'uuid';
 // import ClickOutside from 'react-click-outside';
 import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
@@ -14,32 +15,63 @@ export default class PaletteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      optionsClicked: false
+      optionsOpen: false,
+      modalOpen: false
     };
 
     this.handleDialogToggle = this.handleDialogToggle.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    // this.handleModalOpen = this.handleModalOpen.bind(this);
+    // this.handleModalClose = this.handleModalClose.bind(this);
+    // this.rgbToHex = this.rgbToHex.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
+    this.setInputRef = this.setInputRef.bind(this);
+  }
+
+  setInputRef(ref) {
+    this.hex = ref;
   }
 
   handleDialogToggle() {
     this.setState({
-      optionsClicked: !this.state.optionsClicked
+      optionsOpen: !this.state.optionsOpen
     });
   }
 
   handleDialogClose() {
     this.setState({
-      optionsClicked: false
+      optionsOpen: false
     });
   }
 
+  // handleModalOpen() {
+  //   this.setState({
+  //     modalOpen: true
+  //   });
+
+  //   this.handleDialogToggle();
+  // }
+
+  // handleModalClose() {
+  //   this.setState({
+  //     modalOpen: false
+  //   });
+  // }
+  /* eslint-disable */
+  handleCopy() {
+    this.hex.select();
+    document.execCommand('copy');
+  }
+
   render() {
-    const { optionsClicked } = this.state;
-    const { title, palette } = this.props.data;
+    const { optionsOpen, modalOpen } = this.state;
+    const { title, palette, url, id } = this.props.data;
 
     const dialogBox = (
       <div className="dialog">
-        <button className="view-image">VIEW IMAGE</button>
+        <button className="view-image" onClick={this.handleModalOpen}>
+          VIEW IMAGE
+        </button>
         <button className="delete">DELETE</button>
       </div>
     );
@@ -49,10 +81,24 @@ export default class PaletteCard extends React.Component {
         <div className="palette-colors">
           {Object.keys(palette).map(el => (
             <div
-              key={palette[el]}
+              key={uuidv4()}
               className="swatch"
               style={{ background: `${palette[el]}` }}
-            />
+              onClick={this.handleCopy}
+              onKeyDown={this.handleCopy}
+              role="button"
+              tabIndex={0}
+            >
+              <div
+                className="pop-up"
+                style={{ background: `${palette[el]}` }}
+              />
+              <input
+                ref={this.setInputRef}
+                value={`${palette[el]}`}
+                readOnly
+              />
+            </div>
           ))}
         </div>
         <div className="palette-footer">
@@ -61,7 +107,7 @@ export default class PaletteCard extends React.Component {
             <Icon icon="options" />
           </button>
           <ClickOutside
-            elementIsOpen={optionsClicked}
+            elementIsOpen={optionsOpen}
             onRequestClose={this.handleDialogClose}
           >
             {dialogBox}

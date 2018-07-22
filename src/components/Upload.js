@@ -6,6 +6,7 @@ import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import Canvas from './Canvas';
 import Icon from '../utils/Icon';
+import rgbToHex from '../utils/rgbToHex';
 
 export default class Upload extends React.Component {
   constructor(props) {
@@ -80,7 +81,7 @@ export default class Upload extends React.Component {
 
   makePalette(color) {
     const { palette, checked } = this.state;
-    const newColor = { [checked]: color };
+    const newColor = { [checked]: rgbToHex(color) };
 
     this.setState({
       palette: { ...palette, ...newColor }
