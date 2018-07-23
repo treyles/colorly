@@ -7,6 +7,10 @@ export default class Swatch extends React.Component {
     this.setInputRef = this.setInputRef.bind(this);
   }
 
+  // componentDidMount() {
+  //   console.log('swatch did mount');
+  // }
+
   setInputRef(ref) {
     this.hex = ref;
   }
@@ -14,6 +18,8 @@ export default class Swatch extends React.Component {
   handleCopy() {
     this.hex.select();
     document.execCommand('copy');
+
+    this.props.toggleCopyAlert();
   }
 
   render() {

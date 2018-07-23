@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import uuidv4 from 'uuid';
 import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
+import BackButton from './BackButton';
 import Canvas from './Canvas';
-import Icon from '../utils/Icon';
+// import Icon from '../utils/Icon';
 import rgbToHex from '../utils/rgbToHex';
 
 export default class Upload extends React.Component {
@@ -135,10 +136,7 @@ export default class Upload extends React.Component {
     return (
       <div className="upload-section">
         <Link to="/">
-          <button className="back">
-            <Icon icon="back" />
-            <span>BACK TO PALETTES</span>
-          </button>
+          <BackButton />
         </Link>
         {!imageLoaded ? (
           <div

@@ -17,17 +17,22 @@ export default class PaletteCard extends React.Component {
     super(props);
     this.state = {
       optionsOpen: false,
-      modalOpen: false
+      copyAlert: false
     };
 
     this.handleDialogToggle = this.handleDialogToggle.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.toggleCopyAlert = this.toggleCopyAlert.bind(this);
     // this.handleModalOpen = this.handleModalOpen.bind(this);
     // this.handleModalClose = this.handleModalClose.bind(this);
     // this.rgbToHex = this.rgbToHex.bind(this);
     // this.handleCopy = this.handleCopy.bind(this);
     // this.setInputRef = this.setInputRef.bind(this);
   }
+
+  // componentDidMount() {
+  //   console.log('card did mount');
+  // }
 
   handleDialogToggle() {
     this.setState({
@@ -41,24 +46,43 @@ export default class PaletteCard extends React.Component {
     });
   }
 
+  toggleCopyAlert() {
+    this.setState({
+      copyAlert: true
+    });
+
+    setTimeout(() => {
+      this.setState({
+        copyAlert: false
+      });
+    }, 1500);
+  }
+
   render() {
-    const { optionsOpen } = this.state;
+    const { optionsOpen, copyAlert } = this.state;
     const { title, palette, url, id } = this.props.data;
 
     const dialogBox = (
       <div className="dialog">
-        <button className="view-image" onClick={this.handleModalOpen}>
+        <button
+          className="image-view-btn"
+          onClick={() => this.props.handleViewImage(url)}
+        >
           VIEW IMAGE
         </button>
-        <button className="delete">DELETE</button>
+        <button className="delete-btn">DELETE</button>
       </div>
     );
 
     return (
       <div className="palette-card">
         <div className="palette-colors">
-          {Object.keys(palette).map(el => (
-            <Swatch key={uuidv4()} color={palette[el]} />
+          {Object.keys(palette).map((el, index) => (
+            <Swatch
+              key={index}
+              color={palette[el]}
+              toggleCopyAlert={this.toggleCopyAlert}
+            />
           ))}
         </div>
         <div className="palette-footer">
@@ -72,6 +96,9 @@ export default class PaletteCard extends React.Component {
           >
             {dialogBox}
           </ClickOutside>
+          {copyAlert && (
+            <div className="copy-alert">Copied to Clipboard</div>
+          )}
         </div>
       </div>
     );
