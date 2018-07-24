@@ -1,9 +1,6 @@
 // native way to set space between grid?
-// update top/bottom padding on .add button if going with new font size
-// maybe .add button not so big? look at spotify
-
 // change color of text light or dark based on bg color
-// finish up card!
+// refactor toggleCopy setTimeout
 
 import React from 'react';
 import uuidv4 from 'uuid';
@@ -46,6 +43,7 @@ export default class PaletteCard extends React.Component {
     });
   }
 
+  // TODO: refactor
   toggleCopyAlert() {
     this.setState({
       copyAlert: true
@@ -60,17 +58,23 @@ export default class PaletteCard extends React.Component {
 
   render() {
     const { optionsOpen, copyAlert } = this.state;
-    const { title, palette, url, id } = this.props.data;
+    // const { handleImageSource,}
+    const { title, palette, url } = this.props.data;
 
-    const dialogBox = (
-      <div className="dialog">
+    const optionsDialog = (
+      <div className="options-dialog">
         <button
           className="image-view-btn"
-          onClick={() => this.props.handleViewImage(url)}
+          onClick={() => this.props.handleImageSource(url)}
         >
           VIEW IMAGE
         </button>
-        <button className="delete-btn">DELETE</button>
+        <button
+          className="delete-btn"
+          onClick={() => this.props.deleteCardFromLibrary(this.props.data)}
+        >
+          DELETE
+        </button>
       </div>
     );
 
@@ -94,7 +98,7 @@ export default class PaletteCard extends React.Component {
             elementIsOpen={optionsOpen}
             onRequestClose={this.handleDialogClose}
           >
-            {dialogBox}
+            {optionsDialog}
           </ClickOutside>
           {copyAlert && (
             <div className="copy-alert">Copied to Clipboard</div>

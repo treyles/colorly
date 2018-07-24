@@ -51,7 +51,7 @@ export default class PaletteBuildFooter extends React.Component {
   }
 
   render() {
-    const { palette, checked, title } = this.props;
+    const { palette, checked, title, library } = this.props;
 
     return (
       <div className="footer">
@@ -70,7 +70,7 @@ export default class PaletteBuildFooter extends React.Component {
             value={title}
             className="palette-input"
             type="text"
-            placeholder="Color Palette #4"
+            placeholder={`Color Palette #${library.length + 1}`}
             maxLength="24"
             onKeyDown={this.handleInputBlur}
           />

@@ -1,7 +1,3 @@
-// Rename all image-view, view-image in state and css
-// refactor toggleCopy setTimeout
-// firefox execCommand(copy) not working
-
 import React from 'react';
 import Header from './Header';
 import PaletteCard from './PaletteCard';
@@ -12,54 +8,48 @@ export default class Library extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // copyAlert: false
-      viewImage: false
-      // imageLoaded: false
+      imageSource: null
     };
 
-    // this.toggleCopyAlert = this.toggleCopyAlert.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-    // this.addPaletteToLibrary = this.addPaletteToLibrary.bind(this);
-    this.handleViewImage = this.handleViewImage.bind(this);
+    this.handleImageSource = this.handleImageSource.bind(this);
     this.handleCloseImage = this.handleCloseImage.bind(this);
-    // this.handleOnLoad = this.handleOnLoad.bind(this);
   }
 
-  handleViewImage(url) {
-    console.log(url);
+  handleImageSource(url) {
     this.setState({
-      viewImage: url
+      imageSource: url
     });
   }
 
   handleCloseImage() {
     this.setState({
-      viewImage: false
+      imageSource: null
     });
   }
 
   render() {
-    const { viewImage } = this.state;
-    const { library } = this.props;
+    const { imageSource } = this.state;
+    const { library, currentUser } = this.props;
 
-    const imageViewer = (
+    const viewImage = (
       <div className="image-view">
         <BackButton onClick={this.handleCloseImage} />
-        <LazyImage url={viewImage} />
+        <LazyImage url={imageSource} />
       </div>
     );
 
     return (
       <div className="library">
-        <Header />
+        <Header currentUser={currentUser} library={library} />
         {library.map(palette => (
           <PaletteCard
             key={palette.id}
             data={palette}
-            handleViewImage={this.handleViewImage}
+            handleImageSource={this.handleImageSource}
+            deleteCardFromLibrary={this.props.deleteCardFromLibrary}
           />
         ))}
-        {viewImage && imageViewer}
+        {imageSource && viewImage}
       </div>
     );
   }

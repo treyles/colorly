@@ -1,3 +1,7 @@
+// Alert no colors selected
+// Click for upload option
+// set limitations for file uploads (size and filetype) / rules
+
 // /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -95,6 +99,12 @@ export default class Upload extends React.Component {
     const storageRef = storage.ref(`images/${id}`);
     const upload = storageRef.put(file);
 
+    // set title default if empty
+    const defaultTitle =
+      title.length > 1
+        ? title
+        : `Color Palette #${this.props.library.length + 1}`;
+
     this.setState({
       imageLoaded: false,
       showPreloader: true
@@ -102,8 +112,14 @@ export default class Upload extends React.Component {
 
     upload.then(() => {
       storageRef.getDownloadURL().then(url => {
-        this.props.addPaletteToLibrary({ url, palette, title, id });
-        // navigate to homepage
+        this.props.addCardToLibrary({
+          url,
+          palette,
+          id,
+          title: defaultTitle
+        });
+
+        // exit and navigate to homepage
         this.props.history.push('/');
       });
     });
@@ -161,6 +177,7 @@ export default class Upload extends React.Component {
               title={title}
               savePalette={this.savePalette}
               clearPalette={this.clearPalette}
+              library={this.props.library}
             />
           </div>
         )}
