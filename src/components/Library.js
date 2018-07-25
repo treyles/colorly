@@ -1,3 +1,6 @@
+// padding on bottom for dialog space
+// set media queries for grid breaks
+
 import React from 'react';
 import Header from './Header';
 import PaletteCard from './PaletteCard';

@@ -3,8 +3,6 @@
 // refactor toggleCopy setTimeout
 
 import React from 'react';
-import uuidv4 from 'uuid';
-// import ClickOutside from 'react-click-outside';
 import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
 import Swatch from './Swatch';
@@ -20,16 +18,11 @@ export default class PaletteCard extends React.Component {
     this.handleDialogToggle = this.handleDialogToggle.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.toggleCopyAlert = this.toggleCopyAlert.bind(this);
-    // this.handleModalOpen = this.handleModalOpen.bind(this);
-    // this.handleModalClose = this.handleModalClose.bind(this);
-    // this.rgbToHex = this.rgbToHex.bind(this);
-    // this.handleCopy = this.handleCopy.bind(this);
-    // this.setInputRef = this.setInputRef.bind(this);
   }
 
-  // componentDidMount() {
-  //   console.log('card did mount');
-  // }
+  componentWillUnmount() {
+    clearTimeout(this.alertTimer);
+  }
 
   handleDialogToggle() {
     this.setState({
@@ -49,7 +42,7 @@ export default class PaletteCard extends React.Component {
       copyAlert: true
     });
 
-    setTimeout(() => {
+    this.alertTimer = setTimeout(() => {
       this.setState({
         copyAlert: false
       });
@@ -58,7 +51,6 @@ export default class PaletteCard extends React.Component {
 
   render() {
     const { optionsOpen, copyAlert } = this.state;
-    // const { handleImageSource,}
     const { title, palette, url } = this.props.data;
 
     const optionsDialog = (
@@ -108,71 +100,3 @@ export default class PaletteCard extends React.Component {
     );
   }
 }
-
-// class Swatch extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleCopy = this.handleCopy.bind(this);
-//   }
-
-//   handleCopy() {
-//     this.hex.select();
-//     document.execCommand('copy');
-//   }
-
-//   render() {
-//     const { data } = this.props;
-
-//     return (
-//       <div
-//         key={uuidv4()}
-//         className="swatch"
-//         style={{ background: `${palette[data]}` }}
-//         onClick={this.handleCopy}
-//         onKeyDown={this.handleCopy}
-//         role="button"
-//         tabIndex={0}
-//       >
-//         <div
-//           className="pop-up"
-//           style={{ background: `${palette[data]}` }}
-//         />
-//         <input
-//           ref={ref => (this.hex = ref)}
-//           value={`${palette[data]}`}
-//           readOnly
-//         />
-//       </div>
-//     );
-//   }
-// }
-
-// /* eslint-disable */
-// class Options extends React.Component {
-//   constuctor(props) {
-//     super(props)
-
-//     this.handleClick = this.handleClick.bind(this);
-//   }
-
-//   componentDidMount() {
-//     window.addEventListener('click', this.handleClick);
-//   }
-
-//   componentWillUnmount() {
-//     window.removeEventListener('click', this.handleClick);
-//   }
-
-//   handleClick() {
-
-//   }
-
-//   render() {
-//     return (
-//       <div className="dialog">
-//         <button className="view-image">VIEW IMAGE</button>
-//         <button className="delete">DELETE</button>
-//       </div>
-//     );
-//   }
-// }

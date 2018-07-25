@@ -17,6 +17,13 @@ export default class PaletteBuildFooter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.submitAlert !== this.props.submitAlert) {
+  //     // console.log(this.props.submitAlert);
+
+  //   }
+  // }
+
   setInputRef(ref) {
     this.input = ref;
   }
@@ -51,7 +58,7 @@ export default class PaletteBuildFooter extends React.Component {
   }
 
   render() {
-    const { palette, checked, title, library } = this.props;
+    const { palette, checked, title, library, submitAlert } = this.props;
 
     return (
       <div className="footer">
@@ -138,6 +145,9 @@ export default class PaletteBuildFooter extends React.Component {
           </button>
           <button className="save" onClick={this.handleClick}>
             SAVE PALETTE
+            {submitAlert && (
+              <div className="submit-alert">{submitAlert}</div>
+            )}
           </button>
         </div>
       </div>

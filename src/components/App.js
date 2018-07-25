@@ -4,6 +4,7 @@ import { storage, auth, rebase } from '../utils/base';
 import Upload from './Upload';
 import Library from './Library';
 import Home from './Home';
+import NotFound from './NotFound';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -89,13 +90,19 @@ export default class App extends React.Component {
           />
           <Route
             path="/upload"
-            render={({ history }) => (
-              <Upload
-                history={history}
-                addCardToLibrary={this.addCardToLibrary}
-                library={library}
-              />
-            )}
+            render={({ history }) =>
+              !currentUser ? (
+                <Home />
+              ) : (
+                <Upload
+                  history={history}
+                  addCardToLibrary={this.addCardToLibrary}
+                  library={library}
+                />
+              )}
+          />
+          <Route
+            render={({ history }) => <NotFound history={history} />}
           />
         </Switch>
       </BrowserRouter>

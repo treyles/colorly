@@ -86,6 +86,44 @@ h3 {
 // svg {
 //   margin: 7px 0 0 15px;
 // }
+.not-found {
+  @include flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  // color: #666;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 120px;
+  }
+
+  h2 {
+    font-size: 24px;
+    color: #999;
+    margin-bottom: 6vh;
+  }
+
+  .home-btn {
+    font-family: 'apercu-medium', sans-serif;
+    min-width: 140px;
+    min-height: 45px;
+    background: #2dcb81;
+    margin-bottom: 28px;
+    text-decoration: none;
+    border-radius: 500px;
+    color: #fff;
+    font-size: 13px;
+    padding: 15px 0;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+  }
+}
+
 header {
   z-index: 1;
   position: fixed;
@@ -125,10 +163,10 @@ header {
     span {
       display: inline-block;
       // font-family: 'apercu-regular', sans-serif;
-      color: #666;
+      color: #7c7c7c;
       font-size: 16px;
       user-select: none;
-      margin-right: 9px;
+      margin-right: 8px;
       cursor: pointer;
 
       svg {
@@ -252,6 +290,7 @@ header {
   width: 100%;
   height: 68px;
   font-family: 'apercu-medium', sans-serif;
+  user-select: none;
   // background: transparent;
   // background: #fff;
 
@@ -420,6 +459,7 @@ header {
       font-family: inherit;
       font-size: inherit;
       color: #fff;
+      position: relative;
       // line-height: 11px;
       border: none;
       outline: none;
@@ -429,6 +469,36 @@ header {
       height: 50px;
       box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
       cursor: pointer;
+
+      .submit-alert {
+        @include flex;
+        position: absolute;
+        font-size: 14px;
+        font-family: 'apercu-regular', sans-serif;
+        color: #fff;
+        white-space: nowrap;
+        top: -124%;
+        left: 50%;
+        transform: translateX(-50%);
+        // width: 150px;
+        min-height: 50px;
+        max-height: 50px;
+        padding: 0 20px;
+        background: #393844;
+        // border-radius: 500px;
+        border-radius: 8px;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          margin-left: -6px;
+          border-width: 6px;
+          border-style: solid;
+          border-color: #393844 transparent transparent transparent;
+        }
+      }
     }
   }
 
@@ -541,7 +611,7 @@ header {
       input {
         border: 0;
         z-index: 1;
-        font-family: inherit;
+        font-family: 'apercu-medium', sans-serif;
         color: #fff;
         appearance: none;
         outline: none;
