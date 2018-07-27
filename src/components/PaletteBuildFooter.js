@@ -17,13 +17,6 @@ export default class PaletteBuildFooter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (prevProps.submitAlert !== this.props.submitAlert) {
-  //     // console.log(this.props.submitAlert);
-
-  //   }
-  // }
-
   setInputRef(ref) {
     this.input = ref;
   }

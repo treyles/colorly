@@ -59,8 +59,8 @@ export default class App extends React.Component {
   }
 
   deleteCardFromLibrary(obj) {
-    const { library } = this.state;
-    const storageRef = storage.ref(`images/${obj.id}`);
+    const { library, currentUser } = this.state;
+    const storageRef = storage.ref(`users/${currentUser.uid}/${obj.id}`);
     storageRef.delete();
 
     this.setState({
@@ -98,6 +98,7 @@ export default class App extends React.Component {
                   history={history}
                   addCardToLibrary={this.addCardToLibrary}
                   library={library}
+                  currentUser={currentUser}
                 />
               )}
           />

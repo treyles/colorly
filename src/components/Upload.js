@@ -1,10 +1,8 @@
-// Alert no colors selected
-// remove default palette title for alert instead?
+// signs out after refresh on drop zone page
+// too long? break up into components?
+// rename alerts
 
-// create button for browse option in drop zone
-// set limitations for file uploads (size and filetype) / rules
-
-// /* eslint-disable */
+/* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import uuidv4 from 'uuid';
@@ -18,19 +16,20 @@ export default class Upload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageLoaded: false,
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
+      // refactor as one object? when adding can pass one value
       id: uuidv4(),
       palette: [],
       checked: 'color1',
       title: '',
-      submitAlert: null
+      submitAlert: null,
+      imageAlert: null
     };
 
     // TODO: organize/clean this up
-    this.handleDrop = this.handleDrop.bind(this);
+    this.handleImageLoad = this.handleImageLoad.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.makePalette = this.makePalette.bind(this);
@@ -38,20 +37,11 @@ export default class Upload extends React.Component {
     this.handleTitle = this.handleTitle.bind(this);
     this.clearPalette = this.clearPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
-    // this.submitAlert = this.submitAlert.bind(this);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.alertTimer);
-  }
-
-  handleDrop(e) {
-    e.preventDefault();
-
-    this.setState({
-      imageSource: e.dataTransfer.files[0],
-      imageLoaded: true
-    });
+    clearTimeout(this.submitAlertTimer);
+    clearTimeout(this.imageAlertTimer);
   }
 
   handleDragOver(e) {
@@ -91,6 +81,48 @@ export default class Upload extends React.Component {
     });
   }
 
+  handleImageLoad(e) {
+    e.preventDefault();
+
+    // change scope based on image 'dropped' or 'selected'
+    const imageFile = e.dataTransfer
+      ? e.dataTransfer.files[0]
+      : e.target.files[0];
+
+    // 1 megabyte limit
+    const sizeLimit = 1024 * 3;
+    const fileSize = imageFile.size / 1024;
+    const validTypes = [
+      'image/jpeg',
+      'image/gif',
+      'image/png',
+      'image/svg+xml'
+    ];
+
+    // check for valid image
+    if (!validTypes.includes(imageFile.type)) {
+      this.setState({
+        imageAlert: 'Not a Valid File Type!',
+        dropZoneHover: false
+      });
+
+      this.resetImageLoadAlert();
+      return;
+    }
+
+    if (fileSize > sizeLimit) {
+      this.setState({
+        imageAlert: 'Image Must be Smaller Than 3 MB!',
+        dropZoneHover: false
+      });
+
+      this.resetImageLoadAlert();
+      return;
+    }
+
+    this.setState({ imageSource: imageFile });
+  }
+
   makePalette(color) {
     const { palette, checked } = this.state;
     const newColor = { [checked]: rgbToHex(color) };
@@ -101,7 +133,8 @@ export default class Upload extends React.Component {
   }
 
   savePalette() {
-    const { palette, title, id } = this.state;
+    const { palette, title, id, imageSource } = this.state;
+    const { currentUser } = this.props;
 
     // check for empty values
     if (!Object.keys(palette).length || !title.length) {
@@ -109,22 +142,26 @@ export default class Upload extends React.Component {
       return;
     }
 
-    this.setState({
-      imageLoaded: false,
-      showPreloader: true
-    });
+    const storageRef = storage.ref(`users/${currentUser.uid}/${id}`);
+    const upload = storageRef.put(imageSource);
 
-    const file = this.state.imageSource;
-    const storageRef = storage.ref(`images/${id}`);
-    const upload = storageRef.put(file);
-
-    upload.then(() => {
-      storageRef.getDownloadURL().then(url => {
-        this.props.addCardToLibrary({ url, palette, id, title });
-
-        // exit and navigate to homepage
+    upload
+      .then(() => {
+        storageRef.getDownloadURL().then(url => {
+          this.props.addCardToLibrary({ url, palette, id, title });
+          // navigate to homepage
+          this.props.history.push('/');
+        });
+      })
+      .catch(err => {
+        alert(err.code);
+        // navigate to homepage
         this.props.history.push('/');
       });
+
+    this.setState({
+      imageSource: false,
+      showPreloader: true
     });
   }
 
@@ -133,48 +170,70 @@ export default class Upload extends React.Component {
 
     let alert;
     if (!Object.keys(palette).length) {
-      alert = 'You Need At Least One Color!';
+      alert = 'Palette Is Empty!';
     } else {
-      alert = 'Enter A Title!';
+      alert = 'Title Required!';
     }
 
     this.setState({
       submitAlert: alert
     });
 
-    this.resetAlert();
+    this.resetSubmitAlert();
   }
 
-  resetAlert() {
-    this.alertTimer = setTimeout(() => {
+  resetSubmitAlert() {
+    this.submitAlertTimer = setTimeout(() => {
       this.setState({
         submitAlert: null
       });
     }, 1500);
   }
 
+  resetImageLoadAlert() {
+    this.imageAlertTimer = setTimeout(() => {
+      this.setState({
+        imageAlert: null
+      });
+    }, 1500);
+  }
+
   render() {
     const {
-      imageLoaded,
       imageSource,
       dropZoneHover,
       showPreloader,
       palette,
       checked,
       title,
-      submitAlert
+      submitAlert,
+      imageAlert
     } = this.state;
-
-    const placeholder = (
-      <div className="placeholder">
-        <h1>Drag and Drop Image Here</h1>
-        <h3>JPG, SVG, or PNG no larger than 900kb</h3>
-      </div>
-    );
 
     const preloader = (
       <div className="preloader-wrapper">
         <span className="preloader">Loading</span>
+      </div>
+    );
+
+    const placeholder = (
+      <div className="placeholder">
+        <label htmlFor="file-browse" className={imageAlert && 'alert'}>
+          {imageAlert ? (
+            <h1>{imageAlert}</h1>
+          ) : (
+            <div>
+              <h1>Drag and Drop Image Here</h1>
+              <h3>JPG, GIF, PNG or SVG no larger than 3 MB</h3>
+            </div>
+          )}
+        </label>
+        <input
+          id="file-browse"
+          type="file"
+          accept="image/*"
+          onChange={this.handleImageLoad}
+        />
       </div>
     );
 
@@ -183,12 +242,12 @@ export default class Upload extends React.Component {
         <Link to="/">
           <BackButton />
         </Link>
-        {!imageLoaded ? (
+        {!imageSource ? (
           <div
             className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
             onDragOver={this.handleDragOver}
             onDragLeave={this.handleDragLeave}
-            onDrop={this.handleDrop}
+            onDrop={this.handleImageLoad}
           >
             {!showPreloader && placeholder}
           </div>
