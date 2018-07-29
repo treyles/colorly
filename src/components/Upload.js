@@ -1,16 +1,15 @@
-// signs out after refresh on drop zone page
-// too long? break up into components?
-// rename alerts
+// group palette card data into one object in state
+// signs out after refresh on drop zone page??
 
-/* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import uuidv4 from 'uuid';
 import { storage } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import BackButton from './BackButton';
 import Canvas from './Canvas';
-import rgbToHex from '../utils/rgbToHex';
+import DropZoneContent from './DropZoneContent';
 
 export default class Upload extends React.Component {
   constructor(props) {
@@ -19,7 +18,7 @@ export default class Upload extends React.Component {
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
-      // refactor as one object? when adding can pass one value
+      // TODO: refactor as one object? when adding can pass one value
       id: uuidv4(),
       palette: [],
       checked: 'color1',
@@ -28,13 +27,12 @@ export default class Upload extends React.Component {
       imageAlert: null
     };
 
-    // TODO: organize/clean this up
-    this.handleImageLoad = this.handleImageLoad.bind(this);
+    this.setCheckedColor = this.setCheckedColor.bind(this);
+    this.setPaletteTitle = this.setPaletteTitle.bind(this);
+    this.handleImageDrop = this.handleImageDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
     this.makePalette = this.makePalette.bind(this);
-    this.handlePaletteSelect = this.handlePaletteSelect.bind(this);
-    this.handleTitle = this.handleTitle.bind(this);
     this.clearPalette = this.clearPalette.bind(this);
     this.savePalette = this.savePalette.bind(this);
   }
@@ -44,44 +42,25 @@ export default class Upload extends React.Component {
     clearTimeout(this.imageAlertTimer);
   }
 
+  setCheckedColor(e) {
+    this.setState({ checked: e.target.id });
+  }
+
+  setPaletteTitle(e) {
+    this.setState({ title: e.target.value });
+  }
+
   handleDragOver(e) {
     e.preventDefault();
-
-    this.setState({
-      dropZoneHover: true
-    });
+    this.setState({ dropZoneHover: true });
   }
 
   handleDragLeave(e) {
     e.preventDefault();
-
-    this.setState({
-      dropZoneHover: false
-    });
+    this.setState({ dropZoneHover: false });
   }
 
-  // TODO: not 'handle'?, makePalette, handleTitle does same thing?
-  handlePaletteSelect(e) {
-    this.setState({
-      checked: e.target.id
-    });
-  }
-
-  // TODO: figure out these method names, in child component too.
-  handleTitle(e) {
-    this.setState({
-      title: e.target.value
-    });
-  }
-
-  clearPalette() {
-    this.setState({
-      palette: {},
-      checked: 'color1'
-    });
-  }
-
-  handleImageLoad(e) {
+  handleImageDrop(e) {
     e.preventDefault();
 
     // change scope based on image 'dropped' or 'selected'
@@ -89,7 +68,7 @@ export default class Upload extends React.Component {
       ? e.dataTransfer.files[0]
       : e.target.files[0];
 
-    // 1 megabyte limit
+    // 3 megabyte limit
     const sizeLimit = 1024 * 3;
     const fileSize = imageFile.size / 1024;
     const validTypes = [
@@ -125,10 +104,17 @@ export default class Upload extends React.Component {
 
   makePalette(color) {
     const { palette, checked } = this.state;
-    const newColor = { [checked]: rgbToHex(color) };
+    const newColor = { [checked]: color };
 
     this.setState({
       palette: { ...palette, ...newColor }
+    });
+  }
+
+  clearPalette() {
+    this.setState({
+      palette: {},
+      checked: 'color1'
     });
   }
 
@@ -138,7 +124,7 @@ export default class Upload extends React.Component {
 
     // check for empty values
     if (!Object.keys(palette).length || !title.length) {
-      this.activateAlert();
+      this.activateSubmitAlert();
       return;
     }
 
@@ -165,7 +151,7 @@ export default class Upload extends React.Component {
     });
   }
 
-  activateAlert() {
+  activateSubmitAlert() {
     const { palette } = this.state;
 
     let alert;
@@ -175,30 +161,24 @@ export default class Upload extends React.Component {
       alert = 'Title Required!';
     }
 
-    this.setState({
-      submitAlert: alert
-    });
-
+    this.setState({ submitAlert: alert });
     this.resetSubmitAlert();
   }
 
   resetSubmitAlert() {
     this.submitAlertTimer = setTimeout(() => {
-      this.setState({
-        submitAlert: null
-      });
+      this.setState({ submitAlert: null });
     }, 1500);
   }
 
   resetImageLoadAlert() {
     this.imageAlertTimer = setTimeout(() => {
-      this.setState({
-        imageAlert: null
-      });
+      this.setState({ imageAlert: null });
     }, 1500);
   }
 
   render() {
+    // TODO: destructure palette object
     const {
       imageSource,
       dropZoneHover,
@@ -216,27 +196,6 @@ export default class Upload extends React.Component {
       </div>
     );
 
-    const placeholder = (
-      <div className="placeholder">
-        <label htmlFor="file-browse" className={imageAlert && 'alert'}>
-          {imageAlert ? (
-            <h1>{imageAlert}</h1>
-          ) : (
-            <div>
-              <h1>Drag and Drop Image Here</h1>
-              <h3>JPG, GIF, PNG or SVG no larger than 3 MB</h3>
-            </div>
-          )}
-        </label>
-        <input
-          id="file-browse"
-          type="file"
-          accept="image/*"
-          onChange={this.handleImageLoad}
-        />
-      </div>
-    );
-
     return (
       <div className="upload-section">
         <Link to="/">
@@ -247,9 +206,14 @@ export default class Upload extends React.Component {
             className={`drop-zone ${dropZoneHover ? 'dragover' : ''}`}
             onDragOver={this.handleDragOver}
             onDragLeave={this.handleDragLeave}
-            onDrop={this.handleImageLoad}
+            onDrop={this.handleImageDrop}
           >
-            {!showPreloader && placeholder}
+            {!showPreloader && (
+              <DropZoneContent
+                imageAlert={imageAlert}
+                handleImageDrop={this.handleImageDrop}
+              />
+            )}
           </div>
         ) : (
           <div className="canvas-container">
@@ -259,9 +223,9 @@ export default class Upload extends React.Component {
             />
             <PaletteBuildFooter
               palette={palette}
-              handlePaletteSelect={this.handlePaletteSelect}
+              setCheckedColor={this.setCheckedColor}
               checked={checked}
-              handleTitle={this.handleTitle}
+              setPaletteTitle={this.setPaletteTitle}
               title={title}
               savePalette={this.savePalette}
               clearPalette={this.clearPalette}
@@ -275,3 +239,10 @@ export default class Upload extends React.Component {
     );
   }
 }
+
+Upload.propTypes = {
+  library: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentUser: PropTypes.shape({ uid: PropTypes.string }).isRequired,
+  addCardToLibrary: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired // eslint-disable-line
+};

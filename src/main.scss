@@ -737,6 +737,7 @@ header {
       width: 117px;
       height: 60px;
       box-shadow: 2px -1px 10px 2px rgba(0, 0, 0, 0.05);
+      user-select: none;
       overflow: hidden;
 
       .image-view-btn {
@@ -822,7 +823,7 @@ header {
     background: #c9c9c9;
     transition: 0.3s ease;
 
-    .placeholder {
+    .drop-zone-content {
       width: 100%;
       height: 100%;
       user-select: none;
@@ -876,7 +877,7 @@ header {
     }
 
     &.dragover {
-      .placeholder {
+      .drop-zone-content {
         transform: scale(1.1);
       }
     }

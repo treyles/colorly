@@ -5,41 +5,38 @@ import Icon from '../utils/Icon';
 export default class PaletteBuildFooter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      footerActive: false
-    };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleInputFocus = this.handleInputFocus.bind(this);
-    this.handleInputBlur = this.handleInputBlur.bind(this);
-    this.setInputRef = this.setInputRef.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleTitleIconClick = this.handleTitleIconClick.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.setTitleInputRef = this.setTitleInputRef.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  setInputRef(ref) {
-    this.input = ref;
+  setTitleInputRef(ref) {
+    this.titleInput = ref;
   }
 
   handleChange(e) {
-    this.props.handlePaletteSelect(e);
+    this.props.setCheckedColor(e);
   }
 
-  handleInputChange(e) {
-    this.props.handleTitle(e);
+  handleTitleChange(e) {
+    this.props.setPaletteTitle(e);
   }
 
-  handleInputFocus() {
-    this.input.focus();
+  handleTitleIconClick() {
+    this.titleInput.focus();
   }
 
-  handleInputBlur(e) {
+  handleKeyDown(e) {
     if (e.keyCode === 13) {
-      this.input.blur();
+      this.titleInput.blur();
     }
   }
 
-  handleClick(e) {
+  handleButtonClick(e) {
     const button = e.target.className;
 
     if (button === 'save') {
@@ -57,22 +54,22 @@ export default class PaletteBuildFooter extends React.Component {
       <div className="footer">
         <div className="palette-name">
           <span
-            onClick={this.handleInputFocus}
-            onKeyDown={this.handleInputFocus}
+            onClick={this.handleTitleIconClick}
+            onKeyDown={this.handleTitleIconClick}
             role="button"
             tabIndex="0"
           >
             <Icon icon="pencil" />
           </span>
           <input
-            ref={this.setInputRef}
-            onChange={this.handleInputChange}
+            ref={this.setTitleInputRef}
+            onChange={this.handleTitleChange}
             value={title}
             className="palette-input"
             type="text"
             placeholder={`Color Palette #${library.length + 1}`}
             maxLength="24"
-            onKeyDown={this.handleInputBlur}
+            onKeyDown={this.handleKeyDown}
           />
         </div>
         <div className="palette-colors">
@@ -133,10 +130,10 @@ export default class PaletteBuildFooter extends React.Component {
           />
         </div>
         <div className="palette-buttons">
-          <button className="clear" onClick={this.handleClick}>
+          <button className="clear" onClick={this.handleButtonClick}>
             RESET
           </button>
-          <button className="save" onClick={this.handleClick}>
+          <button className="save" onClick={this.handleButtonClick}>
             SAVE PALETTE
             {submitAlert && (
               <div className="submit-alert">{submitAlert}</div>

@@ -1,4 +1,4 @@
-export default function rgbToHex(rgb) {
+export function rgbToHex(rgb) {
   const colorValues = rgb
     .replace(/^rgb?\(|\s+|\)$/g, '')
     .split(',')
@@ -12,4 +12,13 @@ export default function rgbToHex(rgb) {
     .join('');
 
   return `#${hexResult}`.toUpperCase();
+}
+
+export function parseRgb(str) {
+  const match = str.match(
+    /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
+  );
+  return match
+    ? [Number(match[1]), Number(match[2]), Number(match[3])]
+    : [];
 }

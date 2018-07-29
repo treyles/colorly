@@ -23,6 +23,7 @@
       {
         "specialLink": ["hrefLeft", "hrefRight", "to"]
       }
-    ]
+    ],
+    "no-alert": "off"
   }
 }

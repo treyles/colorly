@@ -17,11 +17,11 @@ export default class PaletteCard extends React.Component {
 
     this.handleDialogToggle = this.handleDialogToggle.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
-    this.toggleCopyAlert = this.toggleCopyAlert.bind(this);
+    this.activateCopyAlert = this.activateCopyAlert.bind(this);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.alertTimer);
+    clearTimeout(this.copyAlertTimer);
   }
 
   handleDialogToggle() {
@@ -36,16 +36,14 @@ export default class PaletteCard extends React.Component {
     });
   }
 
-  // TODO: refactor
-  toggleCopyAlert() {
-    this.setState({
-      copyAlert: true
-    });
+  activateCopyAlert() {
+    this.setState({ copyAlert: true });
+    this.resetCopyAlert();
+  }
 
-    this.alertTimer = setTimeout(() => {
-      this.setState({
-        copyAlert: false
-      });
+  resetCopyAlert() {
+    this.copyAlertTimer = setTimeout(() => {
+      this.setState({ copyAlert: false });
     }, 1500);
   }
 
@@ -77,7 +75,7 @@ export default class PaletteCard extends React.Component {
             <Swatch
               key={index}
               color={palette[el]}
-              toggleCopyAlert={this.toggleCopyAlert}
+              activateCopyAlert={this.activateCopyAlert}
             />
           ))}
         </div>
