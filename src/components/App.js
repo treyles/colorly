@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { storage, auth, rebase } from '../utils/base';
+import { storage, auth, rebase, database } from '../utils/base';
 import Upload from './Upload';
 import Library from './Library';
 import Home from './Home';
@@ -11,12 +11,17 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       currentUser: null,
-      library: []
+      library: [],
+      loading: true,
+      isNewUser: false
     };
 
     this.refresh = JSON.parse(localStorage.getItem('authenticated'));
     this.addCardToLibrary = this.addCardToLibrary.bind(this);
     this.deleteCardFromLibrary = this.deleteCardFromLibrary.bind(this);
+    this.signInUser = this.signInUser.bind(this);
+    this.closeNewUserDialog = this.closeNewUserDialog.bind(this);
+    this.addDemoPalettes = this.addDemoPalettes.bind(this);
   }
 
   // if previously logged in, prevent homepage from momentarily appearing on refresh
@@ -44,11 +49,22 @@ export default class App extends React.Component {
     rebase.syncState(`users/${currentUser.uid}`, {
       context: this,
       state: 'library',
-      asArray: true
-      // then() {
-      //   this.setState({ loading: false });
-      // }
+      asArray: true,
+      then() {
+        this.setState({ loading: false });
+      }
     });
+  }
+
+  signInUser(provider) {
+    auth
+      .signInWithPopup(provider)
+      .then(result => {
+        this.setState({
+          isNewUser: result.additionalUserInfo.isNewUser
+        });
+      })
+      .catch(error => console.log(error));
   }
 
   addCardToLibrary(obj) {
@@ -68,8 +84,25 @@ export default class App extends React.Component {
     });
   }
 
+  addDemoPalettes() {
+    database
+      .ref('demo/')
+      .once('value')
+      .then(snapshot =>
+        this.setState({
+          library: snapshot.val()
+        })
+      );
+
+    this.closeNewUserDialog();
+  }
+
+  closeNewUserDialog() {
+    this.setState({ isNewUser: false });
+  }
+
   render() {
-    const { library, currentUser } = this.state;
+    const { library, currentUser, loading, isNewUser } = this.state;
 
     return (
       <BrowserRouter>
@@ -77,14 +110,19 @@ export default class App extends React.Component {
           <Route
             exact
             path="/"
-            render={() =>
+            render={({ history }) =>
               !currentUser ? (
-                <Home />
+                <Home signInUser={this.signInUser} />
               ) : (
                 <Library
                   library={library}
                   currentUser={currentUser}
                   deleteCardFromLibrary={this.deleteCardFromLibrary}
+                  loading={loading}
+                  isNewUser={isNewUser}
+                  closeNewUserDialog={this.closeNewUserDialog}
+                  history={history}
+                  addDemoPalettes={this.addDemoPalettes}
                 />
               )}
           />

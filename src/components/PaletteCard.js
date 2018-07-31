@@ -55,7 +55,7 @@ export default class PaletteCard extends React.Component {
       <div className="options-dialog">
         <button
           className="image-view-btn"
-          onClick={() => this.props.handleImageSource(url)}
+          onClick={() => this.props.setImageSource(url)}
         >
           VIEW IMAGE
         </button>

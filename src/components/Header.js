@@ -13,24 +13,13 @@ export default class Header extends React.Component {
       profileOpen: false
     };
 
-    this.handleSignOut = this.handleSignOut.bind(this);
-    this.handleDialogToggle = this.handleDialogToggle.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleSignOutClick = this.handleSignOutClick.bind(this);
+    this.handleDialogToggleClick = this.handleDialogToggleClick.bind(this);
+    this.handleAddPaletteClick = this.handleAddPaletteClick.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
-  handleDialogToggle() {
-    this.setState({
-      profileOpen: !this.state.profileOpen
-    });
-  }
-
-  handleDialogClose() {
-    this.setState({
-      profileOpen: false
-    });
-  }
-
-  handleSignOut() {
+  handleSignOutClick() {
     firebase
       .auth()
       .signOut()
@@ -38,6 +27,26 @@ export default class Header extends React.Component {
         console.log('signed out');
         localStorage.setItem('authenticated', false);
       });
+  }
+
+  handleDialogToggleClick() {
+    this.setState({
+      profileOpen: !this.state.profileOpen
+    });
+  }
+
+  handleAddPaletteClick() {
+    if (this.props.isNewUser) {
+      this.props.closeNewUserDialog();
+    }
+
+    this.props.history.push('/upload');
+  }
+
+  closeDialog() {
+    this.setState({
+      profileOpen: false
+    });
   }
 
   render() {
@@ -50,7 +59,7 @@ export default class Header extends React.Component {
           <span className="count">{library.length}</span>
           {library.length !== 1 ? 'PALETTES' : 'PALETTE'}
         </div>
-        <button className="sign-out" onClick={this.handleSignOut}>
+        <button className="sign-out" onClick={this.handleSignOutClick}>
           SIGN OUT
         </button>
       </div>
@@ -63,27 +72,27 @@ export default class Header extends React.Component {
             <div className="profile-image">
               {currentUser.photoURL && <img src={currentUser.photoURL} />}
             </div>
-            <span onClick={this.handleDialogToggle}>
+            <span onClick={this.handleDialogToggleClick}>
               {currentUser.displayName}
             </span>
-            <span onClick={this.handleDialogToggle}>
+            <span onClick={this.handleDialogToggleClick}>
               <Icon icon="down" />
             </span>
             <ClickOutside
               elementIsOpen={profileOpen}
-              onRequestClose={this.handleDialogClose}
+              onRequestClose={this.closeDialog}
             >
               {profileDialog}
             </ClickOutside>
           </div>
-          <Link to="/upload">
-            <button className="add">
-              {/* <span>
+          {/* <Link to="/upload"> */}
+          <button className="add" onClick={this.handleAddPaletteClick}>
+            {/* <span>
                 <Icon icon="add" />
               </span> */}
-              ADD PALETTE
-            </button>
-          </Link>
+            ADD PALETTE
+          </button>
+          {/* </Link> */}
         </div>
         <div className="header-logo">
           <h2>Colorly</h2>
