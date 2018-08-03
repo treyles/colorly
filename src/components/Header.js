@@ -88,19 +88,15 @@ export default class Header extends React.Component {
               {profileDialog}
             </ClickOutside>
           </div>
-          {/* <Link to="/upload"> */}
           <button className="add" onClick={this.handleAddPaletteClick}>
-            {/* <span>
-                <Icon icon="add" />
-              </span> */}
             ADD PALETTE
           </button>
-          {/* </Link> */}
         </div>
         <div
           className="header-logo"
           style={{
-            opacity: `${animateHeader ? 0 : ''}`,
+            opacity: `${animateHeader ? 0 : 1}`,
+            transform: `${animateHeader ? 'translateY(-15px)' : 'none'}`,
             visibility: `${animateHeader ? 'hidden' : 'visible'}`
           }}
         >

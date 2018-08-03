@@ -130,7 +130,7 @@ export default class App extends React.Component {
             path="/upload"
             render={({ history }) =>
               !currentUser ? (
-                <Home />
+                <Home signInUser={this.signInUser} />
               ) : (
                 <Upload
                   history={history}

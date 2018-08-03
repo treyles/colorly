@@ -62,6 +62,10 @@ export default class Library extends React.Component {
       history
     } = this.props;
 
+    const placeholders = [...Array(10)].map((_, i) => (
+      <div key={i} className="placeholder" />
+    ));
+
     const viewImage = (
       <div className="image-view">
         <BackButton onClick={this.handleCloseImageClick} />
@@ -69,13 +73,13 @@ export default class Library extends React.Component {
       </div>
     );
 
-    const emptyLibrary = (
+    const emptyMessage = (
       <div className="empty-library">
         <h3>Empty Palette Collection!</h3>
       </div>
     );
 
-    const newUser = (
+    const newUserDialog = (
       <div className="new-user">
         <Icon icon="handWave" />
         <h3>Hey! It Looks Like You’re New</h3>
@@ -116,9 +120,10 @@ export default class Library extends React.Component {
             deleteCardFromLibrary={this.props.deleteCardFromLibrary}
           />
         ))}
+        {loading && placeholders}
         {imageSource && viewImage}
-        {!library.length && !loading && emptyLibrary}
-        {isNewUser && newUser}
+        {!library.length && !loading && emptyMessage}
+        {isNewUser && newUserDialog}
       </div>
     );
   }
