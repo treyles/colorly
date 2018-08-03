@@ -12,12 +12,22 @@ export default class Library extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageSource: null
+      imageSource: null,
+      animateHeader: false
       // isNewUser: true
     };
 
     this.setImageSource = this.setImageSource.bind(this);
     this.handleCloseImageClick = this.handleCloseImageClick.bind(this);
+    this.scrollPosition = this.scrollPosition.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollPosition);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollPosition);
   }
 
   setImageSource(url) {
@@ -28,8 +38,22 @@ export default class Library extends React.Component {
     this.setState({ imageSource: null });
   }
 
+  scrollPosition() {
+    if (window.scrollY > 40) {
+      this.setState({
+        animateHeader: true
+      });
+    }
+
+    if (window.scrollY < 40) {
+      this.setState({
+        animateHeader: false
+      });
+    }
+  }
+
   render() {
-    const { imageSource } = this.state;
+    const { imageSource, animateHeader } = this.state;
     const {
       library,
       currentUser,
@@ -82,6 +106,7 @@ export default class Library extends React.Component {
           isNewUser={isNewUser}
           history={history}
           closeNewUserDialog={this.props.closeNewUserDialog}
+          animateHeader={animateHeader}
         />
         {library.map(palette => (
           <PaletteCard

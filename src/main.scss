@@ -77,6 +77,17 @@ h4 {
   padding: 0;
 }
 
+@mixin desktop {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin grid-break($width, $columns) {
+  @media only screen and (min-width: $width) {
+    grid-template-columns: repeat($columns, 1fr);
+  }
+}
 // .title {
 //   font-family: 'helvetica', 'arial', sans-serif;
 //   font-size: 20px;
@@ -137,17 +148,23 @@ h4 {
 
   .hero-text-container {
     @include flex;
-    width: 40%;
-    min-width: 460px;
-    // background: #fff;
-    // padding: 0 40px;
-    // border-radius: 500px;
-    // border-radius: 5px;
-    padding: 0 0 0 80px;
-    // padding: 80px;
+    width: 100%;
+    padding: 60px 0;
 
+    @include desktop {
+      width: 40%;
+      min-width: 460px;
+      padding: 0 0 0 80px;
+    }
+
+    // TODO: just take out contents out of .content?
     .content {
-      // background: #eee;
+      padding: 0 50px;
+
+      @include desktop {
+        padding: 0;
+        min-width: 342px;
+      }
 
       h1 {
         font-family: 'apercu-medium', sans-serif;
@@ -158,14 +175,14 @@ h4 {
 
       .pitch {
         color: #6c6c6c;
-        width: 418px;
+        max-width: 418px; //
         line-height: 33px;
         margin-top: 40px;
         margin-bottom: 65px;
       }
 
       .buttons {
-        width: 418px;
+        max-width: 418px;
 
         button {
           // position: relative;
@@ -176,12 +193,17 @@ h4 {
           border: none;
           outline: none;
           border-radius: 500px;
-          width: 342px;
+          // width: 342px;
+          width: 100%;
           height: 50px;
           // padding: 15px 0;
           margin: 10px 0;
           cursor: pointer;
           box-shadow: 2px 5px 11px rgba(0, 0, 0, 0.15);
+
+          @include desktop {
+            width: 342px;
+          }
         }
 
         .twitter-login {
@@ -208,15 +230,16 @@ h4 {
   }
 
   .hero-image {
+    display: none;
     width: 60%;
-    // min-width: 870px;
     height: 100%;
-    // height: 50px;
-    // background: teal;
     background-image: url('assets/hero-image.png');
     background-size: cover;
     background-repeat: no-repeat;
-    // overflow: hidden;
+
+    @include desktop {
+      display: block;
+    }
   }
 }
 
@@ -227,14 +250,19 @@ header {
   left: 0;
   font-family: 'apercu-regular', sans-serif;
   width: 100%;
-  background: #f7f7f7;
 }
 
 .header-top {
   // z-index: 1;
-  @include flex(space-between, center);
+  @include flex;
   height: 75px;
   padding: 0 32px;
+  background-color: #f7f7f7;
+  transition: background-color 0.3s ease;
+
+  @include desktop {
+    @include flex(space-between, center);
+  }
 
   .profile {
     @include flex;
@@ -275,20 +303,23 @@ header {
 
     .profile-dialog {
       @include flex(space-between, center);
-      // font-family: 'apercu-regular', sans-serif;
       flex-direction: column;
       position: absolute;
       font-family: inherit;
       border-radius: 8px;
       bottom: -74px;
-      left: 0;
-      // bottom: -53px;
-      // right: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 137px;
       height: 60px;
       overflow: hidden;
       user-select: none;
-      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 2px 0px 10px 1px rgba(0, 0, 0, 0.08);
+
+      @include desktop {
+        left: 0;
+        transform: translateX(0);
+      }
 
       .palette-count {
         flex-grow: 1;
@@ -340,6 +371,7 @@ header {
   }
 
   .add {
+    display: none;
     position: relative;
     background: #2dcb81;
     font-family: 'apercu-medium', sans-serif;
@@ -348,22 +380,15 @@ header {
     border: none;
     outline: none;
     border-radius: 500px;
-    // border-radius: 5px;
-    // width: 152px;
-    // width: 160px;
     width: 150px;
-    // height: 50px;
     height: 45px;
-    // padding-left: 26px;
-    // padding: 15px 0 15px 18px;
     padding: 15px 0;
     cursor: pointer;
     box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
-    // transition: box-shadow 0.2s ease;
 
-    // &:hover {
-    //   box-shadow: none;
-    // }
+    @include desktop {
+      display: block;
+    }
 
     span {
       position: absolute;
@@ -388,7 +413,7 @@ header {
   font-family: 'apercu-medium', sans-serif;
   user-select: none;
   // background: transparent;
-  // background: #fff;
+  transition: 0.3s ease;
 
   h2 {
     display: inline-block;
@@ -509,25 +534,31 @@ header {
   left: 50%;
   transform: translate(-50%, -50%);
   color: #999;
-  // @include flex;
-  // position: absolute;
-  // width: 100%;
-  // height: 100%;
-  // padding-top: 190px;
 }
 
 .library {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  // grid-gap: 40px;
+  // grid-template-columns: repeat(3, 1fr);
+  // grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+
+  @include flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   width: 100%;
   height: 100%;
-  // padding-top: 152px;
-  padding-top: 190px;
-  padding-left: 32px;
-  padding-right: 32px;
-  // background: peru;
+  padding: 190px 32px 32px 32px;
+
+  @include desktop {
+    @supports (display: grid) {
+      display: grid;
+      justify-items: center;
+      // grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      @include grid-break(768px, 2);
+      @include grid-break(938px, 3);
+      @include grid-break(1280px, 4);
+      @include grid-break(1620px, 5);
+      @include grid-break(2320px, 6);
+    }
+  }
 
   .image-view {
     z-index: 999;

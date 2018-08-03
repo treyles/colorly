@@ -51,7 +51,7 @@ export default class Header extends React.Component {
 
   render() {
     const { profileOpen } = this.state;
-    const { currentUser, library } = this.props;
+    const { currentUser, library, animateHeader } = this.props;
 
     const profileDialog = (
       <div className="profile-dialog">
@@ -67,7 +67,10 @@ export default class Header extends React.Component {
 
     return (
       <header>
-        <div className="header-top">
+        <div
+          className="header-top"
+          style={{ backgroundColor: `${animateHeader ? '#fff' : ''}` }}
+        >
           <div className="profile">
             <div className="profile-image">
               {currentUser.photoURL && <img src={currentUser.photoURL} />}
@@ -94,7 +97,13 @@ export default class Header extends React.Component {
           </button>
           {/* </Link> */}
         </div>
-        <div className="header-logo">
+        <div
+          className="header-logo"
+          style={{
+            opacity: `${animateHeader ? 0 : ''}`,
+            visibility: `${animateHeader ? 'hidden' : 'visible'}`
+          }}
+        >
           <h2>Colorly</h2>
           <span>
             <Icon icon="logo" />
@@ -104,3 +113,6 @@ export default class Header extends React.Component {
     );
   }
 }
+
+// style={{ background: `${animateHeader ? '#fff' : ''}` }}
+// style={{ opacity: `${animateHeader ? 0 : ''}` }}
