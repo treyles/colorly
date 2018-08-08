@@ -1,11 +1,8 @@
-// TODO: clean up unused icons and properties
-
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Icon extends React.Component {
   render() {
-    const { icon, color } = this.props;
-
     const svg = {
       logo: () => (
         <svg
@@ -14,7 +11,6 @@ export default class Icon extends React.Component {
           viewBox="0 0 38 16"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <g
             id="Welcome"
@@ -49,9 +45,7 @@ export default class Icon extends React.Component {
       upload: () => (
         <svg
           version="1.1"
-          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
           y="0px"
           width="92px"
@@ -78,9 +72,7 @@ export default class Icon extends React.Component {
       upload2: () => (
         <svg
           version="1.1"
-          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
           y="0px"
           width="92px"
@@ -102,9 +94,7 @@ export default class Icon extends React.Component {
       pencil: () => (
         <svg
           version="1.1"
-          // id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
           x="0px"
           y="0px"
           width="92px"
@@ -130,7 +120,6 @@ export default class Icon extends React.Component {
           viewBox="0 0 38 62"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <path
             d="M36.0926649,54.6340597 C37.8532827,56.2353511 37.8532827,59.0109228 36.2027035,60.7189669 C35.3223946,61.572989 34.1119699,62 33.0115837,62 C31.9111976,62 30.8108115,61.572989 29.9305026,60.8257197 L1.32046335,34.1375303 C0.44015445,33.2835082 0,32.2159806 0,31.0417003 C0,29.86742 0.44015445,28.7998924 1.32046335,27.9458703 L29.9305026,1.25768093 C31.6911204,-0.343610439 34.4420857,-0.343610439 36.2027035,1.36443368 C37.8532827,3.0724778 37.8532827,5.74129674 36.0926649,7.44934087 L10.783784,31.0417003 L36.0926649,54.6340597 Z"
@@ -164,7 +153,6 @@ export default class Icon extends React.Component {
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle fill="#23B26F" cx="13" cy="13" r="13" />
-          {/* <circle fill="#17AB66" cx="13" cy="13" r="13" /> */}
           <path
             fill="#2DCB81"
             d="M18,13.0943396 C18,13.5632075 17.6198113,13.9433962 17.1509434,13.9433962 L13.754717,13.9433962 L13.754717,17.1509434 C13.754717,17.6198113 13.3745283,18 12.9056604,18 C12.4367925,18 12.0566038,17.6198113 12.0566038,17.1509434 L12.0566038,13.9433962 L8.8490566,13.9433962 C8.38018868,13.9433962 8,13.5632075 8,13.0943396 C8,12.6254717 8.38018868,12.245283 8.8490566,12.245283 L12.0566038,12.245283 L12.0566038,8.8490566 C12.0566038,8.38018868 12.4367925,8 12.9056604,8 C13.3745283,8 13.754717,8.38018868 13.754717,8.8490566 L13.754717,12.245283 L17.1509434,12.245283 C17.6198113,12.245283 18,12.6254717 18,13.0943396"
@@ -198,7 +186,6 @@ export default class Icon extends React.Component {
           height="76"
           viewBox="0 0 128 128"
           xmlns="http://www.w3.org/2000/svg"
-          // xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <g>
             <path
@@ -246,6 +233,10 @@ export default class Icon extends React.Component {
       )
     };
 
-    return svg[icon]();
+    return svg[this.props.icon]();
   }
 }
+
+Icon.propTypes = {
+  icon: PropTypes.string.isRequired
+};

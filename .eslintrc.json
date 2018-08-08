@@ -18,12 +18,14 @@
     "react/jsx-filename-extension": "off",
     "import/no-extraneous-dependencies": "off",
     "jsx-a11y/label-has-for": 0,
+    "react/no-array-index-key": "off",
+    "no-alert": "off",
+    "class-methods-use-this": "warn",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
         "specialLink": ["hrefLeft", "hrefRight", "to"]
       }
-    ],
-    "no-alert": "off"
+    ]
   }
 }

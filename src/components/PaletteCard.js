@@ -1,8 +1,5 @@
-// native way to set space between grid?
-// change color of text light or dark based on bg color
-// refactor toggleCopy setTimeout
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
 import Swatch from './Swatch';
@@ -15,8 +12,8 @@ export default class PaletteCard extends React.Component {
       copyAlert: false
     };
 
-    this.handleDialogToggle = this.handleDialogToggle.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleDialogToggleClick = this.handleDialogToggleClick.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
     this.activateCopyAlert = this.activateCopyAlert.bind(this);
   }
 
@@ -24,13 +21,13 @@ export default class PaletteCard extends React.Component {
     clearTimeout(this.copyAlertTimer);
   }
 
-  handleDialogToggle() {
+  handleDialogToggleClick() {
     this.setState({
       optionsOpen: !this.state.optionsOpen
     });
   }
 
-  handleDialogClose() {
+  closeDialog() {
     this.setState({
       optionsOpen: false
     });
@@ -49,19 +46,19 @@ export default class PaletteCard extends React.Component {
 
   render() {
     const { optionsOpen, copyAlert } = this.state;
-    const { title, palette, url } = this.props.data;
+    const { data, setImageSource, deleteCardFromLibrary } = this.props;
 
     const optionsDialog = (
       <div className="options-dialog">
         <button
           className="image-view-btn"
-          onClick={() => this.props.setImageSource(url)}
+          onClick={() => setImageSource(data.url)}
         >
           VIEW IMAGE
         </button>
         <button
           className="delete-btn"
-          onClick={() => this.props.deleteCardFromLibrary(this.props.data)}
+          onClick={() => deleteCardFromLibrary(data)}
         >
           DELETE
         </button>
@@ -71,22 +68,25 @@ export default class PaletteCard extends React.Component {
     return (
       <div className="palette-card">
         <div className="palette-colors">
-          {Object.keys(palette).map((el, index) => (
+          {Object.keys(data.palette).map((el, index) => (
             <Swatch
               key={index}
-              color={palette[el]}
+              color={data.palette[el]}
               activateCopyAlert={this.activateCopyAlert}
             />
           ))}
         </div>
         <div className="palette-footer">
-          {title}
-          <button className="options" onClick={this.handleDialogToggle}>
+          {data.title}
+          <button
+            className="options"
+            onClick={this.handleDialogToggleClick}
+          >
             <Icon icon="options" />
           </button>
           <ClickOutside
             elementIsOpen={optionsOpen}
-            onRequestClose={this.handleDialogClose}
+            onRequestClose={this.closeDialog}
           >
             {optionsDialog}
           </ClickOutside>
@@ -98,3 +98,13 @@ export default class PaletteCard extends React.Component {
     );
   }
 }
+
+PaletteCard.propTypes = {
+  data: PropTypes.shape({
+    url: PropTypes.string,
+    palette: PropTypes.object,
+    title: PropTypes.string
+  }).isRequired,
+  setImageSource: PropTypes.func.isRequired,
+  deleteCardFromLibrary: PropTypes.func.isRequired
+};

@@ -2,19 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../utils/Icon';
 
-const BackButton = ({ onClick }) => (
-  <button className="back" onClick={onClick}>
-    <Icon icon="back" />
-    <span>BACK TO PALETTES</span>
-  </button>
-);
+export default function BackButton({ onClick }) {
+  return (
+    <button className="back" onClick={onClick}>
+      <Icon icon="back" />
+      <span>BACK TO PALETTES</span>
+    </button>
+  );
+}
 
 BackButton.defaultProps = {
-  onClick: () => {}
+  onClick: null
 };
 
 BackButton.propTypes = {
   onClick: PropTypes.func
 };
-
-export default BackButton;

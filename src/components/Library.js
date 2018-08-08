@@ -1,12 +1,10 @@
-// padding on bottom for dialog space
-// set media queries for grid breaks
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import Header from './Header';
 import Icon from '../utils/Icon';
 import PaletteCard from './PaletteCard';
 import BackButton from './BackButton';
-import LazyImage from './LazyImage';
+import LazyImage from '../utils/LazyImage';
 
 export default class Library extends React.Component {
   constructor(props) {
@@ -14,7 +12,6 @@ export default class Library extends React.Component {
     this.state = {
       imageSource: null,
       animateHeader: false
-      // isNewUser: true
     };
 
     this.setImageSource = this.setImageSource.bind(this);
@@ -39,17 +36,15 @@ export default class Library extends React.Component {
   }
 
   scrollPosition() {
+    let { animateHeader } = this.state;
+
     if (window.scrollY > 40) {
-      this.setState({
-        animateHeader: true
-      });
+      animateHeader = true;
+    } else {
+      animateHeader = false;
     }
 
-    if (window.scrollY < 40) {
-      this.setState({
-        animateHeader: false
-      });
-    }
+    this.setState({ animateHeader });
   }
 
   render() {
@@ -59,11 +54,14 @@ export default class Library extends React.Component {
       currentUser,
       loading,
       isNewUser,
-      history
+      history,
+      closeNewUserDialog,
+      addDemoPalettes,
+      deleteCardFromLibrary
     } = this.props;
 
-    const placeholders = [...Array(10)].map((_, i) => (
-      <div key={i} className="placeholder" />
+    const placeholders = [...Array(10)].map((_, index) => (
+      <div key={index} className="placeholder" />
     ));
 
     const viewImage = (
@@ -89,14 +87,11 @@ export default class Library extends React.Component {
         </h4>
         <button
           className="dismiss-btn"
-          onClick={() => this.props.closeNewUserDialog()}
+          onClick={() => closeNewUserDialog()}
         >
           DISMISS
         </button>
-        <button
-          className="lazy-btn"
-          onClick={() => this.props.addDemoPalettes()}
-        >
+        <button className="lazy-btn" onClick={() => addDemoPalettes()}>
           FEELING LAZY?
         </button>
       </div>
@@ -109,7 +104,7 @@ export default class Library extends React.Component {
           library={library}
           isNewUser={isNewUser}
           history={history}
-          closeNewUserDialog={this.props.closeNewUserDialog}
+          closeNewUserDialog={closeNewUserDialog}
           animateHeader={animateHeader}
         />
         {library.map(palette => (
@@ -117,7 +112,7 @@ export default class Library extends React.Component {
             key={palette.id}
             data={palette}
             setImageSource={this.setImageSource}
-            deleteCardFromLibrary={this.props.deleteCardFromLibrary}
+            deleteCardFromLibrary={deleteCardFromLibrary}
           />
         ))}
         {loading && placeholders}
@@ -128,3 +123,15 @@ export default class Library extends React.Component {
     );
   }
 }
+
+Library.propTypes = {
+  library: PropTypes.arrayOf(PropTypes.object).isRequired,
+  currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+    .isRequired,
+  loading: PropTypes.bool.isRequired,
+  isNewUser: PropTypes.bool.isRequired,
+  closeNewUserDialog: PropTypes.func.isRequired,
+  addDemoPalettes: PropTypes.func.isRequired,
+  deleteCardFromLibrary: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired // eslint-disable-line
+};

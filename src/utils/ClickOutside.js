@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group';
 import PropTypes from 'prop-types';
 
 export default class ClickOutside extends Component {
@@ -10,8 +11,10 @@ export default class ClickOutside extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.elementIsOpen !== this.props.elementIsOpen) {
-      if (this.props.elementIsOpen) {
+    const { elementIsOpen } = this.props;
+
+    if (prevProps.elementIsOpen !== elementIsOpen) {
+      if (elementIsOpen) {
         document.addEventListener('click', this.handleClickOutside);
       } else {
         document.removeEventListener('click', this.handleClickOutside);
@@ -31,11 +34,22 @@ export default class ClickOutside extends Component {
 
   render() {
     const { elementIsOpen, children } = this.props;
-    return <div ref={this.setWrapperRef}>{elementIsOpen && children}</div>;
+    return (
+      <div ref={this.setWrapperRef}>
+        <CSSTransitionGroup
+          transitionName="dialog-animate"
+          transitionEnterTimeout={200}
+          transitionLeaveTimeout={200}
+        >
+          {elementIsOpen && children}
+        </CSSTransitionGroup>
+      </div>
+    );
   }
 }
 
 ClickOutside.propTypes = {
   children: PropTypes.element.isRequired,
-  onRequestClose: PropTypes.func.isRequired
+  onRequestClose: PropTypes.func.isRequired,
+  elementIsOpen: PropTypes.bool.isRequired
 };

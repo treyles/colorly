@@ -1,5 +1,6 @@
-// /* eslint-disable */
+// Loop input/label jsx elements
 import React from 'react';
+import PropTypes from 'prop-types';
 import Icon from '../utils/Icon';
 
 export default class PaletteBuildFooter extends React.Component {
@@ -144,3 +145,16 @@ export default class PaletteBuildFooter extends React.Component {
     );
   }
 }
+
+PaletteBuildFooter.propTypes = {
+  setCheckedColor: PropTypes.func.isRequired,
+  setPaletteTitle: PropTypes.func.isRequired,
+  savePalette: PropTypes.func.isRequired,
+  clearPalette: PropTypes.func.isRequired,
+  palette: PropTypes.objectOf(PropTypes.string).isRequired,
+  checked: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  library: PropTypes.arrayOf(PropTypes.object).isRequired,
+  submitAlert: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
+    .isRequired
+};

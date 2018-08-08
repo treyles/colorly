@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 export default class LazyImage extends React.Component {
   constructor(props) {
@@ -37,3 +37,11 @@ export default class LazyImage extends React.Component {
     );
   }
 }
+
+LazyImage.defaultProps = {
+  url: null
+};
+
+LazyImage.propTypes = {
+  url: PropTypes.string
+};

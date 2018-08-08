@@ -1,10 +1,6 @@
-$mainColor: DodgerBlue;
-
 // TODO: put apercu-regular in body and delete duplicates
 
 body {
-  // display: flex;
-  // justify-content: center;
   font-family: 'apercu-regular', sans-serif;
   background-color: #f7f7f7;
   padding: 0;
@@ -20,18 +16,6 @@ body {
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-canvas {
-  cursor: crosshair;
-  // cursor: url('./assets/cursor.png') 13 13, auto;
-  // cursor: image-set(
-  //       url('./assets/cursor.png') 1x,
-  //       url('./assets/cursorx2.png') 2x
-  //     )
-  //     13 13,
-  //   auto;
-  // box-sizing: border-box;
 }
 
 @font-face {
@@ -88,20 +72,7 @@ h4 {
     grid-template-columns: repeat($columns, 1fr);
   }
 }
-// .title {
-//   font-family: 'helvetica', 'arial', sans-serif;
-//   font-size: 20px;
-//   font-weight: normal;
-//   color: white;
-// }
 
-// h2 {
-//   display: inline-block;
-// }
-
-// svg {
-//   margin: 7px 0 0 15px;
-// }
 .not-found {
   @include flex;
   flex-direction: column;
@@ -109,7 +80,6 @@ h4 {
   width: 100%;
   height: 100%;
   text-align: center;
-  // color: #666;
 
   h1 {
     margin: 0;
@@ -173,9 +143,13 @@ h4 {
         margin-right: 15px;
       }
 
+      svg {
+        margin-bottom: 2px;
+      }
+
       .pitch {
         color: #6c6c6c;
-        max-width: 418px; //
+        max-width: 418px;
         line-height: 33px;
         margin-top: 40px;
         margin-bottom: 65px;
@@ -185,7 +159,6 @@ h4 {
         max-width: 418px;
 
         button {
-          // position: relative;
           background: #2dcb81;
           font-family: 'apercu-medium', sans-serif;
           font-size: 16px;
@@ -193,10 +166,8 @@ h4 {
           border: none;
           outline: none;
           border-radius: 500px;
-          // width: 342px;
           width: 100%;
           height: 50px;
-          // padding: 15px 0;
           margin: 10px 0;
           cursor: pointer;
           box-shadow: 2px 5px 11px rgba(0, 0, 0, 0.15);
@@ -253,7 +224,6 @@ header {
 }
 
 .header-top {
-  // z-index: 1;
   @include flex;
   height: 75px;
   padding: 0 32px;
@@ -284,9 +254,13 @@ header {
       }
     }
 
-    span {
+    button {
       display: inline-block;
-      // font-family: 'apercu-regular', sans-serif;
+      font-family: 'apercu-regular', sans-serif;
+      border: 0;
+      outline: none;
+      padding: 0;
+      background: transparent;
       color: #7c7c7c;
       font-size: 16px;
       user-select: none;
@@ -308,18 +282,12 @@ header {
       font-family: inherit;
       border-radius: 8px;
       bottom: -74px;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
       width: 137px;
       height: 60px;
       overflow: hidden;
       user-select: none;
       box-shadow: 2px 0px 10px 1px rgba(0, 0, 0, 0.08);
-
-      @include desktop {
-        left: 0;
-        transform: translateX(0);
-      }
 
       .palette-count {
         flex-grow: 1;
@@ -330,11 +298,6 @@ header {
         font-size: 12px;
         background: #fff;
         pointer-events: none;
-        // transition: 0.3s ease;
-
-        // &:hover {
-        //   background: darken(#f2f2f2, 3%);
-        // }
 
         .count {
           @include flex;
@@ -349,7 +312,6 @@ header {
       }
 
       .sign-out {
-        // flex-grow: 1;
         font-family: inherit;
         width: 100%;
         height: 30px;
@@ -361,10 +323,10 @@ header {
         margin: 0;
         padding: 0;
         cursor: pointer;
-        transition: 0.3s ease;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          background: darken(#f0727a, 10%);
+          background-color: darken(#f0727a, 10%);
         }
       }
     }
@@ -389,31 +351,15 @@ header {
     @include desktop {
       display: block;
     }
-
-    // span {
-    //   position: absolute;
-    //   top: 50%;
-    //   transform: translateY(-50%);
-    //   left: 20px;
-
-    //   svg {
-    //     vertical-align: middle;
-    //     width: 18px;
-    //     height: 18px;
-    //   }
-    // }
   }
 }
 
 .header-logo {
   @include flex;
-  // display: none;
   width: 100%;
   height: 68px;
   font-family: 'apercu-medium', sans-serif;
   user-select: none;
-  // background: transparent;
-  transition: 0.2s ease;
 
   h2 {
     display: inline-block;
@@ -429,9 +375,6 @@ header {
   position: fixed;
   top: 35px;
   left: 50px;
-  // right: 50px;
-  // left: 50%;
-  // transform: translateX(-50%);
   background: #fff;
   font-family: 'apercu-medium', sans-serif;
   font-size: 12px;
@@ -440,7 +383,6 @@ header {
   outline: none;
   border-radius: 500px;
   width: 164px;
-  // width: 90px;
   height: 45px;
   cursor: pointer;
   box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.05);
@@ -458,11 +400,6 @@ header {
   }
 }
 
-// 152px
-// display: grid
-// grid-template-columns: repeat($columns, 1fr); // mixin for line-breaks
-
-// 310px is width (including margins)
 .new-user {
   z-index: 999;
   @include flex;
@@ -477,14 +414,12 @@ header {
   border-radius: 12px;
   padding: 40px 40px;
   font-family: 'apercu-medium', sans-serif;
-  // box-shadow: 0px 0px 24px 2px rgba(0, 0, 0, 0.04);
 
   svg {
     margin-bottom: 47px;
   }
 
   h3 {
-    // font-family: 'apercu-medium', sans-serif;
     margin-bottom: 21px;
   }
 
@@ -537,9 +472,6 @@ header {
 }
 
 .library {
-  // grid-template-columns: repeat(3, 1fr);
-  // grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-
   @include flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -551,7 +483,6 @@ header {
     @supports (display: grid) {
       display: grid;
       justify-items: center;
-      // grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
       @include grid-break(768px, 2);
       @include grid-break(938px, 3);
       @include grid-break(1280px, 4);
@@ -605,20 +536,13 @@ header {
   width: 100%;
   height: 120px;
   background: #fff;
-  // border-top: 1px solid #848484;
-  // transform: translateY(100%);
-  // transition: transform 0.5s ease;
   box-shadow: 4px 0px 20px 0px rgba(0, 0, 0, 0.1);
 
   .palette-name {
     flex-grow: 1;
     @include flex(flex-start, center);
-    // font-family: 'apercu-regular', sans-serif;
-    // color: #666666;
-    // font-size: 18px;
     padding-left: 50px;
     min-width: 320px;
-    // background: #eee;
 
     svg {
       width: 15px;
@@ -633,12 +557,9 @@ header {
       font-family: 'apercu-regular', sans-serif;
       font-size: 17px;
       color: #666;
-      // color: #000;
-      // appearance: none;
       padding-bottom: 3px;
       margin-left: 10px;
       border: 0;
-      // border-bottom: 1px solid #eee;
       outline: none;
     }
 
@@ -657,7 +578,6 @@ header {
     min-width: 320px;
     font-family: 'apercu-medium', sans-serif;
     font-size: 14px;
-    // background: #eee;
 
     .clear,
     .save {
@@ -682,11 +602,9 @@ header {
       font-size: inherit;
       color: #fff;
       position: relative;
-      // line-height: 11px;
       border: none;
       outline: none;
       border-radius: 500px;
-      // border-radius: 5px;
       width: 152px;
       height: 50px;
       box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
@@ -702,12 +620,10 @@ header {
         top: -124%;
         left: 50%;
         transform: translateX(-50%);
-        // width: 150px;
         min-height: 45px;
         max-height: 45px;
         padding: 0 20px;
         background: #393844;
-        // border-radius: 500px;
         border-radius: 8px;
 
         &:after {
@@ -728,7 +644,6 @@ header {
     @include flex(space-between, center);
     width: 360px;
     min-width: 300px;
-    // background: peru;
 
     .radio {
       box-sizing: content-box;
@@ -748,58 +663,24 @@ header {
     input[type='radio']:checked + .radio {
       border: 5px solid #f0f0f0;
     }
-    // new css goes here
-
-    // div {
-    //   display: inline-block;
-    //   width: 40px;
-    //   height: 40px;
-    //   background: #eee;
-    //   border-radius: 500px;
-    // }
   }
-
-  // .lock {
-  //   display: none;
-  //   position: absolute;
-  //   width: 100%;
-  //   height: 100%;
-  //   background: #fff;
-  //   opacity: 0.5;
-
-  //   &.active {
-  //     display: block;
-  //   }
-  // }
-
-  // &.active {
-  //   transform: translateY(0);
-  // }
 }
 
 .palette-card {
   font-family: 'apercu-regular', sans-serif;
   position: relative;
   width: 246px;
-  // height: 313px;
   height: 320px;
   border-radius: 12px;
-  // background: #eee;
   margin: 32px;
-  // overflow: hidden;
   box-shadow: 0px 0px 24px 2px rgba(0, 0, 0, 0.08);
-  // for safari: maintain overflow hidden (within radius) when animating children
-  // transform: translate3d(0, 0, 0);
 
   .palette-colors {
     @include flex(space-between, center);
     flex-direction: column;
     width: 100%;
     height: 71%;
-    // border-radius: 12px 12px 0 0;
-    // overflow: hidden;
     transform: translate3d(0, 0, 0);
-    // background: dodgerblue;
 
     .swatch {
       flex-grow: 1;
@@ -810,7 +691,6 @@ header {
       color: #fff;
       cursor: pointer;
       outline: none;
-      // box-shadow: 2px -6px 14px 2px rgba(0, 0, 0, 0.1);
       &:first-child {
         border-radius: 12px 12px 0 0;
 
@@ -821,11 +701,9 @@ header {
 
       .pop-up {
         position: absolute;
-        // pointer-events: none;
         top: 0;
         left: 0;
         width: 100%;
-        // height: 20px;
         height: 125px;
         transition: transform 0.3s ease;
       }
@@ -838,7 +716,6 @@ header {
         appearance: none;
         outline: none;
         background: transparent;
-        // font-weight: normal;
         font-size: 14px;
         margin: 0;
         padding: 0;
@@ -852,29 +729,10 @@ header {
         }
       }
 
-      // &:first-child:hover {
-      //   // padding-bottom: 10%;
-      //   // .pop-up {
-      //   //   transform: translateY(20px);
-      //   // }
-      // }
-
-      // &:not(:first-child):hover {
-      //   .pop-up {
-      //     transform: translateY(10px);
-      //   }
-      // }
-
-      // &:not(:first-child) {
-      //   h4 {
-      //     padding-bottom: 5px;
-      //   }
-      // }
-
       &:hover {
         input {
           transform: translateY(-4px);
-          opacity: 1;
+          opacity: 0.8;
         }
         .pop-up {
           transform: translateY(-8px);
@@ -886,12 +744,6 @@ header {
           transform: translateY(0);
         }
       }
-
-      // &:hover {
-      //   h4 {
-      //     opacity: 1;
-      //   }
-      // }
     }
   }
 
@@ -909,20 +761,16 @@ header {
       z-index: 999;
       @include flex;
       position: absolute;
-      // top: -45px;
       pointer-events: none;
       bottom: -15px;
       left: 50%;
       transform: translateX(-50%);
       width: 134px;
-      // padding: 0 10px;
       height: 28px;
       border-radius: 500px;
       background: #2dcb81;
-      // background: #eee;
       font-family: 'apercu-regular', sans-serif;
       font-size: 11px;
-      // border: 1px solid #eee;
       color: #fff;
       box-shadow: 2px 1px 10px 2px rgba(0, 0, 0, 0.05);
     }
@@ -974,11 +822,6 @@ header {
         margin: 0;
         padding: 0;
         cursor: pointer;
-        // transition: 0.3s ease;
-
-        // &:hover {
-        //   background: darken(#f2f2f2, 3%);
-        // }
       }
 
       .delete-btn {
@@ -1002,35 +845,21 @@ header {
     }
   }
 
-  // .modal-overlay {
-  //   z-index: 999;
-  //   // @include flex;
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   width: 100%;
-  //   height: 100%;
-  //   background: rgba(0, 0, 0, 0.3);
-
   .modal {
     z-index: 999;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    // width: 80%;
-    // height: 500px;
     border-radius: 14px;
     background: #c9c9c9;
     padding: 30px;
     box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.05);
   }
-  // }
 }
 
 .upload-section {
   flex-direction: column;
-  // padding-bottom: 110px;
   width: 100%;
   height: 100vh;
   background: #fff;
@@ -1082,13 +911,6 @@ header {
         &.alert {
           background: #dd6068;
         }
-
-        // svg {
-        //   fill: #cecece;
-        //   width: 70px;
-        //   margin-top: 20px;
-        //   transition: 0.4s ease;
-        // }
       }
 
       #file-browse {
@@ -1110,22 +932,18 @@ header {
     background: #c9c9c9;
     width: 100%;
     height: 100%;
-    // overflow: scroll;
-    // padding-top: 75px;
     padding-bottom: 110px;
-    // margin: 40px;
 
     .canvas-wrapper {
       position: relative;
-      // background: #2dcb81;
 
       canvas {
         display: block;
+        cursor: crosshair;
       }
 
       .preview-container {
         z-index: 2;
-        // visibility: hidden;
         position: absolute;
         width: 110px;
         height: 110px;
@@ -1133,7 +951,6 @@ header {
         padding: 5px;
         background: #fff;
         border: 1px solid #999;
-        // box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.2);
 
         .preview-color {
           width: 100%;
@@ -1143,24 +960,6 @@ header {
       }
     }
   }
-  // .color-palette {
-  //   @include flex;
-  //   width: 550px;
-  //   margin-top: 20px;
-
-  //   div {
-  //     display: inline-block;
-  //     width: 14.6%;
-  //     padding-top: 14.6%;
-  //     background: #eee;
-  //     margin-right: 2%;
-  //     border-radius: 500px;
-
-  //     &:last-child {
-  //       margin-right: 0;
-  //     }
-  //   }
-  // }
 }
 
 .preloader-wrapper {
@@ -1216,5 +1015,49 @@ header {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+
+// React CSSTransitions for dialog boxes
+.dialog-animate-enter {
+  opacity: 0.5;
+  transform: translateY(-10px);
+
+  &.dialog-animate-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.2s ease;
+  }
+}
+
+.dialog-animate-leave {
+  opacity: 1;
+
+  &.dialog-animate-leave-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: 0.2s ease;
+  }
+}
+
+// React CSSTransitionGroup for logo
+.header-logo-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+
+  &.header-logo-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.3s ease;
+  }
+}
+
+.header-logo-leave {
+  opacity: 1;
+
+  &.header-logo-leave-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: 0.3s ease;
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { storage, auth, rebase, database } from '../utils/base';
-import Upload from './Upload';
+import PaletteBuild from './PaletteBuild';
 import Library from './Library';
 import Home from './Home';
 import NotFound from './NotFound';
@@ -57,14 +57,11 @@ export default class App extends React.Component {
   }
 
   signInUser(provider) {
-    auth
-      .signInWithPopup(provider)
-      .then(result => {
-        this.setState({
-          isNewUser: result.additionalUserInfo.isNewUser
-        });
-      })
-      .catch(error => console.log(error));
+    auth.signInWithPopup(provider).then(result => {
+      this.setState({
+        isNewUser: result.additionalUserInfo.isNewUser
+      });
+    });
   }
 
   addCardToLibrary(obj) {
@@ -127,12 +124,12 @@ export default class App extends React.Component {
               )}
           />
           <Route
-            path="/upload"
+            path="/palettebuild"
             render={({ history }) =>
               !currentUser ? (
                 <Home signInUser={this.signInUser} />
               ) : (
-                <Upload
+                <PaletteBuild
                   history={history}
                   addCardToLibrary={this.addCardToLibrary}
                   library={library}
@@ -148,8 +145,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-// <div>
-//   <Header />
-// <Upload addCardToLibrary={this.addCardToLibrary} />
-// </div>

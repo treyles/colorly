@@ -58,3 +58,22 @@ module.exports = {
     })
   ]
 };
+
+// {
+//   test: /\.scss?$/,
+//   // include: path.resolve(__dirname, 'src/sass/components'),
+//   loader: ExtractTextWebpackPlugin.extract({
+//     fallback: 'style-loader',
+//     // use: 'css-loader!postcss-loader!sass-loader'
+//     use: [
+//       'css-loader',
+//       'postcss-loader',
+//       {
+//         loader: 'sass-loader',
+//         options: {
+//           includePaths: ['src/sass/components']
+//         }
+//       }
+//     ]
+//   })
+// },

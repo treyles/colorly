@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Canvas extends React.Component {
   constructor(props) {
@@ -13,9 +14,9 @@ export default class Canvas extends React.Component {
     };
 
     this.setCanvasRef = this.setCanvasRef.bind(this);
-    this.handleColorPreview = this.handleColorPreview.bind(this);
+    this.handleColorPreviewMove = this.handleColorPreviewMove.bind(this);
     this.handleCanvasLeave = this.handleCanvasLeave.bind(this);
-    this.handleColorPick = this.handleColorPick.bind(this);
+    this.handleColorClick = this.handleColorClick.bind(this);
     this.updateBrowserSize = this.updateBrowserSize.bind(this);
   }
 
@@ -34,7 +35,7 @@ export default class Canvas extends React.Component {
     this.canvas = ref;
   }
 
-  handleColorPreview(e) {
+  handleColorPreviewMove(e) {
     const { canvasImageLoaded } = this.state;
 
     const rect = this.canvas.getBoundingClientRect();
@@ -60,7 +61,7 @@ export default class Canvas extends React.Component {
     });
   }
 
-  handleColorPick() {
+  handleColorClick() {
     const { currentColor } = this.state;
     this.props.makePalette(currentColor);
   }
@@ -78,7 +79,6 @@ export default class Canvas extends React.Component {
   }
 
   optimizeScale(image) {
-    // const heightPadding = 250;
     const heightPadding = 200;
     const widthPadding = 60;
     const containerWidth = this.state.winWidth - widthPadding;
@@ -141,9 +141,9 @@ export default class Canvas extends React.Component {
       <div className="canvas-wrapper">
         <canvas
           ref={this.setCanvasRef}
-          onMouseMove={this.handleColorPreview}
+          onMouseMove={this.handleColorPreviewMove}
           onMouseLeave={this.handleCanvasLeave}
-          onClick={this.handleColorPick}
+          onClick={this.handleColorClick}
         />
         {colorPreview && (
           <div className="preview-container" style={containerStyle}>
@@ -155,7 +155,8 @@ export default class Canvas extends React.Component {
   }
 }
 
-// const imageFile = storage.ref(`images/${this.props.imageName}`);
-// const imageFile = storage
-//   .ref()
-//   .child(`images/${this.props.imageName}`);
+Canvas.propTypes = {
+  makePalette: PropTypes.func.isRequired,
+  imageSource: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+    .isRequired
+};

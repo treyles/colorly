@@ -5,7 +5,6 @@ import { rgbToHex, parseRgb } from '../utils/helpers';
 export default class Swatch extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       textColor: ''
     };
@@ -18,8 +17,11 @@ export default class Swatch extends React.Component {
     this.setTextContrast();
   }
 
-  // check for sufficient contrast
-  // between text and background color
+  setInputRef(ref) {
+    this.hexInput = ref;
+  }
+
+  // checks for sufficient contrast between text and background color
   setTextContrast() {
     const rgb = parseRgb(this.props.color);
     const brightnessThreshold = 220;
@@ -36,10 +38,6 @@ export default class Swatch extends React.Component {
     if (brightness > brightnessThreshold) {
       this.setState({ textColor: '#666' });
     }
-  }
-
-  setInputRef(ref) {
-    this.hexInput = ref;
   }
 
   handleClick() {

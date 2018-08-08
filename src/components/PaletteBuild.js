@@ -1,6 +1,3 @@
-// group palette card data into one object in state
-// signs out after refresh on drop zone page??
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -11,20 +8,19 @@ import BackButton from './BackButton';
 import Canvas from './Canvas';
 import DropZoneContent from './DropZoneContent';
 
-export default class Upload extends React.Component {
+export default class PaletteBuild extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
-      // TODO: refactor as one object? when adding can pass one value
       id: uuidv4(),
-      palette: [],
-      checked: 'color1',
+      palette: {},
       title: '',
-      submitAlert: null,
-      imageAlert: null
+      checked: 'color1',
+      submitAlert: false,
+      imageAlert: false
     };
 
     this.setCheckedColor = this.setCheckedColor.bind(this);
@@ -153,32 +149,31 @@ export default class Upload extends React.Component {
 
   activateSubmitAlert() {
     const { palette } = this.state;
+    let { submitAlert } = this.state;
 
-    let alert;
     if (!Object.keys(palette).length) {
-      alert = 'Palette Is Empty!';
+      submitAlert = 'Palette Is Empty!';
     } else {
-      alert = 'Title Required!';
+      submitAlert = 'Title Required!';
     }
 
-    this.setState({ submitAlert: alert });
+    this.setState({ submitAlert });
     this.resetSubmitAlert();
   }
 
   resetSubmitAlert() {
     this.submitAlertTimer = setTimeout(() => {
-      this.setState({ submitAlert: null });
+      this.setState({ submitAlert: false });
     }, 1500);
   }
 
   resetImageLoadAlert() {
     this.imageAlertTimer = setTimeout(() => {
-      this.setState({ imageAlert: null });
+      this.setState({ imageAlert: false });
     }, 1500);
   }
 
   render() {
-    // TODO: destructure palette object
     const {
       imageSource,
       dropZoneHover,
@@ -240,9 +235,10 @@ export default class Upload extends React.Component {
   }
 }
 
-Upload.propTypes = {
+PaletteBuild.propTypes = {
   library: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentUser: PropTypes.shape({ uid: PropTypes.string }).isRequired,
+  currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+    .isRequired,
   addCardToLibrary: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired // eslint-disable-line
 };
