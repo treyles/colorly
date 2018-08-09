@@ -1,0 +1,177 @@
+header {
+  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: 'apercu-regular', sans-serif;
+  width: 100%;
+}
+
+.header-top {
+  @include flex;
+  height: 75px;
+  padding: 0 32px;
+  background-color: #f7f7f7;
+  transition: background-color 0.3s ease;
+
+  @include desktop {
+    @include flex(space-between, center);
+  }
+
+  .profile {
+    @include flex;
+    position: relative;
+
+    .profile-image {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      border-radius: 500px;
+      background: #d8d8d8;
+      margin-right: 8px;
+      overflow: hidden;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    button {
+      display: inline-block;
+      font-family: 'apercu-regular', sans-serif;
+      border: 0;
+      outline: none;
+      padding: 0;
+      background: transparent;
+      color: #7c7c7c;
+      font-size: 16px;
+      user-select: none;
+      margin-right: 8px;
+      cursor: pointer;
+
+      svg {
+        width: 9.6px;
+        height: auto;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+    }
+
+    .profile-dialog {
+      @include flex(space-between, center);
+      flex-direction: column;
+      position: absolute;
+      font-family: inherit;
+      border-radius: 8px;
+      bottom: -74px;
+      left: 0;
+      width: 137px;
+      height: 60px;
+      overflow: hidden;
+      user-select: none;
+      box-shadow: 2px 0px 10px 1px rgba(0, 0, 0, 0.08);
+
+      .palette-count {
+        flex-grow: 1;
+        @include flex;
+        width: 100%;
+        height: 30px;
+        color: #666;
+        font-size: 12px;
+        background: #fff;
+        pointer-events: none;
+
+        .count {
+          @include flex;
+          width: 20px;
+          height: 20px;
+          border-radius: 500px;
+          background: #c8c7c7;
+          margin-right: 6px;
+          font-size: 12px;
+          color: #fff;
+        }
+      }
+
+      .sign-out {
+        font-family: inherit;
+        width: 100%;
+        height: 30px;
+        outline: none;
+        border: none;
+        color: #fff;
+        font-size: 12px;
+        background: #f0727a;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken(#f0727a, 10%);
+        }
+      }
+    }
+  }
+
+  .add {
+    display: none;
+    position: relative;
+    background: #2dcb81;
+    font-family: 'apercu-medium', sans-serif;
+    font-size: 13px;
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 500px;
+    width: 150px;
+    height: 45px;
+    padding: 15px 0;
+    cursor: pointer;
+    box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.2);
+
+    @include desktop {
+      display: block;
+    }
+  }
+}
+
+.header-logo {
+  @include flex;
+  width: 100%;
+  height: 68px;
+  font-family: 'apercu-medium', sans-serif;
+  user-select: none;
+
+  h2 {
+    display: inline-block;
+  }
+
+  span {
+    margin: 7px 0 0 15px;
+  }
+}
+
+// React CSSTransitionGroup for logo
+.header-logo-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+
+  &.header-logo-enter-active {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.3s ease;
+  }
+}
+
+.header-logo-leave {
+  opacity: 1;
+
+  &.header-logo-leave-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: 0.3s ease;
+  }
+}

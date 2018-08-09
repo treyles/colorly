@@ -1,0 +1,74 @@
+$primary-color: peru;
+
+body {
+  font-family: 'apercu-regular', sans-serif;
+  background-color: #f7f7f7;
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'apercu-medium';
+  src: url('../fonts/apercu-medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'apercu-regular';
+  src: url('../fonts/apercu-regular.woff') format('woff');
+}
+
+@mixin flex($x : center, $y: center) {
+  display: flex;
+  justify-content: $x;
+  align-items: $y;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 33px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin desktop {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin grid-break($width, $columns) {
+  @media only screen and (min-width: $width) {
+    grid-template-columns: repeat($columns, 1fr);
+  }
+}

@@ -1,0 +1,101 @@
+.home {
+  @include flex;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+}
+
+.hero-text-container {
+  @include flex;
+  width: 100%;
+  padding: 60px 0;
+
+  @include desktop {
+    width: 40%;
+    min-width: 460px;
+    padding: 0 0 0 80px;
+  }
+}
+
+.content {
+  padding: 0 50px;
+
+  @include desktop {
+    padding: 0;
+    min-width: 342px;
+  }
+
+  h1 {
+    font-family: 'apercu-medium', sans-serif;
+    display: inline-block;
+    font-size: 38px;
+    margin-right: 15px;
+  }
+
+  svg {
+    margin-bottom: 2px;
+  }
+
+  .pitch {
+    color: #6c6c6c;
+    max-width: 418px;
+    line-height: 33px;
+    margin-top: 40px;
+    margin-bottom: 65px;
+  }
+
+  .buttons {
+    max-width: 418px;
+
+    button {
+      font-family: 'apercu-medium', sans-serif;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+      outline: none;
+      border-radius: 500px;
+      width: 100%;
+      height: 50px;
+      margin: 10px 0;
+      cursor: pointer;
+      box-shadow: 2px 5px 11px rgba(0, 0, 0, 0.15);
+
+      @include desktop {
+        width: 342px;
+      }
+    }
+
+    .twitter-login {
+      background: #22a7e8;
+      transition: 0.3s ease;
+
+      &:hover {
+        background: darken(#22a7e8, 8%);
+        box-shadow: none;
+      }
+    }
+
+    .google-login {
+      background: #f5571f;
+      transition: 0.4s ease;
+
+      &:hover {
+        background: darken(#f5571f, 8%);
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+.hero-image {
+  display: none;
+  width: 60%;
+  height: 100%;
+  background-image: url('../assets/hero-image.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  @include desktop {
+    display: block;
+  }
+}

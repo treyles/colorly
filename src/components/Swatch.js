@@ -21,7 +21,7 @@ export default class Swatch extends React.Component {
     this.hexInput = ref;
   }
 
-  // checks for sufficient contrast between text and background color
+  // sets sufficient contrast between text and background color
   setTextContrast() {
     const rgb = parseRgb(this.props.color);
     const brightnessThreshold = 220;

@@ -1,0 +1,33 @@
+.canvas-container {
+  @include flex;
+  background: #c9c9c9;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 110px;
+
+  .canvas-wrapper {
+    position: relative;
+
+    canvas {
+      display: block;
+      cursor: crosshair;
+    }
+
+    .preview-container {
+      z-index: 2;
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 500px;
+      padding: 5px;
+      background: #fff;
+      border: 1px solid #999;
+
+      .preview-color {
+        width: 100%;
+        height: 100%;
+        border-radius: 500px;
+      }
+    }
+  }
+}

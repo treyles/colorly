@@ -1,0 +1,64 @@
+.palette-build {
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.preloader:not(:required) {
+  transform: translate3d(0, 0, 0);
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: #f6b441;
+  border-radius: 50%;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.preloader:not(:required):before,
+.preloader:not(:required):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.preloader:not(:required):before {
+  animation: preloader 3s infinite;
+  transform-origin: 0 50%;
+  left: 0;
+  background: #a5c9cf;
+}
+
+.preloader:not(:required):after {
+  animation: preloader 3.2s reverse infinite;
+  transform-origin: 100% 50%;
+  right: 0;
+  background: #ef7e5b;
+}
+
+@keyframes preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

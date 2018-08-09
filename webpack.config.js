@@ -71,9 +71,23 @@ module.exports = {
 //       {
 //         loader: 'sass-loader',
 //         options: {
-//           includePaths: ['src/sass/components']
+//           includePaths: path.join(__dirname,'src')
 //         }
 //       }
 //     ]
 //   })
 // },
+
+// use: [
+//   'css-loader',
+//   'postcss-loader',
+//   {
+//     loader: 'sass-loader',
+//     options: {
+//       data: '@import "base";',
+//       includePaths: [
+//         path.resolve(__dirname, 'src/sass/components')
+//       ]
+//     }
+//   }
+// ]

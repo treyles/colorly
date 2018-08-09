@@ -192,7 +192,7 @@ export default class PaletteBuild extends React.Component {
     );
 
     return (
-      <div className="upload-section">
+      <div className="palette-build">
         <Link to="/">
           <BackButton />
         </Link>

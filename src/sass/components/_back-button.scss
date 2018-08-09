@@ -1,0 +1,29 @@
+.back {
+  z-index: 999;
+  position: fixed;
+  top: 35px;
+  left: 50px;
+  background: #fff;
+  font-family: 'apercu-medium', sans-serif;
+  font-size: 12px;
+  color: #666;
+  border: none;
+  outline: none;
+  border-radius: 500px;
+  width: 164px;
+  height: 45px;
+  cursor: pointer;
+  box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.05);
+
+  span {
+    vertical-align: middle;
+  }
+
+  svg {
+    height: 10.2px;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 7px;
+    fill: #666;
+  }
+}
