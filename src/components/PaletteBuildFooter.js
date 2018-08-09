@@ -136,9 +136,9 @@ export default class PaletteBuildFooter extends React.Component {
           </button>
           <button className="save" onClick={this.handleButtonClick}>
             SAVE PALETTE
-            {submitAlert && (
-              <div className="submit-alert">{submitAlert}</div>
-            )}
+            <div className={`submit-alert ${submitAlert ? 'active' : ''}`}>
+              {submitAlert}
+            </div>
           </button>
         </div>
       </div>

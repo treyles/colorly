@@ -67,7 +67,7 @@ export default class PaletteCard extends React.Component {
 
     return (
       <div className="palette-card">
-        <div className="palette-colors">
+        <div className="palette-swatches">
           {Object.keys(data.palette).map((el, index) => (
             <Swatch
               key={index}
