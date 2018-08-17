@@ -19,5 +19,7 @@ export default function NotFound({ history }) {
 }
 
 NotFound.propTypes = {
-  history: PropTypes.object // eslint-disable-line
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired
 };

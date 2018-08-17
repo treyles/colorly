@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../utils/Icon';
-import { googleAuth } from '../utils/base';
+import { googleAuth, twitterAuth } from '../utils/base';
 
 export default function Home({ signInUser }) {
   return (
@@ -17,7 +17,12 @@ export default function Home({ signInUser }) {
             collection along with the source image for future reference!
           </h3>
           <div className="buttons">
-            <button className="twitter-login">Connect with Twitter</button>
+            <button
+              className="twitter-login"
+              onClick={() => signInUser(twitterAuth)}
+            >
+              Connect with Twitter
+            </button>
             <button
               className="google-login"
               onClick={() => signInUser(googleAuth)}

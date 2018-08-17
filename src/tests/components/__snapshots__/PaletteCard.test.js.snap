@@ -1,0 +1,600 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteCard renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PaletteCard
+    data={
+      Object {
+        "palette": Object {
+          "color1": "color1",
+          "color2": "color2",
+          "color3": "color3",
+        },
+        "title": "",
+        "url": "",
+      }
+    }
+    deleteCardFromLibrary={[MockFunction]}
+    setImageSource={[MockFunction]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="palette-swatches"
+        >
+          <Swatch
+            activateCopyAlert={[Function]}
+            color="color1"
+          />
+          <Swatch
+            activateCopyAlert={[Function]}
+            color="color2"
+          />
+          <Swatch
+            activateCopyAlert={[Function]}
+            color="color3"
+          />
+        </div>,
+        <div
+          className="palette-footer"
+        >
+          
+          <button
+            className="options"
+            onClick={[Function]}
+          >
+            <Icon
+              icon="options"
+            />
+          </button>
+          <ClickOutside
+            elementIsOpen={false}
+            onRequestClose={[Function]}
+          >
+            <div
+              className="options-dialog"
+            >
+              <button
+                className="image-view-btn"
+                onClick={[Function]}
+              >
+                VIEW IMAGE
+              </button>
+              <button
+                className="delete-btn"
+                onClick={[Function]}
+              >
+                DELETE
+              </button>
+            </div>
+          </ClickOutside>
+        </div>,
+      ],
+      "className": "palette-card",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color1"
+            />,
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color2"
+            />,
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color3"
+            />,
+          ],
+          "className": "palette-swatches",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "0",
+            "nodeType": "class",
+            "props": Object {
+              "activateCopyAlert": [Function],
+              "color": "color1",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "1",
+            "nodeType": "class",
+            "props": Object {
+              "activateCopyAlert": [Function],
+              "color": "color2",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "2",
+            "nodeType": "class",
+            "props": Object {
+              "activateCopyAlert": [Function],
+              "color": "color3",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            "",
+            <button
+              className="options"
+              onClick={[Function]}
+            >
+              <Icon
+                icon="options"
+              />
+            </button>,
+            <ClickOutside
+              elementIsOpen={false}
+              onRequestClose={[Function]}
+            >
+              <div
+                className="options-dialog"
+              >
+                <button
+                  className="image-view-btn"
+                  onClick={[Function]}
+                >
+                  VIEW IMAGE
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={[Function]}
+                >
+                  DELETE
+                </button>
+              </div>
+            </ClickOutside>,
+            false,
+          ],
+          "className": "palette-footer",
+        },
+        "ref": null,
+        "rendered": Array [
+          "",
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                icon="options"
+              />,
+              "className": "options",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "icon": "options",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "button",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <div
+                className="options-dialog"
+              >
+                <button
+                  className="image-view-btn"
+                  onClick={[Function]}
+                >
+                  VIEW IMAGE
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={[Function]}
+                >
+                  DELETE
+                </button>
+              </div>,
+              "elementIsOpen": false,
+              "onRequestClose": [Function],
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <button
+                    className="image-view-btn"
+                    onClick={[Function]}
+                  >
+                    VIEW IMAGE
+                  </button>,
+                  <button
+                    className="delete-btn"
+                    onClick={[Function]}
+                  >
+                    DELETE
+                  </button>,
+                ],
+                "className": "options-dialog",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "VIEW IMAGE",
+                    "className": "image-view-btn",
+                    "onClick": [Function],
+                  },
+                  "ref": null,
+                  "rendered": "VIEW IMAGE",
+                  "type": "button",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "DELETE",
+                    "className": "delete-btn",
+                    "onClick": [Function],
+                  },
+                  "ref": null,
+                  "rendered": "DELETE",
+                  "type": "button",
+                },
+              ],
+              "type": "div",
+            },
+            "type": [Function],
+          },
+          false,
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="palette-swatches"
+          >
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color1"
+            />
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color2"
+            />
+            <Swatch
+              activateCopyAlert={[Function]}
+              color="color3"
+            />
+          </div>,
+          <div
+            className="palette-footer"
+          >
+            
+            <button
+              className="options"
+              onClick={[Function]}
+            >
+              <Icon
+                icon="options"
+              />
+            </button>
+            <ClickOutside
+              elementIsOpen={false}
+              onRequestClose={[Function]}
+            >
+              <div
+                className="options-dialog"
+              >
+                <button
+                  className="image-view-btn"
+                  onClick={[Function]}
+                >
+                  VIEW IMAGE
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={[Function]}
+                >
+                  DELETE
+                </button>
+              </div>
+            </ClickOutside>
+          </div>,
+        ],
+        "className": "palette-card",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <Swatch
+                activateCopyAlert={[Function]}
+                color="color1"
+              />,
+              <Swatch
+                activateCopyAlert={[Function]}
+                color="color2"
+              />,
+              <Swatch
+                activateCopyAlert={[Function]}
+                color="color3"
+              />,
+            ],
+            "className": "palette-swatches",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "0",
+              "nodeType": "class",
+              "props": Object {
+                "activateCopyAlert": [Function],
+                "color": "color1",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "1",
+              "nodeType": "class",
+              "props": Object {
+                "activateCopyAlert": [Function],
+                "color": "color2",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "2",
+              "nodeType": "class",
+              "props": Object {
+                "activateCopyAlert": [Function],
+                "color": "color3",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              "",
+              <button
+                className="options"
+                onClick={[Function]}
+              >
+                <Icon
+                  icon="options"
+                />
+              </button>,
+              <ClickOutside
+                elementIsOpen={false}
+                onRequestClose={[Function]}
+              >
+                <div
+                  className="options-dialog"
+                >
+                  <button
+                    className="image-view-btn"
+                    onClick={[Function]}
+                  >
+                    VIEW IMAGE
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={[Function]}
+                  >
+                    DELETE
+                  </button>
+                </div>
+              </ClickOutside>,
+              false,
+            ],
+            "className": "palette-footer",
+          },
+          "ref": null,
+          "rendered": Array [
+            "",
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Icon
+                  icon="options"
+                />,
+                "className": "options",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "icon": "options",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": <div
+                  className="options-dialog"
+                >
+                  <button
+                    className="image-view-btn"
+                    onClick={[Function]}
+                  >
+                    VIEW IMAGE
+                  </button>
+                  <button
+                    className="delete-btn"
+                    onClick={[Function]}
+                  >
+                    DELETE
+                  </button>
+                </div>,
+                "elementIsOpen": false,
+                "onRequestClose": [Function],
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <button
+                      className="image-view-btn"
+                      onClick={[Function]}
+                    >
+                      VIEW IMAGE
+                    </button>,
+                    <button
+                      className="delete-btn"
+                      onClick={[Function]}
+                    >
+                      DELETE
+                    </button>,
+                  ],
+                  "className": "options-dialog",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "VIEW IMAGE",
+                      "className": "image-view-btn",
+                      "onClick": [Function],
+                    },
+                    "ref": null,
+                    "rendered": "VIEW IMAGE",
+                    "type": "button",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "DELETE",
+                      "className": "delete-btn",
+                      "onClick": [Function],
+                    },
+                    "ref": null,
+                    "rendered": "DELETE",
+                    "type": "button",
+                  },
+                ],
+                "type": "div",
+              },
+              "type": [Function],
+            },
+            false,
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
+      },
+    },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
+  },
+}
+`;

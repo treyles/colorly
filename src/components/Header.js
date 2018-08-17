@@ -121,5 +121,7 @@ Header.propTypes = {
     .isRequired,
   library: PropTypes.arrayOf(PropTypes.object).isRequired,
   animateHeader: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired // eslint-disable-line
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired
 };

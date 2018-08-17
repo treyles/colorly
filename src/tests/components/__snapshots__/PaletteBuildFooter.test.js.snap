@@ -1,0 +1,1082 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaletteBuildFooter renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PaletteBuildFooter
+    checked="color1"
+    clearPalette={[MockFunction]}
+    library={Array []}
+    palette={Object {}}
+    savePalette={[MockFunction]}
+    setCheckedColor={[MockFunction]}
+    setPaletteTitle={[MockFunction]}
+    submitAlert={false}
+    title=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="palette-name"
+        >
+          <span
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+          >
+            <Icon
+              icon="pencil"
+            />
+          </span>
+          <input
+            className="palette-input"
+            maxLength="24"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Color Palette #1"
+            type="text"
+            value=""
+          />
+        </div>,
+        <div
+          className="palette-colors"
+        >
+          <input
+            checked={true}
+            id="color1"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="radio"
+            htmlFor="color1"
+            style={
+              Object {
+                "background": undefined,
+              }
+            }
+          />
+          <input
+            checked={false}
+            id="color2"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="radio"
+            htmlFor="color2"
+            style={
+              Object {
+                "background": undefined,
+              }
+            }
+          />
+          <input
+            checked={false}
+            id="color3"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="radio"
+            htmlFor="color3"
+            style={
+              Object {
+                "background": undefined,
+              }
+            }
+          />
+          <input
+            checked={false}
+            id="color4"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="radio"
+            htmlFor="color4"
+            style={
+              Object {
+                "background": undefined,
+              }
+            }
+          />
+          <input
+            checked={false}
+            id="color5"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="radio"
+            htmlFor="color5"
+            style={
+              Object {
+                "background": undefined,
+              }
+            }
+          />
+        </div>,
+        <div
+          className="palette-buttons"
+        >
+          <button
+            className="clear"
+            onClick={[Function]}
+          >
+            RESET
+          </button>
+          <button
+            className="save"
+            onClick={[Function]}
+          >
+            SAVE PALETTE
+            <div
+              className="submit-alert "
+            />
+          </button>
+        </div>,
+      ],
+      "className": "footer",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <span
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              <Icon
+                icon="pencil"
+              />
+            </span>,
+            <input
+              className="palette-input"
+              maxLength="24"
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Color Palette #1"
+              type="text"
+              value=""
+            />,
+          ],
+          "className": "palette-name",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                icon="pencil"
+              />,
+              "onClick": [Function],
+              "onKeyDown": [Function],
+              "role": "button",
+              "tabIndex": "0",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "icon": "pencil",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "span",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "palette-input",
+              "maxLength": "24",
+              "onChange": [Function],
+              "onKeyDown": [Function],
+              "placeholder": "Color Palette #1",
+              "type": "text",
+              "value": "",
+            },
+            "ref": [Function],
+            "rendered": null,
+            "type": "input",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <input
+              checked={true}
+              id="color1"
+              onChange={[Function]}
+              type="radio"
+            />,
+            <label
+              className="radio"
+              htmlFor="color1"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />,
+            <input
+              checked={false}
+              id="color2"
+              onChange={[Function]}
+              type="radio"
+            />,
+            <label
+              className="radio"
+              htmlFor="color2"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />,
+            <input
+              checked={false}
+              id="color3"
+              onChange={[Function]}
+              type="radio"
+            />,
+            <label
+              className="radio"
+              htmlFor="color3"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />,
+            <input
+              checked={false}
+              id="color4"
+              onChange={[Function]}
+              type="radio"
+            />,
+            <label
+              className="radio"
+              htmlFor="color4"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />,
+            <input
+              checked={false}
+              id="color5"
+              onChange={[Function]}
+              type="radio"
+            />,
+            <label
+              className="radio"
+              htmlFor="color5"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />,
+          ],
+          "className": "palette-colors",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "checked": true,
+              "id": "color1",
+              "onChange": [Function],
+              "type": "radio",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "radio",
+              "htmlFor": "color1",
+              "style": Object {
+                "background": undefined,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "label",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "checked": false,
+              "id": "color2",
+              "onChange": [Function],
+              "type": "radio",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "radio",
+              "htmlFor": "color2",
+              "style": Object {
+                "background": undefined,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "label",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "checked": false,
+              "id": "color3",
+              "onChange": [Function],
+              "type": "radio",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "radio",
+              "htmlFor": "color3",
+              "style": Object {
+                "background": undefined,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "label",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "checked": false,
+              "id": "color4",
+              "onChange": [Function],
+              "type": "radio",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "radio",
+              "htmlFor": "color4",
+              "style": Object {
+                "background": undefined,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "label",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "checked": false,
+              "id": "color5",
+              "onChange": [Function],
+              "type": "radio",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "radio",
+              "htmlFor": "color5",
+              "style": Object {
+                "background": undefined,
+              },
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "label",
+          },
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <button
+              className="clear"
+              onClick={[Function]}
+            >
+              RESET
+            </button>,
+            <button
+              className="save"
+              onClick={[Function]}
+            >
+              SAVE PALETTE
+              <div
+                className="submit-alert "
+              />
+            </button>,
+          ],
+          "className": "palette-buttons",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "RESET",
+              "className": "clear",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "RESET",
+            "type": "button",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                "SAVE PALETTE",
+                <div
+                  className="submit-alert "
+                />,
+              ],
+              "className": "save",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Array [
+              "SAVE PALETTE",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": false,
+                  "className": "submit-alert ",
+                },
+                "ref": null,
+                "rendered": false,
+                "type": "div",
+              },
+            ],
+            "type": "button",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="palette-name"
+          >
+            <span
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              <Icon
+                icon="pencil"
+              />
+            </span>
+            <input
+              className="palette-input"
+              maxLength="24"
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Color Palette #1"
+              type="text"
+              value=""
+            />
+          </div>,
+          <div
+            className="palette-colors"
+          >
+            <input
+              checked={true}
+              id="color1"
+              onChange={[Function]}
+              type="radio"
+            />
+            <label
+              className="radio"
+              htmlFor="color1"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />
+            <input
+              checked={false}
+              id="color2"
+              onChange={[Function]}
+              type="radio"
+            />
+            <label
+              className="radio"
+              htmlFor="color2"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />
+            <input
+              checked={false}
+              id="color3"
+              onChange={[Function]}
+              type="radio"
+            />
+            <label
+              className="radio"
+              htmlFor="color3"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />
+            <input
+              checked={false}
+              id="color4"
+              onChange={[Function]}
+              type="radio"
+            />
+            <label
+              className="radio"
+              htmlFor="color4"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />
+            <input
+              checked={false}
+              id="color5"
+              onChange={[Function]}
+              type="radio"
+            />
+            <label
+              className="radio"
+              htmlFor="color5"
+              style={
+                Object {
+                  "background": undefined,
+                }
+              }
+            />
+          </div>,
+          <div
+            className="palette-buttons"
+          >
+            <button
+              className="clear"
+              onClick={[Function]}
+            >
+              RESET
+            </button>
+            <button
+              className="save"
+              onClick={[Function]}
+            >
+              SAVE PALETTE
+              <div
+                className="submit-alert "
+              />
+            </button>
+          </div>,
+        ],
+        "className": "footer",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <span
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex="0"
+              >
+                <Icon
+                  icon="pencil"
+                />
+              </span>,
+              <input
+                className="palette-input"
+                maxLength="24"
+                onChange={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Color Palette #1"
+                type="text"
+                value=""
+              />,
+            ],
+            "className": "palette-name",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Icon
+                  icon="pencil"
+                />,
+                "onClick": [Function],
+                "onKeyDown": [Function],
+                "role": "button",
+                "tabIndex": "0",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "icon": "pencil",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "span",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "palette-input",
+                "maxLength": "24",
+                "onChange": [Function],
+                "onKeyDown": [Function],
+                "placeholder": "Color Palette #1",
+                "type": "text",
+                "value": "",
+              },
+              "ref": [Function],
+              "rendered": null,
+              "type": "input",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <input
+                checked={true}
+                id="color1"
+                onChange={[Function]}
+                type="radio"
+              />,
+              <label
+                className="radio"
+                htmlFor="color1"
+                style={
+                  Object {
+                    "background": undefined,
+                  }
+                }
+              />,
+              <input
+                checked={false}
+                id="color2"
+                onChange={[Function]}
+                type="radio"
+              />,
+              <label
+                className="radio"
+                htmlFor="color2"
+                style={
+                  Object {
+                    "background": undefined,
+                  }
+                }
+              />,
+              <input
+                checked={false}
+                id="color3"
+                onChange={[Function]}
+                type="radio"
+              />,
+              <label
+                className="radio"
+                htmlFor="color3"
+                style={
+                  Object {
+                    "background": undefined,
+                  }
+                }
+              />,
+              <input
+                checked={false}
+                id="color4"
+                onChange={[Function]}
+                type="radio"
+              />,
+              <label
+                className="radio"
+                htmlFor="color4"
+                style={
+                  Object {
+                    "background": undefined,
+                  }
+                }
+              />,
+              <input
+                checked={false}
+                id="color5"
+                onChange={[Function]}
+                type="radio"
+              />,
+              <label
+                className="radio"
+                htmlFor="color5"
+                style={
+                  Object {
+                    "background": undefined,
+                  }
+                }
+              />,
+            ],
+            "className": "palette-colors",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "checked": true,
+                "id": "color1",
+                "onChange": [Function],
+                "type": "radio",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "radio",
+                "htmlFor": "color1",
+                "style": Object {
+                  "background": undefined,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "label",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "checked": false,
+                "id": "color2",
+                "onChange": [Function],
+                "type": "radio",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "radio",
+                "htmlFor": "color2",
+                "style": Object {
+                  "background": undefined,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "label",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "checked": false,
+                "id": "color3",
+                "onChange": [Function],
+                "type": "radio",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "radio",
+                "htmlFor": "color3",
+                "style": Object {
+                  "background": undefined,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "label",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "checked": false,
+                "id": "color4",
+                "onChange": [Function],
+                "type": "radio",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "radio",
+                "htmlFor": "color4",
+                "style": Object {
+                  "background": undefined,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "label",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "checked": false,
+                "id": "color5",
+                "onChange": [Function],
+                "type": "radio",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "input",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "radio",
+                "htmlFor": "color5",
+                "style": Object {
+                  "background": undefined,
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "label",
+            },
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <button
+                className="clear"
+                onClick={[Function]}
+              >
+                RESET
+              </button>,
+              <button
+                className="save"
+                onClick={[Function]}
+              >
+                SAVE PALETTE
+                <div
+                  className="submit-alert "
+                />
+              </button>,
+            ],
+            "className": "palette-buttons",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "RESET",
+                "className": "clear",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "RESET",
+              "type": "button",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  "SAVE PALETTE",
+                  <div
+                    className="submit-alert "
+                  />,
+                ],
+                "className": "save",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": Array [
+                "SAVE PALETTE",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": false,
+                    "className": "submit-alert ",
+                  },
+                  "ref": null,
+                  "rendered": false,
+                  "type": "div",
+                },
+              ],
+              "type": "button",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
+      },
+    },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
+  },
+}
+`;

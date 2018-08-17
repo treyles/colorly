@@ -1,0 +1,55 @@
+{
+  "libraryMock": [
+    {
+      "id": "36077c9b-129c-4f39-8bcb-70ab2f18641b",
+      "key": "0",
+      "palette": {
+        "color1": "rgb(88, 138, 199)",
+        "color2": "rgb(245, 166, 63)",
+        "color3": "rgb(225, 85, 84)",
+        "color4": "rgb(0, 179, 149)"
+      },
+      "title": "Matisse Cut-Outs",
+      "url":
+        "https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/demo%2Fdemo-image-1.jpg?alt=media&token=56c62ac9-996c-4d91-bc18-ef60c1d61b09"
+    },
+    {
+      "id": "00861b10-b65a-4eb4-83ed-771e1ac01644",
+      "key": "1",
+      "palette": {
+        "color1": "rgb(153, 202, 174)",
+        "color2": "rgb(222, 191, 48)",
+        "color3": "rgb(216, 217, 163)",
+        "color4": "rgb(215, 117, 44)"
+      },
+      "title": "Moonrise Kingdom",
+      "url":
+        "https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/demo%2Fdemo-image-2.jpg?alt=media&token=c78e2723-945d-45ed-b77b-184f4e34d5f2"
+    },
+    {
+      "id": "0ae21d08-6e53-478b-8c68-cf5fa15821eb",
+      "key": "2",
+      "palette": {
+        "color1": "rgb(82, 154, 134)",
+        "color2": "rgb(235, 102, 119)",
+        "color3": "rgb(251, 209, 167)",
+        "color4": "rgb(247, 172, 151)"
+      },
+      "title": "Geometric Poster",
+      "url":
+        "https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/demo%2Fdemo-image-3.jpg?alt=media&token=21f134ec-0fdf-4c16-b070-4cfc8ff59c41"
+    },
+    {
+      "id": "f27474b5-f6fb-427d-85ec-920b62af4ff7",
+      "key": "3",
+      "palette": {
+        "color1": "rgb(171, 87, 96)",
+        "color2": "rgb(138, 180, 170)",
+        "color3": "rgb(81, 94, 84)"
+      },
+      "title": "Vintage Photo",
+      "url":
+        "https://firebasestorage.googleapis.com/v0/b/colorly-44942.appspot.com/o/demo%2Fdemo-image-4.jpg?alt=media&token=86636df0-105c-4537-adb8-55c67e8d0065"
+    }
+  ]
+}

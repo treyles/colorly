@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Swatch renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Swatch
+    activateCopyAlert={[MockFunction]}
+    color=""
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="pop-up"
+          style={
+            Object {
+              "background": "#NAN",
+            }
+          }
+        />,
+        <input
+          readOnly={true}
+          style={
+            Object {
+              "color": "",
+            }
+          }
+          value="#NAN"
+        />,
+      ],
+      "className": "swatch",
+      "onClick": [Function],
+      "onKeyDown": [Function],
+      "role": "button",
+      "style": Object {
+        "background": "#NAN",
+      },
+      "tabIndex": 0,
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "pop-up",
+          "style": Object {
+            "background": "#NAN",
+          },
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "readOnly": true,
+          "style": Object {
+            "color": "",
+          },
+          "value": "#NAN",
+        },
+        "ref": [Function],
+        "rendered": null,
+        "type": "input",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="pop-up"
+            style={
+              Object {
+                "background": "#NAN",
+              }
+            }
+          />,
+          <input
+            readOnly={true}
+            style={
+              Object {
+                "color": "",
+              }
+            }
+            value="#NAN"
+          />,
+        ],
+        "className": "swatch",
+        "onClick": [Function],
+        "onKeyDown": [Function],
+        "role": "button",
+        "style": Object {
+          "background": "#NAN",
+        },
+        "tabIndex": 0,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "pop-up",
+            "style": Object {
+              "background": "#NAN",
+            },
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "readOnly": true,
+            "style": Object {
+              "color": "",
+            },
+            "value": "#NAN",
+          },
+          "ref": [Function],
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getSnapshotBeforeUpdate": true,
+        },
+      },
+    },
+    "attachTo": undefined,
+    "hydrateIn": undefined,
+  },
+}
+`;

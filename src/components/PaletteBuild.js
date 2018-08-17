@@ -240,5 +240,7 @@ PaletteBuild.propTypes = {
   currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
     .isRequired,
   addCardToLibrary: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired // eslint-disable-line
+  history: PropTypes.shape({
+    push: PropTypes.func
+  }).isRequired
 };
