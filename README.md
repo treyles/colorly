@@ -1,40 +1,27 @@
-# React Starter
+# Colorly
 
-A personal React build system to get projects up and running quickly.
-This was made in an effort to familiarize myself with modern JS build tools and manual configuration.
+<p align="center">
+<img src="https://imgur.com/a9bAIz7.png" width="739"/>
+</p>
 
-## Features
+[www.colorly.co](http://www.colorly.co)
 
-* [Webpack](https://github.com/webpack/webpack) - module bundler
-* [Babel](https://github.com/babel/babel) - ES6 and JSX transpiler
-* [ESLint](https://github.com/eslint/eslint) - Javascript validation, adhering to [Airbnb's style guide](https://github.com/airbnb/javascript)
-* [PostCSS (with Autoprefixer)](https://github.com/postcss/postcss) - automates vendor prefixes
-* [Prettier](https://github.com/prettier/prettier) - code formatter
-* Sass support
+A simple color extraction app. Save custom palettes to your collection along with the source image for future reference!
 
-## Getting Started
+- **View:** React + ES6
+- **Build:** Webpack, Babel
+- **CSS:** SASS
+- **Testing:** Jest, Enzyme
 
-**Clone**
+![screenshot](https://imgur.com/WJVBXDJ.png)
 
-```bash
-git clone https://github.com/treyles/react-starter.git
+## How to use
+
+Clone this repo, then:
+
 ```
-
-**Install**
-
-```bash
 yarn
-
-# or
-
-npm install
+yarn dev
 ```
 
-## Commands
-
-Command|Description
-------------------|-----------
-`yarn build`|build for production
-`yarn lint`|run ESLint
-`yarn format`|run Prettier
-`yarn dev`|run webpack dev server at [http://localhost:8080/](http://localhost:8080/)
+Run dev server at http://localhost:8080
