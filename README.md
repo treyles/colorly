@@ -13,7 +13,7 @@ A simple color extraction app. Save custom palettes to your collection along wit
 - **CSS:** SASS
 - **Testing:** Jest, Enzyme
 
-![screenshot](https://imgur.com/WJVBXDJ.png)
+![screenshot](https://imgur.com/YPHZETM.png)
 
 ## How to use
 
