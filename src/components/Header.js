@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import firebase from 'firebase';
 import Icon from '../utils/Icon';
 import ClickOutside from '../utils/ClickOutside';
+import { closeNewUserDialog } from '../actions';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +52,7 @@ export default class Header extends React.Component {
 
   render() {
     const { profileOpen } = this.state;
-    const { currentUser, library, animateHeader } = this.props;
+    const { userPhoto, userName, library, animateHeader } = this.props;
 
     const profileDialog = (
       <div className="profile-dialog">
@@ -81,12 +83,10 @@ export default class Header extends React.Component {
         >
           <div className="profile">
             <div className="profile-image">
-              {currentUser.photoURL && (
-                <img src={currentUser.photoURL} alt="avatar" />
-              )}
+              {userPhoto && <img src={userPhoto} alt="avatar" />}
             </div>
             <button onClick={this.handleDialogToggleClick}>
-              {currentUser.displayName}
+              {userName}
             </button>
             <button onClick={this.handleDialogToggleClick}>
               <Icon icon="down" />
@@ -114,14 +114,28 @@ export default class Header extends React.Component {
   }
 }
 
+Header.defaultProps = {
+  userName: '',
+  userPhoto: null
+};
+
 Header.propTypes = {
   isNewUser: PropTypes.bool.isRequired,
   closeNewUserDialog: PropTypes.func.isRequired,
-  currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
-    .isRequired,
+  userPhoto: PropTypes.string,
+  userName: PropTypes.string,
   library: PropTypes.arrayOf(PropTypes.object).isRequired,
   animateHeader: PropTypes.bool.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired
 };
+
+const mapStateToProps = state => ({
+  library: state.data.library,
+  userPhoto: state.user.currentUser.photoURL,
+  userName: state.user.currentUser.displayName,
+  isNewUser: state.user.isNewUser
+});
+
+export default connect(mapStateToProps, { closeNewUserDialog })(Header);

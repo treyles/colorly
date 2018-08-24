@@ -1,49 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid';
-import { storage } from '../utils/base';
+import { connect } from 'react-redux';
+import { storageRef, databaseRef } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import BackButton from './BackButton';
 import Canvas from './Canvas';
 import DropZoneContent from './DropZoneContent';
+import { resetBuild } from '../actions';
 
-export default class PaletteBuild extends React.Component {
+class PaletteBuild extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       imageSource: null,
       dropZoneHover: false,
       showPreloader: false,
-      id: uuidv4(),
-      palette: {},
-      title: '',
-      checked: 'color1',
       submitAlert: false,
       imageAlert: false
     };
 
-    this.setCheckedColor = this.setCheckedColor.bind(this);
-    this.setPaletteTitle = this.setPaletteTitle.bind(this);
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
-    this.makePalette = this.makePalette.bind(this);
-    this.clearPalette = this.clearPalette.bind(this);
+    this.addCardToLibrary = this.addCardToLibrary.bind(this);
     this.savePalette = this.savePalette.bind(this);
   }
 
   componentWillUnmount() {
     clearTimeout(this.submitAlertTimer);
     clearTimeout(this.imageAlertTimer);
-  }
-
-  setCheckedColor(e) {
-    this.setState({ checked: e.target.id });
-  }
-
-  setPaletteTitle(e) {
-    this.setState({ title: e.target.value });
+    this.props.resetBuild();
   }
 
   handleDragOver(e) {
@@ -58,12 +45,10 @@ export default class PaletteBuild extends React.Component {
 
   handleImageDrop(e) {
     e.preventDefault();
-
     // change scope based on image 'dropped' or 'selected'
     const imageFile = e.dataTransfer
       ? e.dataTransfer.files[0]
       : e.target.files[0];
-
     // 3 megabyte limit
     const sizeLimit = 1024 * 3;
     const fileSize = imageFile.size / 1024;
@@ -98,48 +83,33 @@ export default class PaletteBuild extends React.Component {
     this.setState({ imageSource: imageFile });
   }
 
-  makePalette(color) {
-    const { palette, checked } = this.state;
-    const newColor = { [checked]: color };
-
-    this.setState({
-      palette: { ...palette, ...newColor }
-    });
-  }
-
-  clearPalette() {
-    this.setState({
-      palette: {},
-      checked: 'color1'
+  // database.ref().child('users')
+  addCardToLibrary(object) {
+    const { uid } = this.props;
+    databaseRef.child(uid).update({
+      [object.id]: object
     });
   }
 
   savePalette() {
-    const { palette, title, id, imageSource } = this.state;
-    const { currentUser } = this.props;
+    const { uid, card } = this.props;
+    const { imageSource } = this.state;
 
-    // check for empty values
-    if (!Object.keys(palette).length || !title.length) {
+    // activate alert for empty values
+    if (!Object.keys(card.palette).length || !card.title.length) {
       this.activateSubmitAlert();
       return;
     }
 
-    const storageRef = storage.ref(`users/${currentUser.uid}/${id}`);
-    const upload = storageRef.put(imageSource);
+    const upload = storageRef
+      .child(uid)
+      .child(card.id)
+      .put(imageSource);
 
-    upload
-      .then(() => {
-        storageRef.getDownloadURL().then(url => {
-          this.props.addCardToLibrary({ url, palette, id, title });
-          // navigate to homepage
-          this.props.history.push('/');
-        });
-      })
-      .catch(err => {
-        alert(err.code);
-        // navigate to homepage
-        this.props.history.push('/');
-      });
+    upload.then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+      this.addCardToLibrary({ ...card, url });
+      this.props.history.push('/');
+    });
 
     this.setState({
       imageSource: false,
@@ -148,7 +118,7 @@ export default class PaletteBuild extends React.Component {
   }
 
   activateSubmitAlert() {
-    const { palette } = this.state;
+    const { card: { palette } } = this.props;
     let { submitAlert } = this.state;
 
     if (!Object.keys(palette).length) {
@@ -178,9 +148,6 @@ export default class PaletteBuild extends React.Component {
       imageSource,
       dropZoneHover,
       showPreloader,
-      palette,
-      checked,
-      title,
       submitAlert,
       imageAlert
     } = this.state;
@@ -217,14 +184,7 @@ export default class PaletteBuild extends React.Component {
               imageSource={imageSource}
             />
             <PaletteBuildFooter
-              palette={palette}
-              setCheckedColor={this.setCheckedColor}
-              checked={checked}
-              setPaletteTitle={this.setPaletteTitle}
-              title={title}
               savePalette={this.savePalette}
-              clearPalette={this.clearPalette}
-              library={this.props.library}
               submitAlert={submitAlert}
             />
           </div>
@@ -235,12 +195,20 @@ export default class PaletteBuild extends React.Component {
   }
 }
 
+PaletteBuild.defaultProps = {
+  uid: null
+};
+
 PaletteBuild.propTypes = {
-  library: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
-    .isRequired,
-  addCardToLibrary: PropTypes.func.isRequired,
+  uid: PropTypes.string,
   history: PropTypes.shape({
     push: PropTypes.func
   }).isRequired
 };
+
+const mapStateToProps = state => ({
+  uid: state.user.currentUser.uid,
+  card: state.build.card
+});
+
+export default connect(mapStateToProps, { resetBuild })(PaletteBuild);

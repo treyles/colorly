@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import Icon from '../utils/Icon';
 import { googleAuth, twitterAuth } from '../utils/base';
 
-export default function Home({ signInUser }) {
+import { connect } from 'react-redux';
+import { signIn } from '../actions';
+
+function Home({ signIn }) {
   return (
     <div className="home">
       <div className="hero-text-container">
@@ -19,13 +22,13 @@ export default function Home({ signInUser }) {
           <div className="buttons">
             <button
               className="twitter-login"
-              onClick={() => signInUser(twitterAuth)}
+              onClick={() => signIn(twitterAuth)}
             >
               Connect with Twitter
             </button>
             <button
               className="google-login"
-              onClick={() => signInUser(googleAuth)}
+              onClick={() => signIn(googleAuth)}
             >
               Connect with Google
             </button>
@@ -38,5 +41,7 @@ export default function Home({ signInUser }) {
 }
 
 Home.propTypes = {
-  signInUser: PropTypes.func.isRequired
+  signIn: PropTypes.func.isRequired
 };
+
+export default connect(null, { signIn })(Home);

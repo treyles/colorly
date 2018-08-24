@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { makePalette } from '../actions';
 
-export default class Canvas extends React.Component {
+class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -160,3 +162,5 @@ Canvas.propTypes = {
   imageSource: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
     .isRequired
 };
+
+export default connect(null, { makePalette })(Canvas);

@@ -13,9 +13,12 @@ const app = firebase.initializeApp({
 
 const db = firebase.database(app);
 
+export const database = firebase.database();
 export const storage = firebase.storage();
 export const rebase = Rebase.createClass(db);
 export const auth = firebase.auth();
 export const googleAuth = new firebase.auth.GoogleAuthProvider();
 export const twitterAuth = new firebase.auth.TwitterAuthProvider();
-export const database = firebase.database();
+export const databaseRef = database.ref().child('users');
+export const storageRef = storage.ref().child('users');
+export const demoRef = database.ref().child('demo');

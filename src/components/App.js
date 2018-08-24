@@ -1,105 +1,36 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { storage, auth, rebase, database } from '../utils/base';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { auth, demoRef } from '../utils/base';
 import PaletteBuild from './PaletteBuild';
 import Library from './Library';
 import Home from './Home';
 import NotFound from './NotFound';
+import { fetchUser, fetchLibrary, addCard } from '../actions';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-      library: [],
-      loading: true,
-      isNewUser: false
-    };
-
-    this.refresh = JSON.parse(localStorage.getItem('authenticated'));
-    this.addCardToLibrary = this.addCardToLibrary.bind(this);
-    this.deleteCardFromLibrary = this.deleteCardFromLibrary.bind(this);
-    this.signInUser = this.signInUser.bind(this);
-    this.closeNewUserDialog = this.closeNewUserDialog.bind(this);
-    this.addDemoPalettes = this.addDemoPalettes.bind(this);
-  }
-
-  // if previously logged in, prevent homepage from momentarily appearing on refresh
+class App extends React.Component {
+  // TODO: refactor, needed?
   componentWillMount() {
-    if (this.refresh) {
-      this.setState({ currentUser: true });
+    if (JSON.parse(localStorage.getItem('authenticated'))) {
+      this.props.fetchUser(true);
     }
   }
 
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {
-      this.setState({ currentUser });
+      this.props.fetchUser(currentUser);
 
       // if logged in
       if (currentUser) {
-        this.syncRebase();
+        this.props.fetchLibrary(currentUser.uid);
         localStorage.setItem('authenticated', true);
       }
     });
   }
 
-  syncRebase() {
-    const { currentUser } = this.state;
-
-    rebase.syncState(`users/${currentUser.uid}`, {
-      context: this,
-      state: 'library',
-      asArray: true,
-      then() {
-        this.setState({ loading: false });
-      }
-    });
-  }
-
-  signInUser(provider) {
-    auth.signInWithPopup(provider).then(result => {
-      this.setState({
-        isNewUser: result.additionalUserInfo.isNewUser
-      });
-    });
-  }
-
-  addCardToLibrary(obj) {
-    const { library } = this.state;
-    this.setState({
-      library: [obj].concat(library)
-    });
-  }
-
-  deleteCardFromLibrary(obj) {
-    const { library, currentUser } = this.state;
-    const storageRef = storage.ref(`users/${currentUser.uid}/${obj.id}`);
-    storageRef.delete();
-
-    this.setState({
-      library: library.filter(el => el !== obj)
-    });
-  }
-
-  addDemoPalettes() {
-    database
-      .ref('demo/')
-      .once('value')
-      .then(snapshot =>
-        this.setState({
-          library: snapshot.val()
-        })
-      );
-
-    this.closeNewUserDialog();
-  }
-
-  closeNewUserDialog() {
-    this.setState({ isNewUser: false });
-  }
-
   render() {
-    const { library, currentUser, loading, isNewUser } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <BrowserRouter>
@@ -108,32 +39,17 @@ export default class App extends React.Component {
             exact
             path="/"
             render={({ history }) =>
-              !currentUser ? (
-                <Home signInUser={this.signInUser} />
-              ) : (
-                <Library
-                  library={library}
-                  currentUser={currentUser}
-                  deleteCardFromLibrary={this.deleteCardFromLibrary}
-                  loading={loading}
-                  isNewUser={isNewUser}
-                  closeNewUserDialog={this.closeNewUserDialog}
-                  history={history}
-                  addDemoPalettes={this.addDemoPalettes}
-                />
-              )}
+              !currentUser ? <Home /> : <Library history={history} />}
           />
           <Route
             path="/palettebuild"
             render={({ history }) =>
               !currentUser ? (
-                <Home signInUser={this.signInUser} />
+                <Home />
               ) : (
                 <PaletteBuild
                   history={history}
                   addCardToLibrary={this.addCardToLibrary}
-                  library={library}
-                  currentUser={currentUser}
                 />
               )}
           />
@@ -145,3 +61,23 @@ export default class App extends React.Component {
     );
   }
 }
+
+App.defaultProps = {
+  currentUser: null
+};
+
+App.propTypes = {
+  currentUser: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
+  fetchUser: PropTypes.func.isRequired,
+  fetchLibrary: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
+export default connect(mapStateToProps, {
+  fetchUser,
+  fetchLibrary,
+  addCard
+})(App);

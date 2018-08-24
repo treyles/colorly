@@ -4,7 +4,11 @@ import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
 import Swatch from './Swatch';
 
-export default class PaletteCard extends React.Component {
+import { connect } from 'react-redux';
+import { deleteCard } from '../actions';
+import { databaseRef, storageRef } from '../utils/base';
+
+class PaletteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +19,7 @@ export default class PaletteCard extends React.Component {
     this.handleDialogToggleClick = this.handleDialogToggleClick.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
     this.activateCopyAlert = this.activateCopyAlert.bind(this);
+    this.deleteCardFromLibrary = this.deleteCardFromLibrary.bind(this);
   }
 
   componentWillUnmount() {
@@ -25,6 +30,22 @@ export default class PaletteCard extends React.Component {
     this.setState({
       optionsOpen: !this.state.optionsOpen
     });
+  }
+
+  deleteCardFromLibrary() {
+    const { uid, data } = this.props;
+
+    if (!data.demo) {
+      storageRef
+        .child(uid)
+        .child(data.id)
+        .delete();
+    }
+
+    databaseRef
+      .child(uid)
+      .child(data.id)
+      .remove();
   }
 
   closeDialog() {
@@ -46,7 +67,7 @@ export default class PaletteCard extends React.Component {
 
   render() {
     const { optionsOpen, copyAlert } = this.state;
-    const { data, setImageSource, deleteCardFromLibrary } = this.props;
+    const { data, setImageSource } = this.props;
 
     const optionsDialog = (
       <div className="options-dialog">
@@ -58,7 +79,7 @@ export default class PaletteCard extends React.Component {
         </button>
         <button
           className="delete-btn"
-          onClick={() => deleteCardFromLibrary(data)}
+          onClick={this.deleteCardFromLibrary}
         >
           DELETE
         </button>
@@ -105,6 +126,11 @@ PaletteCard.propTypes = {
     palette: PropTypes.object,
     title: PropTypes.string
   }).isRequired,
-  setImageSource: PropTypes.func.isRequired,
-  deleteCardFromLibrary: PropTypes.func.isRequired
+  setImageSource: PropTypes.func.isRequired
 };
+
+const mapStateToProps = state => ({
+  uid: state.user.currentUser.uid
+});
+
+export default connect(mapStateToProps, { deleteCard })(PaletteCard);

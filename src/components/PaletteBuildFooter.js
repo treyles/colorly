@@ -3,28 +3,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../utils/Icon';
 
-export default class PaletteBuildFooter extends React.Component {
+import { connect } from 'react-redux';
+import {
+  setCheckedColor,
+  setPaletteTitle,
+  clearPalette
+} from '../actions';
+
+class PaletteBuildFooter extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleTitleIconClick = this.handleTitleIconClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.setTitleInputRef = this.setTitleInputRef.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
   setTitleInputRef(ref) {
     this.titleInput = ref;
-  }
-
-  handleChange(e) {
-    this.props.setCheckedColor(e);
-  }
-
-  handleTitleChange(e) {
-    this.props.setPaletteTitle(e);
   }
 
   handleTitleIconClick() {
@@ -49,7 +46,15 @@ export default class PaletteBuildFooter extends React.Component {
   }
 
   render() {
-    const { palette, checked, title, library, submitAlert } = this.props;
+    const {
+      palette,
+      checked,
+      title,
+      library,
+      submitAlert,
+      setCheckedColor,
+      setPaletteTitle
+    } = this.props;
 
     return (
       <div className="footer">
@@ -64,7 +69,7 @@ export default class PaletteBuildFooter extends React.Component {
           </span>
           <input
             ref={this.setTitleInputRef}
-            onChange={this.handleTitleChange}
+            onChange={e => setPaletteTitle(e)}
             value={title}
             className="palette-input"
             type="text"
@@ -78,7 +83,7 @@ export default class PaletteBuildFooter extends React.Component {
             type="radio"
             id="color1"
             checked={checked === 'color1'}
-            onChange={this.handleChange}
+            onChange={e => setCheckedColor(e)}
           />
           <label
             className="radio"
@@ -89,7 +94,7 @@ export default class PaletteBuildFooter extends React.Component {
             type="radio"
             id="color2"
             checked={checked === 'color2'}
-            onChange={this.handleChange}
+            onChange={e => setCheckedColor(e)}
           />
           <label
             className="radio"
@@ -100,7 +105,7 @@ export default class PaletteBuildFooter extends React.Component {
             type="radio"
             id="color3"
             checked={checked === 'color3'}
-            onChange={this.handleChange}
+            onChange={e => setCheckedColor(e)}
           />
           <label
             className="radio"
@@ -111,7 +116,7 @@ export default class PaletteBuildFooter extends React.Component {
             type="radio"
             id="color4"
             checked={checked === 'color4'}
-            onChange={this.handleChange}
+            onChange={e => setCheckedColor(e)}
           />
           <label
             className="radio"
@@ -122,7 +127,7 @@ export default class PaletteBuildFooter extends React.Component {
             type="radio"
             id="color5"
             checked={checked === 'color5'}
-            onChange={this.handleChange}
+            onChange={e => setCheckedColor(e)}
           />
           <label
             className="radio"
@@ -150,7 +155,7 @@ PaletteBuildFooter.propTypes = {
   setCheckedColor: PropTypes.func.isRequired,
   setPaletteTitle: PropTypes.func.isRequired,
   savePalette: PropTypes.func.isRequired,
-  clearPalette: PropTypes.func.isRequired,
+  // clearPalette: PropTypes.func.isRequired,
   palette: PropTypes.objectOf(PropTypes.string).isRequired,
   checked: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -158,3 +163,16 @@ PaletteBuildFooter.propTypes = {
   submitAlert: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
     .isRequired
 };
+
+const mapStateToProps = state => ({
+  library: state.data.library,
+  checked: state.build.checked,
+  palette: state.build.card.palette,
+  title: state.build.card.title
+});
+
+export default connect(mapStateToProps, {
+  setCheckedColor,
+  setPaletteTitle,
+  clearPalette
+})(PaletteBuildFooter);
