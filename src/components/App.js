@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { auth, demoRef } from '../utils/base';
+import { auth } from '../utils/base';
 import PaletteBuild from './PaletteBuild';
 import Library from './Library';
 import Home from './Home';

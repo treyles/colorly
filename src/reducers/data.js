@@ -10,6 +10,11 @@ export default function data(state = initialState, action) {
         library: action.library || [],
         loading: action.loading
       };
+    case 'FETCH_DEMO':
+      return {
+        ...state,
+        loading: action.loading
+      };
     default:
       return state;
   }

@@ -39,10 +39,7 @@ export const closeNewUserDialog = () => dispatch => {
 
 export const fetchDemo = () => dispatch => {
   demoRef.once('value').then(snapshot => {
-    dispatch({
-      type: 'FETCH_DEMO',
-      snapshot
-    });
+    snapshot.val();
   });
 
   closeNewUserDialog();
