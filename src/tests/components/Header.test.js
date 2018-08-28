@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Header from '../../components/Header';
+import { Header } from '../../components/Header';
 
 describe('Header', () => {
   let component;
@@ -49,7 +49,7 @@ describe('Header', () => {
 
   it('calls "handleSignOutClick" on SIGN OUT button click', () => {
     const spy = jest
-      .spyOn(Header.prototype, 'handleSignOutClick')
+      .spyOn(Header, 'handleSignOutClick')
       .mockImplementation(jest.fn());
     const wrapper = shallow(<Header {...props} />);
     wrapper.find('.sign-out').simulate('click');

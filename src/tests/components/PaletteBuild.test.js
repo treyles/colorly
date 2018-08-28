@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PaletteBuild from '../../components/PaletteBuild';
+import { PaletteBuild } from '../../components/PaletteBuild';
 import Canvas from '../../components/Canvas';
 import PaletteBuildFooter from '../../components/PaletteBuildFooter';
 
@@ -9,10 +9,10 @@ describe('PaletteBuild', () => {
   jest.useFakeTimers();
 
   const props = {
-    library: [],
-    currentUser: true,
-    addCardToLibrary: jest.fn(),
-    history: {}
+    resetBuild: jest.fn(),
+    setImageSource: jest.fn(),
+    imageSource: false,
+    showPreloader: false
   };
 
   const event = {
@@ -63,31 +63,16 @@ describe('PaletteBuild', () => {
     jest.runAllTimers();
   });
 
-  it('adds new color to palette state when makePalette is called', () => {
-    component.instance().makePalette('rgbValue');
-    expect(component.state().palette.color1).toEqual('rgbValue');
-  });
-
-  it('clears palette when clearPalette is called ', () => {
-    component.setState({
-      palette: {
-        color1: 'palette1'
-      }
-    });
-    expect(Object.keys(component.state().palette).length).toEqual(1);
-    component.instance().clearPalette();
-    expect(Object.keys(component.state().palette).length).toEqual(0);
-  });
   it('renders <Canvas /> if imageSource is truthy', () => {
-    component.setState({
-      imageSource: 'url'
+    component.setProps({
+      imageSource: { true: 'true' }
     });
     expect(component.find(Canvas).exists()).toEqual(true);
   });
 
   it('renders <PaletteBuildFooter /> if imageSource is truthy', () => {
-    component.setState({
-      imageSource: 'url'
+    component.setProps({
+      imageSource: { true: 'true' }
     });
     expect(component.find(PaletteBuildFooter).exists()).toEqual(true);
   });
@@ -97,7 +82,7 @@ describe('PaletteBuild', () => {
   });
 
   it('renders preloader if showPreloader is truthy', () => {
-    component.setState({
+    component.setProps({
       showPreloader: true
     });
     expect(component.find('.preloader-wrapper').exists()).toEqual(true);

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { withRouter } from 'react-router-dom';
 import { auth } from '../utils/base';
 import Icon from '../utils/Icon';
 import ClickOutside from '../utils/ClickOutside';
 import { closeNewUserDialog } from '../actions';
 
-class Header extends React.Component {
+export class Header extends React.Component {
   static handleSignOutClick() {
     auth.signOut().then(() => {
       localStorage.setItem('authenticated', false);

@@ -5,7 +5,7 @@ import Icon from '../utils/Icon';
 import { googleAuth, twitterAuth } from '../utils/base';
 import { signIn } from '../actions';
 
-function Home(props) {
+export function Home(props) {
   return (
     <div className="home">
       <div className="hero-text-container">

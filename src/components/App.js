@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { auth } from '../utils/base';
 import PaletteBuild from './PaletteBuild';
 import Library from './Library';
 import Home from './Home';
 import NotFound from './NotFound';
+
 import { fetchUser, fetchLibrary } from '../actions/';
 
-class App extends React.Component {
-  // TODO: figure out another method?
+export class App extends React.Component {
+  // TODO: figure out another method to prevent flash
   componentWillMount() {
     if (JSON.parse(localStorage.getItem('authenticated'))) {
       this.props.fetchUser(true);

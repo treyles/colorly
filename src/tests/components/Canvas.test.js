@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Canvas from '../../components/Canvas';
+import { Canvas } from '../../components/Canvas';
 
 describe('Canvas', () => {
   const props = {
-    makePalette: jest.fn(),
+    addColorToPalette: jest.fn(),
     imageSource: {}
   };
 

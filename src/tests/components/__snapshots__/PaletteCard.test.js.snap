@@ -15,8 +15,8 @@ ShallowWrapper {
         "url": "",
       }
     }
-    deleteCardFromLibrary={[MockFunction]}
     setImageSource={[MockFunction]}
+    uid="uid"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],

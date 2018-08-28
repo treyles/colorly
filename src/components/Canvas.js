@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addColorToPalette } from '../actions';
 
-class Canvas extends React.Component {
+export class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

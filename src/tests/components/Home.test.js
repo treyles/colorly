@@ -1,43 +1,38 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Home from '../../components/Home';
-import App from '../../components/App';
+import { Home } from '../../components/Home';
 import { googleAuth, twitterAuth } from '../../utils/base';
 
 describe('Home', () => {
-  it('calls "signInUser" from App when Twitter button is clicked', () => {
-    const spy = jest.spyOn(App.prototype, 'signInUser');
-    const component = shallow(<Home signInUser={spy} />);
+  const props = {
+    signIn: jest.fn()
+  };
 
+  it('calls "signInUser" from App when Twitter button is clicked', () => {
+    const component = shallow(<Home {...props} />);
     component.find('.twitter-login').simulate('click');
-    expect(spy).toHaveBeenCalled();
-    spy.mockClear();
+    expect(props.signIn).toHaveBeenCalled();
+    props.signIn.mockClear();
   });
 
   it('calls "signInUser" from App when Google button is clicked', () => {
-    const spy = jest.spyOn(App.prototype, 'signInUser');
-    const component = shallow(<Home signInUser={spy} />);
-
+    const component = shallow(<Home {...props} />);
     component.find('.google-login').simulate('click');
-    expect(spy).toHaveBeenCalled();
-    spy.mockClear();
+    expect(props.signIn).toHaveBeenCalled();
+    props.signIn.mockClear();
   });
 
   it('authorizes with twitterAuth when Twitter button is clicked', () => {
-    const spy = jest.spyOn(App.prototype, 'signInUser');
-    const component = shallow(<Home signInUser={spy} />);
-
+    const component = shallow(<Home {...props} />);
     component.find('.twitter-login').simulate('click');
-    expect(spy).toHaveBeenCalledWith(twitterAuth);
-    spy.mockClear();
+    expect(props.signIn).toHaveBeenCalledWith(twitterAuth);
+    props.signIn.mockClear();
   });
 
   it('authorizes with googleAuth when Google button is clicked', () => {
-    const spy = jest.spyOn(App.prototype, 'signInUser');
-    const component = shallow(<Home signInUser={spy} />);
-
+    const component = shallow(<Home {...props} />);
     component.find('.google-login').simulate('click');
-    expect(spy).toHaveBeenCalledWith(googleAuth);
-    spy.mockClear();
+    expect(props.signIn).toHaveBeenCalledWith(googleAuth);
+    props.signIn.mockClear();
   });
 });

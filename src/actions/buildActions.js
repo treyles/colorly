@@ -50,7 +50,6 @@ export const addColorToPalette = color => (dispatch, getState) => {
   });
 };
 
-// TODO: resetBuild and clearPalette do almost the same thing
 export const resetBuild = () => dispatch => {
   dispatch({
     type: RESET_BUILD

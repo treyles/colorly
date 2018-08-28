@@ -10,7 +10,7 @@ import {
   addCardToLibrary
 } from '../actions';
 
-class PaletteBuildFooter extends React.Component {
+export class PaletteBuildFooter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +72,7 @@ class PaletteBuildFooter extends React.Component {
     }, 1500);
   }
 
-  // TODO: save for last (if have time), loop palette color markup
+  // TODO: loop palette color markup
   render() {
     const { submitAlert } = this.state;
     const {

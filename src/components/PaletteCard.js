@@ -6,7 +6,7 @@ import Icon from '../utils/Icon';
 import Swatch from './Swatch';
 import { databaseRef, storageRef } from '../utils/base';
 
-class PaletteCard extends React.Component {
+export class PaletteCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

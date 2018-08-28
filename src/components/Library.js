@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { demoRef, databaseRef } from '../utils/base';
 import Header from './Header';
 import Icon from '../utils/Icon';
 import PaletteCard from './PaletteCard';
 import BackButton from './BackButton';
 import LazyImage from '../utils/LazyImage';
-import { demoRef, databaseRef } from '../utils/base';
 import { closeNewUserDialog, fetchLibrary } from '../actions';
 
-class Library extends React.Component {
+export class Library extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Library from '../../components/Library';
+import { Library } from '../../components/Library';
 import PaletteCard from '../../components/PaletteCard';
 import { libraryMock } from '../__mocks__/dataMock.json';
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PaletteCard from '../../components/PaletteCard';
+import { PaletteCard } from '../../components/PaletteCard';
 import Swatch from '../../components/Swatch';
 
 describe('PaletteCard', () => {
   let component;
   const props = {
+    uid: 'uid',
     data: {
       url: '',
       palette: {
@@ -15,8 +16,7 @@ describe('PaletteCard', () => {
       },
       title: ''
     },
-    setImageSource: jest.fn(),
-    deleteCardFromLibrary: jest.fn()
+    setImageSource: jest.fn()
   };
 
   beforeEach(() => {
@@ -57,7 +57,11 @@ describe('PaletteCard', () => {
   });
 
   it('calls deleteCardFromLibrary when DELETE button is clicked', () => {
+    const spy = jest
+      .spyOn(PaletteCard.prototype, 'deleteCardFromLibrary')
+      .mockImplementation(jest.fn());
+    const component = shallow(<PaletteCard {...props} />);
     component.find('.delete-btn').simulate('click');
-    expect(props.deleteCardFromLibrary).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 });

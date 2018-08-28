@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import BackButton from './BackButton';
@@ -8,7 +8,7 @@ import Canvas from './Canvas';
 import DropZoneContent from './DropZoneContent';
 import { resetBuild, setImageSource } from '../actions';
 
-class PaletteBuild extends React.Component {
+export class PaletteBuild extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -14,6 +14,8 @@ ShallowWrapper {
     }
     isNewUser={false}
     library={Array []}
+    userName=""
+    userPhoto={null}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -44,7 +46,9 @@ ShallowWrapper {
             />
             <button
               onClick={[Function]}
-            />
+            >
+              
+            </button>
             <button
               onClick={[Function]}
             >
@@ -124,7 +128,9 @@ ShallowWrapper {
               />
               <button
                 onClick={[Function]}
-              />
+              >
+                
+              </button>
               <button
                 onClick={[Function]}
               >
@@ -183,7 +189,9 @@ ShallowWrapper {
                 />,
                 <button
                   onClick={[Function]}
-                />,
+                >
+                  
+                </button>,
                 <button
                   onClick={[Function]}
                 >
@@ -226,7 +234,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": undefined,
+                  "children": null,
                   "className": "profile-image",
                 },
                 "ref": null,
@@ -238,11 +246,11 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": undefined,
+                  "children": "",
                   "onClick": [Function],
                 },
                 "ref": null,
-                "rendered": null,
+                "rendered": "",
                 "type": "button",
               },
               Object {
@@ -504,7 +512,9 @@ ShallowWrapper {
               />
               <button
                 onClick={[Function]}
-              />
+              >
+                
+              </button>
               <button
                 onClick={[Function]}
               >
@@ -584,7 +594,9 @@ ShallowWrapper {
                 />
                 <button
                   onClick={[Function]}
-                />
+                >
+                  
+                </button>
                 <button
                   onClick={[Function]}
                 >
@@ -643,7 +655,9 @@ ShallowWrapper {
                   />,
                   <button
                     onClick={[Function]}
-                  />,
+                  >
+                    
+                  </button>,
                   <button
                     onClick={[Function]}
                   >
@@ -686,7 +700,7 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": undefined,
+                    "children": null,
                     "className": "profile-image",
                   },
                   "ref": null,
@@ -698,11 +712,11 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "host",
                   "props": Object {
-                    "children": undefined,
+                    "children": "",
                     "onClick": [Function],
                   },
                   "ref": null,
-                  "rendered": null,
+                  "rendered": "",
                   "type": "button",
                 },
                 Object {
