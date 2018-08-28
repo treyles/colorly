@@ -25,13 +25,11 @@ describe('Header', () => {
     component.setProps({
       library: [{}, {}]
     });
-
     expect(component.find('.count').text()).toEqual('2');
   });
 
   it('changes profileOpen state to true dialog name button is clicked', () => {
     const profileButton = component.find('button').at(0);
-
     // default state
     expect(component.state().profileOpen).toEqual(false);
     profileButton.simulate('click');

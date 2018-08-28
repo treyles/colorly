@@ -22,7 +22,6 @@ describe('PaletteBuildFooter', () => {
 
   it('calls setCheckedColor on palette selection', () => {
     const component = shallow(<PaletteBuildFooter {...props} />);
-
     component
       .find('input')
       .at(1)
@@ -32,7 +31,6 @@ describe('PaletteBuildFooter', () => {
 
   it('calls setPaletteTitle when entering title in text field', () => {
     const component = shallow(<PaletteBuildFooter {...props} />);
-
     component.find('.palette-input').simulate('change');
     expect(props.setPaletteTitle).toHaveBeenCalled();
   });
@@ -41,12 +39,10 @@ describe('PaletteBuildFooter', () => {
     const component = mount(<PaletteBuildFooter {...props} />);
     const element = component.instance().titleInput;
     jest.spyOn(element, 'focus');
-
     component
       .find('span')
       .at(0)
       .simulate('click');
-
     expect(element.focus).toHaveBeenCalled();
   });
 

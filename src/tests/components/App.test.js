@@ -64,15 +64,4 @@ describe('App', () => {
     );
     expect(mountedComponent.find(NotFound)).toHaveLength(1);
   });
-
-  // it('pushes new card to top (index 0) with `addCardToLibrary`', () => {
-  //   component.setState({
-  //     library: [{ one: 'one' }]
-  //   });
-
-  //   const media = { two: 'two' };
-
-  //   component.instance().addCardToLibrary(media);
-  //   expect(component.state().library[0]).toEqual(media);
-  // });
 });

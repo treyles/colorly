@@ -60,8 +60,8 @@ describe('PaletteCard', () => {
     const spy = jest
       .spyOn(PaletteCard.prototype, 'deleteCardFromLibrary')
       .mockImplementation(jest.fn());
-    const component = shallow(<PaletteCard {...props} />);
-    component.find('.delete-btn').simulate('click');
+    const wrapper = shallow(<PaletteCard {...props} />);
+    wrapper.find('.delete-btn').simulate('click');
     expect(spy).toHaveBeenCalled();
   });
 });

@@ -32,13 +32,11 @@ describe('Canvas', () => {
       winWidth: 800,
       winHeight: 600
     });
-
     // mock image
     const initialImageSize = {
       width: 1024,
       height: 800
     };
-
     const result = component.instance().optimizeScale(initialImageSize);
     expect(result.width < 800).toEqual(true);
     expect(result.height < 600).toEqual(true);
