@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ClickOutside from '../utils/ClickOutside';
 import Icon from '../utils/Icon';
 import Swatch from './Swatch';
-
-import { connect } from 'react-redux';
-import { deleteCard } from '../actions';
 import { databaseRef, storageRef } from '../utils/base';
 
 class PaletteCard extends React.Component {
@@ -34,18 +32,13 @@ class PaletteCard extends React.Component {
 
   deleteCardFromLibrary() {
     const { uid, data } = this.props;
+    const userPath = `${uid}/${data.id}`;
 
     if (!data.demo) {
-      storageRef
-        .child(uid)
-        .child(data.id)
-        .delete();
+      storageRef.child(userPath).delete();
     }
 
-    databaseRef
-      .child(uid)
-      .child(data.id)
-      .remove();
+    databaseRef.child(userPath).remove();
   }
 
   closeDialog() {
@@ -121,6 +114,7 @@ class PaletteCard extends React.Component {
 }
 
 PaletteCard.propTypes = {
+  uid: PropTypes.string.isRequired,
   data: PropTypes.shape({
     url: PropTypes.string,
     palette: PropTypes.object,
@@ -133,4 +127,4 @@ const mapStateToProps = state => ({
   uid: state.user.currentUser.uid
 });
 
-export default connect(mapStateToProps, { deleteCard })(PaletteCard);
+export default connect(mapStateToProps, null)(PaletteCard);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { makePalette } from '../actions';
+import { addColorToPalette } from '../actions';
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -65,7 +65,7 @@ class Canvas extends React.Component {
 
   handleColorClick() {
     const { currentColor } = this.state;
-    this.props.makePalette(currentColor);
+    this.props.addColorToPalette(currentColor);
   }
 
   updateBrowserSize() {
@@ -158,9 +158,9 @@ class Canvas extends React.Component {
 }
 
 Canvas.propTypes = {
-  makePalette: PropTypes.func.isRequired,
+  addColorToPalette: PropTypes.func.isRequired,
   imageSource: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
     .isRequired
 };
 
-export default connect(null, { makePalette })(Canvas);
+export default connect(null, { addColorToPalette })(Canvas);

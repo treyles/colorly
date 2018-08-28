@@ -2,32 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
-import firebase from 'firebase';
+import { withRouter } from 'react-router-dom';
+import { auth } from '../utils/base';
 import Icon from '../utils/Icon';
 import ClickOutside from '../utils/ClickOutside';
 import { closeNewUserDialog } from '../actions';
 
 class Header extends React.Component {
+  static handleSignOutClick() {
+    auth.signOut().then(() => {
+      localStorage.setItem('authenticated', false);
+    });
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       profileOpen: false
     };
 
-    this.handleSignOutClick = this.handleSignOutClick.bind(this);
     this.handleDialogToggleClick = this.handleDialogToggleClick.bind(this);
     this.handleAddPaletteClick = this.handleAddPaletteClick.bind(this);
     this.closeDialog = this.closeDialog.bind(this);
-  }
-
-  /* eslint-disable class-methods-use-this */
-  handleSignOutClick() {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        localStorage.setItem('authenticated', false);
-      });
   }
 
   handleDialogToggleClick() {
@@ -60,7 +56,7 @@ class Header extends React.Component {
           <span className="count">{library.length}</span>
           {library.length !== 1 ? 'PALETTES' : 'PALETTE'}
         </div>
-        <button className="sign-out" onClick={this.handleSignOutClick}>
+        <button className="sign-out" onClick={Header.handleSignOutClick}>
           SIGN OUT
         </button>
       </div>
@@ -120,15 +116,13 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  isNewUser: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired, // eslint-disable-line
+  animateHeader: PropTypes.bool.isRequired,
   closeNewUserDialog: PropTypes.func.isRequired,
+  library: PropTypes.arrayOf(PropTypes.object).isRequired,
   userPhoto: PropTypes.string,
   userName: PropTypes.string,
-  library: PropTypes.arrayOf(PropTypes.object).isRequired,
-  animateHeader: PropTypes.bool.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func
-  }).isRequired
+  isNewUser: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -138,4 +132,6 @@ const mapStateToProps = state => ({
   isNewUser: state.user.isNewUser
 });
 
-export default connect(mapStateToProps, { closeNewUserDialog })(Header);
+export default withRouter(
+  connect(mapStateToProps, { closeNewUserDialog })(Header)
+);

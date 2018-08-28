@@ -2,33 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { storageRef, databaseRef } from '../utils/base';
 import PaletteBuildFooter from './PaletteBuildFooter';
 import BackButton from './BackButton';
 import Canvas from './Canvas';
 import DropZoneContent from './DropZoneContent';
-import { resetBuild } from '../actions';
+import { resetBuild, setImageSource } from '../actions';
 
 class PaletteBuild extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageSource: null,
       dropZoneHover: false,
-      showPreloader: false,
-      submitAlert: false,
       imageAlert: false
     };
 
     this.handleImageDrop = this.handleImageDrop.bind(this);
     this.handleDragOver = this.handleDragOver.bind(this);
     this.handleDragLeave = this.handleDragLeave.bind(this);
-    this.addCardToLibrary = this.addCardToLibrary.bind(this);
-    this.savePalette = this.savePalette.bind(this);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.submitAlertTimer);
     clearTimeout(this.imageAlertTimer);
     this.props.resetBuild();
   }
@@ -80,61 +73,7 @@ class PaletteBuild extends React.Component {
       return;
     }
 
-    this.setState({ imageSource: imageFile });
-  }
-
-  // database.ref().child('users')
-  addCardToLibrary(object) {
-    const { uid } = this.props;
-    databaseRef.child(uid).update({
-      [object.id]: object
-    });
-  }
-
-  savePalette() {
-    const { uid, card } = this.props;
-    const { imageSource } = this.state;
-
-    // activate alert for empty values
-    if (!Object.keys(card.palette).length || !card.title.length) {
-      this.activateSubmitAlert();
-      return;
-    }
-
-    const upload = storageRef
-      .child(uid)
-      .child(card.id)
-      .put(imageSource);
-
-    upload.then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
-      this.addCardToLibrary({ ...card, url });
-      this.props.history.push('/');
-    });
-
-    this.setState({
-      imageSource: false,
-      showPreloader: true
-    });
-  }
-
-  activateSubmitAlert() {
-    const { card: { palette } } = this.props;
-    let { submitAlert } = this.state;
-
-    if (!Object.keys(palette).length) {
-      submitAlert = 'Palette Is Empty!';
-    } else {
-      submitAlert = 'Title Required!';
-    }
-
-    this.setState({ submitAlert });
-    this.resetSubmitAlert();
-  }
-
-  resetSubmitAlert() {
-    this.submitAlertTimer = setTimeout(() => {
-      this.setState({ submitAlert: false });
-    }, 1500);
+    this.props.setImageSource(imageFile);
   }
 
   resetImageLoadAlert() {
@@ -144,13 +83,8 @@ class PaletteBuild extends React.Component {
   }
 
   render() {
-    const {
-      imageSource,
-      dropZoneHover,
-      showPreloader,
-      submitAlert,
-      imageAlert
-    } = this.state;
+    const { dropZoneHover, imageAlert } = this.state;
+    const { imageSource, showPreloader } = this.props;
 
     const preloader = (
       <div className="preloader-wrapper">
@@ -170,23 +104,15 @@ class PaletteBuild extends React.Component {
             onDragLeave={this.handleDragLeave}
             onDrop={this.handleImageDrop}
           >
-            {!showPreloader && (
-              <DropZoneContent
-                imageAlert={imageAlert}
-                handleImageDrop={this.handleImageDrop}
-              />
-            )}
+            <DropZoneContent
+              imageAlert={imageAlert}
+              handleImageDrop={this.handleImageDrop}
+            />
           </div>
         ) : (
           <div className="canvas-container">
-            <Canvas
-              makePalette={this.makePalette}
-              imageSource={imageSource}
-            />
-            <PaletteBuildFooter
-              savePalette={this.savePalette}
-              submitAlert={submitAlert}
-            />
+            <Canvas imageSource={imageSource} />
+            <PaletteBuildFooter />
           </div>
         )}
         {showPreloader && preloader}
@@ -195,20 +121,19 @@ class PaletteBuild extends React.Component {
   }
 }
 
-PaletteBuild.defaultProps = {
-  uid: null
-};
-
 PaletteBuild.propTypes = {
-  uid: PropTypes.string,
-  history: PropTypes.shape({
-    push: PropTypes.func
-  }).isRequired
+  resetBuild: PropTypes.func.isRequired,
+  setImageSource: PropTypes.func.isRequired,
+  imageSource: PropTypes.oneOfType([PropTypes.bool, PropTypes.object])
+    .isRequired,
+  showPreloader: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
-  uid: state.user.currentUser.uid,
-  card: state.build.card
+  imageSource: state.build.imageSource,
+  showPreloader: state.build.showPreloader
 });
 
-export default connect(mapStateToProps, { resetBuild })(PaletteBuild);
+export default connect(mapStateToProps, { resetBuild, setImageSource })(
+  PaletteBuild
+);

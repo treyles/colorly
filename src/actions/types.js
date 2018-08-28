@@ -1,0 +1,11 @@
+export const FETCH_USER = 'FETCH_USER';
+export const SIGN_IN = 'SIGN_IN';
+export const FETCH_LIBRARY = 'FETCH_LIBRARY';
+export const CLOSE_NEW_USER = 'CLOSE_NEW_USER';
+export const SET_PRELOADER = 'SET_PRELOADER';
+export const SET_IMAGE_SOURCE = 'SET_IMAGE_SOURCE';
+export const ADD_COLOR = 'ADD_COLOR';
+export const RESET_BUILD = 'RESET_BUILD';
+export const CLEAR_PALETTE = 'CLEAR_PALETTE';
+export const SET_CHECKED_COLOR = 'SET_CHECKED_COLOR';
+export const SET_PALETTE_TITLE = 'SET_PALETTE_TITLE';

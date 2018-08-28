@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-export default function NotFound({ history }) {
+function NotFound({ history }) {
   return (
     <div className="not-found">
       <h1>404</h1>
@@ -19,7 +20,7 @@ export default function NotFound({ history }) {
 }
 
 NotFound.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func
-  }).isRequired
+  history: PropTypes.object.isRequired // eslint-disable-line
 };
+
+export default withRouter(NotFound);

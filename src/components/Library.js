@@ -6,8 +6,8 @@ import Icon from '../utils/Icon';
 import PaletteCard from './PaletteCard';
 import BackButton from './BackButton';
 import LazyImage from '../utils/LazyImage';
-import { closeNewUserDialog, fetchLibrary } from '../actions';
 import { demoRef, databaseRef } from '../utils/base';
+import { closeNewUserDialog, fetchLibrary } from '../actions';
 
 class Library extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class Library extends React.Component {
 
   render() {
     const { imageSource, animateHeader } = this.state;
-    const { library, loading, isNewUser, history } = this.props;
+    const { library, loading, isNewUser } = this.props;
 
     const placeholders = [...Array(10)].map((_, index) => (
       <div key={index} className="placeholder" />
@@ -113,7 +113,7 @@ class Library extends React.Component {
 
     return (
       <div className="library">
-        <Header history={history} animateHeader={animateHeader} />
+        <Header animateHeader={animateHeader} />
         {library.map(palette => (
           <PaletteCard
             key={palette.id}
@@ -121,7 +121,7 @@ class Library extends React.Component {
             setImageSource={this.setImageSource}
           />
         ))}
-        {loading && placeholders}
+        {loading && !isNewUser && placeholders}
         {imageSource && viewImage}
         {!library.length && !loading && emptyMessage}
         {isNewUser && newUserDialog}
@@ -130,12 +130,16 @@ class Library extends React.Component {
   }
 }
 
+Library.defaultProps = {
+  uid: null
+};
+
 Library.propTypes = {
+  uid: PropTypes.string,
   library: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   isNewUser: PropTypes.bool.isRequired,
-  closeNewUserDialog: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired // eslint-disable-line
+  closeNewUserDialog: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

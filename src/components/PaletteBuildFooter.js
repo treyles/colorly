@@ -1,23 +1,30 @@
-// Loop input/label jsx elements
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../utils/Icon';
-
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Icon from '../utils/Icon';
 import {
   setCheckedColor,
   setPaletteTitle,
-  clearPalette
+  clearPalette,
+  addCardToLibrary
 } from '../actions';
 
 class PaletteBuildFooter extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      submitAlert: false
+    };
 
     this.handleTitleIconClick = this.handleTitleIconClick.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.setTitleInputRef = this.setTitleInputRef.bind(this);
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.submitAlertTimer);
   }
 
   setTitleInputRef(ref) {
@@ -34,24 +41,46 @@ class PaletteBuildFooter extends React.Component {
     }
   }
 
-  handleButtonClick(e) {
-    const button = e.target.className;
+  handleSaveClick() {
+    const { palette, title, history } = this.props;
 
-    if (button === 'save') {
-      this.props.savePalette();
+    if (!Object.keys(palette).length || !title.length) {
+      this.activateSubmitAlert();
+      return;
     }
-    if (button === 'clear') {
-      this.props.clearPalette();
-    }
+
+    this.props.addCardToLibrary(history);
   }
 
+  activateSubmitAlert() {
+    const { palette } = this.props;
+    let { submitAlert } = this.state;
+
+    if (!Object.keys(palette).length) {
+      submitAlert = 'Palette Is Empty!';
+    } else {
+      submitAlert = 'Title Required!';
+    }
+
+    this.setState({ submitAlert });
+    this.resetSubmitAlert();
+  }
+
+  resetSubmitAlert() {
+    this.submitAlertTimer = setTimeout(() => {
+      this.setState({ submitAlert: false });
+    }, 1500);
+  }
+
+  // TODO: save for last (if have time), loop palette color markup
   render() {
+    const { submitAlert } = this.state;
     const {
       palette,
       checked,
       title,
       library,
-      submitAlert,
+      clearPalette,
       setCheckedColor,
       setPaletteTitle
     } = this.props;
@@ -136,10 +165,10 @@ class PaletteBuildFooter extends React.Component {
           />
         </div>
         <div className="palette-buttons">
-          <button className="clear" onClick={this.handleButtonClick}>
+          <button className="clear" onClick={() => clearPalette()}>
             RESET
           </button>
-          <button className="save" onClick={this.handleButtonClick}>
+          <button className="save" onClick={this.handleSaveClick}>
             SAVE PALETTE
             <div className={`submit-alert ${submitAlert ? 'active' : ''}`}>
               {submitAlert}
@@ -152,16 +181,17 @@ class PaletteBuildFooter extends React.Component {
 }
 
 PaletteBuildFooter.propTypes = {
+  history: PropTypes.object.isRequired, // eslint-disable-line
+  // action creators
   setCheckedColor: PropTypes.func.isRequired,
   setPaletteTitle: PropTypes.func.isRequired,
-  savePalette: PropTypes.func.isRequired,
-  // clearPalette: PropTypes.func.isRequired,
-  palette: PropTypes.objectOf(PropTypes.string).isRequired,
-  checked: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  clearPalette: PropTypes.func.isRequired,
+  addCardToLibrary: PropTypes.func.isRequired,
+  // from store
   library: PropTypes.arrayOf(PropTypes.object).isRequired,
-  submitAlert: PropTypes.oneOfType([PropTypes.bool, PropTypes.string])
-    .isRequired
+  checked: PropTypes.string.isRequired,
+  palette: PropTypes.objectOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -171,8 +201,11 @@ const mapStateToProps = state => ({
   title: state.build.card.title
 });
 
-export default connect(mapStateToProps, {
-  setCheckedColor,
-  setPaletteTitle,
-  clearPalette
-})(PaletteBuildFooter);
+export default withRouter(
+  connect(mapStateToProps, {
+    setCheckedColor,
+    setPaletteTitle,
+    clearPalette,
+    addCardToLibrary
+  })(PaletteBuildFooter)
+);

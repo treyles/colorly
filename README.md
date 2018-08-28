@@ -8,7 +8,7 @@
 
 A simple color extraction app. Save custom palettes to your collection along with the source image for future reference!
 
-- **View:** React + ES6
+- **View:** React, Redux, ES6
 - **Build:** Webpack, Babel
 - **CSS:** SASS
 - **Testing:** Jest, Enzyme

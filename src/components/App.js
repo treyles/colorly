@@ -7,10 +7,10 @@ import PaletteBuild from './PaletteBuild';
 import Library from './Library';
 import Home from './Home';
 import NotFound from './NotFound';
-import { fetchUser, fetchLibrary, addCard } from '../actions';
+import { fetchUser, fetchLibrary } from '../actions/';
 
 class App extends React.Component {
-  // TODO: refactor, needed?
+  // TODO: figure out another method?
   componentWillMount() {
     if (JSON.parse(localStorage.getItem('authenticated'))) {
       this.props.fetchUser(true);
@@ -20,8 +20,6 @@ class App extends React.Component {
   componentDidMount() {
     auth.onAuthStateChanged(currentUser => {
       this.props.fetchUser(currentUser);
-
-      // if logged in
       if (currentUser) {
         this.props.fetchLibrary(currentUser.uid);
         localStorage.setItem('authenticated', true);
@@ -35,27 +33,12 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={({ history }) =>
-              !currentUser ? <Home /> : <Library history={history} />}
-          />
+          <Route exact path="/" component={currentUser ? Library : Home} />
           <Route
             path="/palettebuild"
-            render={({ history }) =>
-              !currentUser ? (
-                <Home />
-              ) : (
-                <PaletteBuild
-                  history={history}
-                  addCardToLibrary={this.addCardToLibrary}
-                />
-              )}
+            component={currentUser ? PaletteBuild : Home}
           />
-          <Route
-            render={({ history }) => <NotFound history={history} />}
-          />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     );
@@ -78,6 +61,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   fetchUser,
-  fetchLibrary,
-  addCard
+  fetchLibrary
 })(App);

@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Icon from '../utils/Icon';
 import { googleAuth, twitterAuth } from '../utils/base';
-
-import { connect } from 'react-redux';
 import { signIn } from '../actions';
 
-function Home({ signIn }) {
+function Home(props) {
   return (
     <div className="home">
       <div className="hero-text-container">
@@ -22,13 +21,13 @@ function Home({ signIn }) {
           <div className="buttons">
             <button
               className="twitter-login"
-              onClick={() => signIn(twitterAuth)}
+              onClick={() => props.signIn(twitterAuth)}
             >
               Connect with Twitter
             </button>
             <button
               className="google-login"
-              onClick={() => signIn(googleAuth)}
+              onClick={() => props.signIn(googleAuth)}
             >
               Connect with Google
             </button>

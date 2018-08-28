@@ -1,21 +1,23 @@
+import { FETCH_USER, SIGN_IN, CLOSE_NEW_USER } from '../actions/types';
+
 const initialState = {
-  currentUser: false,
+  currentUser: null,
   isNewUser: false
 };
 
 export default function user(state = initialState, action) {
   switch (action.type) {
-    case 'SET_CURRENT_USER':
+    case FETCH_USER:
       return {
         ...state,
-        currentUser: action.payload
+        currentUser: action.currentUser
       };
-    case 'SIGN_IN':
+    case SIGN_IN:
       return {
         ...state,
-        isNewUser: action.payload
+        isNewUser: action.isNewUser
       };
-    case 'CLOSE_NEW_USER':
+    case CLOSE_NEW_USER:
       return {
         ...state,
         isNewUser: false

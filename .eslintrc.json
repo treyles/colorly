@@ -22,6 +22,7 @@
     "react/no-array-index-key": "off",
     "no-alert": "off",
     "class-methods-use-this": "warn",
+    "import/prefer-default-export": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
