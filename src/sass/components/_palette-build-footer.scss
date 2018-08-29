@@ -17,6 +17,15 @@
   padding-left: 50px;
   min-width: 320px;
 
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
   svg {
     width: 15px;
     height: 15px;

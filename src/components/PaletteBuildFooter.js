@@ -88,14 +88,9 @@ export class PaletteBuildFooter extends React.Component {
     return (
       <div className="footer">
         <div className="palette-name">
-          <span
-            onClick={this.handleTitleIconClick}
-            onKeyDown={this.handleTitleIconClick}
-            role="button"
-            tabIndex="0"
-          >
+          <button onClick={this.handleTitleIconClick}>
             <Icon icon="pencil" />
-          </span>
+          </button>
           <input
             ref={this.setTitleInputRef}
             onChange={e => setPaletteTitle(e)}

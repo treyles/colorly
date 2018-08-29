@@ -1,8 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
-module.exports = {
+const config = {
   entry: './src/index.js',
   devtool: 'cheap-eval-source-map',
   output: {
@@ -55,39 +57,14 @@ module.exports = {
     }),
     new ExtractTextWebpackPlugin('styles/main.css', {
       allChunks: true
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ]
 };
 
-// {
-//   test: /\.scss?$/,
-//   // include: path.resolve(__dirname, 'src/sass/components'),
-//   loader: ExtractTextWebpackPlugin.extract({
-//     fallback: 'style-loader',
-//     // use: 'css-loader!postcss-loader!sass-loader'
-//     use: [
-//       'css-loader',
-//       'postcss-loader',
-//       {
-//         loader: 'sass-loader',
-//         options: {
-//           includePaths: path.join(__dirname,'src')
-//         }
-//       }
-//     ]
-//   })
-// },
+// remove source maps when building for production
+if (process.env.NODE_ENV === 'production') {
+  config.devtool = false;
+}
 
-// use: [
-//   'css-loader',
-//   'postcss-loader',
-//   {
-//     loader: 'sass-loader',
-//     options: {
-//       data: '@import "base";',
-//       includePaths: [
-//         path.resolve(__dirname, 'src/sass/components')
-//       ]
-//     }
-//   }
-// ]
+module.exports = config;

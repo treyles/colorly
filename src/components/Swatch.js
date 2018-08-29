@@ -50,13 +50,10 @@ export default class Swatch extends React.Component {
     const hex = rgbToHex(this.props.color);
 
     return (
-      <div
+      <button
         className="swatch"
         style={{ background: `${hex}` }}
         onClick={this.handleClick}
-        onKeyDown={this.handleClick}
-        role="button"
-        tabIndex={0}
       >
         <div className="pop-up" style={{ background: `${hex}` }} />
         <input
@@ -65,7 +62,7 @@ export default class Swatch extends React.Component {
           value={`${hex}`}
           readOnly
         />
-      </div>
+      </button>
     );
   }
 }

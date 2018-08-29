@@ -4,24 +4,22 @@
   "main": "./src/index.js",
   "author": "treyles",
   "license": "MIT",
-  "browserslist": [
-    "last 2 versions",
-    "ie > 10"
-  ],
+  "browserslist": ["last 2 versions", "ie > 10"],
   "scripts": {
     "build": "webpack",
+    "prod": "NODE_ENV=production webpack -p",
     "dev": "webpack-dev-server",
-    "format": "prettier --write --single-quote --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
+    "format":
+      "prettier --write --single-quote --parser=flow --tab-width=2 \"src/**/*.{js,jsx}\"",
     "lint": "eslint **/*.{js,jsx} --quiet",
     "test": "jest"
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "setupFiles": [
-      "<rootDir>/src/tests/setupTests.js"
-    ],
+    "setupFiles": ["<rootDir>/src/tests/setupTests.js"],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/tests/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/src/tests/__mocks__/fileMock.js",
       "\\.(css|less)$": "<rootDir>/src/tests/__mocks__/styleMock.js"
     },
     "transform": {
@@ -76,6 +74,7 @@
     "url-loader": "^1.0.1",
     "uuid": "^3.3.2",
     "webpack": "^3.8.1",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^2.9.3"
   }
 }

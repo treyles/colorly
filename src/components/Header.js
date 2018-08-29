@@ -79,7 +79,7 @@ export class Header extends React.Component {
         >
           <div className="profile">
             <div className="profile-image">
-              {userPhoto && <img src={userPhoto} alt="avatar" />}
+              {userPhoto && <img src={userPhoto} alt="" />}
             </div>
             <button onClick={this.handleDialogToggleClick}>
               {userName}
