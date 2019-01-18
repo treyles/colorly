@@ -4,7 +4,7 @@
 <img src="https://imgur.com/a9bAIz7.png" width="739"/>
 </p>
 
-[www.colorly.co](http://www.colorly.co)
+[colorly.co](http://colorly.co)
 
 A simple color extraction app. Save custom palettes to your collection along with the source image for future reference!
 
